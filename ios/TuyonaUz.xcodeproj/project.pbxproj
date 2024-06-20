@@ -8,13 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* TuyonaUzTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TuyonaUzTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-TuyonaUz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-TuyonaUz.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		39B779C22C236E0800FF3260 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B779BB2C236DD800FF3260 /* AntDesign.ttf */; };
+		39B779C32C236E0800FF3260 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B779BC2C236DD800FF3260 /* Entypo.ttf */; };
+		39B779C42C236E0800FF3260 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B779BD2C236DD800FF3260 /* EvilIcons.ttf */; };
+		39B779C52C236E0800FF3260 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B779BA2C236DD700FF3260 /* Feather.ttf */; };
+		39B779C62C236E0800FF3260 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B779B52C236DD700FF3260 /* FontAwesome.ttf */; };
+		39B779C72C236E0800FF3260 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B779B12C236DD600FF3260 /* FontAwesome5_Brands.ttf */; };
+		39B779C82C236E0800FF3260 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B779B62C236DD700FF3260 /* FontAwesome5_Regular.ttf */; };
+		39B779C92C236E0800FF3260 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B779B22C236DD600FF3260 /* FontAwesome5_Solid.ttf */; };
+		39B779CA2C236E0800FF3260 /* FontAwesome6_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B779AF2C236DD600FF3260 /* FontAwesome6_Brands.ttf */; };
+		39B779CB2C236E0800FF3260 /* FontAwesome6_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B779B32C236DD600FF3260 /* FontAwesome6_Regular.ttf */; };
+		39B779CC2C236E0800FF3260 /* FontAwesome6_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B779B42C236DD600FF3260 /* FontAwesome6_Solid.ttf */; };
+		39B779CD2C236E0800FF3260 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B779B02C236DD600FF3260 /* Fontisto.ttf */; };
+		39B779CE2C236E0800FF3260 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B779B72C236DD700FF3260 /* Foundation.ttf */; };
+		39B779CF2C236E0800FF3260 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B779B82C236DD700FF3260 /* Ionicons.ttf */; };
+		39B779D02C236E0800FF3260 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B779BE2C236DD800FF3260 /* MaterialCommunityIcons.ttf */; };
+		39B779D12C236E0800FF3260 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B779BF2C236DD800FF3260 /* MaterialIcons.ttf */; };
+		39B779D22C236E0800FF3260 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B779C02C236DD800FF3260 /* Octicons.ttf */; };
+		39B779D32C236E0800FF3260 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B779C12C236DD800FF3260 /* SimpleLineIcons.ttf */; };
+		39B779D42C236E0800FF3260 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B779B92C236DD700FF3260 /* Zocial.ttf */; };
 		526AA540B28BF85479ECCAE1 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 12023E8D67FA4360D7482829 /* PrivacyInfo.xcprivacy */; };
-		7699B88040F8A987B510C191 /* libPods-TuyonaUz-TuyonaUzTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-TuyonaUz-TuyonaUzTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		90982B46502DBCE9E2881938 /* libPods-TuyonaUz-TuyonaUzTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB85776C60717647DC3BDEA5 /* libPods-TuyonaUz-TuyonaUzTests.a */; };
+		FA8F9416E29CDD7B2667E2D1 /* libPods-TuyonaUz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30DA99BF7374F04F12151C25 /* libPods-TuyonaUz.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,7 +50,8 @@
 		00E356EE1AD99517003FC87E /* TuyonaUzTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TuyonaUzTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* TuyonaUzTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TuyonaUzTests.m; sourceTree = "<group>"; };
-		12023E8D67FA4360D7482829 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = TuyonaUz/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		07C785DEBC165A29C7E82B2F /* Pods-TuyonaUz-TuyonaUzTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TuyonaUz-TuyonaUzTests.release.xcconfig"; path = "Target Support Files/Pods-TuyonaUz-TuyonaUzTests/Pods-TuyonaUz-TuyonaUzTests.release.xcconfig"; sourceTree = "<group>"; };
+		12023E8D67FA4360D7482829 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = TuyonaUz/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* TuyonaUz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TuyonaUz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = TuyonaUz/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = TuyonaUz/AppDelegate.mm; sourceTree = "<group>"; };
@@ -39,13 +59,31 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TuyonaUz/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TuyonaUz/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = TuyonaUz/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-TuyonaUz-TuyonaUzTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TuyonaUz-TuyonaUzTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B4392A12AC88292D35C810B /* Pods-TuyonaUz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TuyonaUz.debug.xcconfig"; path = "Target Support Files/Pods-TuyonaUz/Pods-TuyonaUz.debug.xcconfig"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-TuyonaUz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TuyonaUz.release.xcconfig"; path = "Target Support Files/Pods-TuyonaUz/Pods-TuyonaUz.release.xcconfig"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-TuyonaUz-TuyonaUzTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TuyonaUz-TuyonaUzTests.debug.xcconfig"; path = "Target Support Files/Pods-TuyonaUz-TuyonaUzTests/Pods-TuyonaUz-TuyonaUzTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-TuyonaUz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TuyonaUz.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		15D6AA7898634C537F3C66B8 /* Pods-TuyonaUz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TuyonaUz.release.xcconfig"; path = "Target Support Files/Pods-TuyonaUz/Pods-TuyonaUz.release.xcconfig"; sourceTree = "<group>"; };
+		30DA99BF7374F04F12151C25 /* libPods-TuyonaUz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TuyonaUz.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		39B779AF2C236DD600FF3260 /* FontAwesome6_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome6_Brands.ttf; sourceTree = "<group>"; };
+		39B779B02C236DD600FF3260 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
+		39B779B12C236DD600FF3260 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Brands.ttf; sourceTree = "<group>"; };
+		39B779B22C236DD600FF3260 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Solid.ttf; sourceTree = "<group>"; };
+		39B779B32C236DD600FF3260 /* FontAwesome6_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome6_Regular.ttf; sourceTree = "<group>"; };
+		39B779B42C236DD600FF3260 /* FontAwesome6_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome6_Solid.ttf; sourceTree = "<group>"; };
+		39B779B52C236DD700FF3260 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		39B779B62C236DD700FF3260 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Regular.ttf; sourceTree = "<group>"; };
+		39B779B72C236DD700FF3260 /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Foundation.ttf; sourceTree = "<group>"; };
+		39B779B82C236DD700FF3260 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
+		39B779B92C236DD700FF3260 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
+		39B779BA2C236DD700FF3260 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
+		39B779BB2C236DD800FF3260 /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AntDesign.ttf; sourceTree = "<group>"; };
+		39B779BC2C236DD800FF3260 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
+		39B779BD2C236DD800FF3260 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
+		39B779BE2C236DD800FF3260 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialCommunityIcons.ttf; sourceTree = "<group>"; };
+		39B779BF2C236DD800FF3260 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		39B779C02C236DD800FF3260 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
+		39B779C12C236DD800FF3260 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = TuyonaUz/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-TuyonaUz-TuyonaUzTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TuyonaUz-TuyonaUzTests.release.xcconfig"; path = "Target Support Files/Pods-TuyonaUz-TuyonaUzTests/Pods-TuyonaUz-TuyonaUzTests.release.xcconfig"; sourceTree = "<group>"; };
+		8C985F017E6689C0B5DAAA55 /* Pods-TuyonaUz-TuyonaUzTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TuyonaUz-TuyonaUzTests.debug.xcconfig"; path = "Target Support Files/Pods-TuyonaUz-TuyonaUzTests/Pods-TuyonaUz-TuyonaUzTests.debug.xcconfig"; sourceTree = "<group>"; };
+		98FC503C5EB0C02AA2693584 /* Pods-TuyonaUz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TuyonaUz.debug.xcconfig"; path = "Target Support Files/Pods-TuyonaUz/Pods-TuyonaUz.debug.xcconfig"; sourceTree = "<group>"; };
+		BB85776C60717647DC3BDEA5 /* libPods-TuyonaUz-TuyonaUzTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TuyonaUz-TuyonaUzTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -54,7 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-TuyonaUz-TuyonaUzTests.a in Frameworks */,
+				90982B46502DBCE9E2881938 /* libPods-TuyonaUz-TuyonaUzTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-TuyonaUz.a in Frameworks */,
+				FA8F9416E29CDD7B2667E2D1 /* libPods-TuyonaUz.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +127,7 @@
 		13B07FAE1A68108700A75B9A /* TuyonaUz */ = {
 			isa = PBXGroup;
 			children = (
+				39B779AE2C236DAE00FF3260 /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -105,10 +144,36 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-TuyonaUz.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-TuyonaUz-TuyonaUzTests.a */,
+				30DA99BF7374F04F12151C25 /* libPods-TuyonaUz.a */,
+				BB85776C60717647DC3BDEA5 /* libPods-TuyonaUz-TuyonaUzTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		39B779AE2C236DAE00FF3260 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				39B779BB2C236DD800FF3260 /* AntDesign.ttf */,
+				39B779BC2C236DD800FF3260 /* Entypo.ttf */,
+				39B779BD2C236DD800FF3260 /* EvilIcons.ttf */,
+				39B779BA2C236DD700FF3260 /* Feather.ttf */,
+				39B779B52C236DD700FF3260 /* FontAwesome.ttf */,
+				39B779B12C236DD600FF3260 /* FontAwesome5_Brands.ttf */,
+				39B779B62C236DD700FF3260 /* FontAwesome5_Regular.ttf */,
+				39B779B22C236DD600FF3260 /* FontAwesome5_Solid.ttf */,
+				39B779AF2C236DD600FF3260 /* FontAwesome6_Brands.ttf */,
+				39B779B32C236DD600FF3260 /* FontAwesome6_Regular.ttf */,
+				39B779B42C236DD600FF3260 /* FontAwesome6_Solid.ttf */,
+				39B779B02C236DD600FF3260 /* Fontisto.ttf */,
+				39B779B72C236DD700FF3260 /* Foundation.ttf */,
+				39B779B82C236DD700FF3260 /* Ionicons.ttf */,
+				39B779BE2C236DD800FF3260 /* MaterialCommunityIcons.ttf */,
+				39B779BF2C236DD800FF3260 /* MaterialIcons.ttf */,
+				39B779C02C236DD800FF3260 /* Octicons.ttf */,
+				39B779C12C236DD800FF3260 /* SimpleLineIcons.ttf */,
+				39B779B92C236DD700FF3260 /* Zocial.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -145,10 +210,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-TuyonaUz.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-TuyonaUz.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-TuyonaUz-TuyonaUzTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-TuyonaUz-TuyonaUzTests.release.xcconfig */,
+				98FC503C5EB0C02AA2693584 /* Pods-TuyonaUz.debug.xcconfig */,
+				15D6AA7898634C537F3C66B8 /* Pods-TuyonaUz.release.xcconfig */,
+				8C985F017E6689C0B5DAAA55 /* Pods-TuyonaUz-TuyonaUzTests.debug.xcconfig */,
+				07C785DEBC165A29C7E82B2F /* Pods-TuyonaUz-TuyonaUzTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -160,12 +225,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "TuyonaUzTests" */;
 			buildPhases = (
-				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
+				318E16FA19DA3F167D9205DA /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
-				F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */,
+				595AD754B1E123FC250E966C /* [CP] Embed Pods Frameworks */,
+				6F72DFD29A76D9217D6533DE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -181,13 +246,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "TuyonaUz" */;
 			buildPhases = (
-				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				F78CF860DA7FFCD71BB29E16 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				2ECA381B88A4D153A564DCD6 /* [CP] Embed Pods Frameworks */,
+				0724C38D9A5ABA966A874BB7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -246,6 +311,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39B779C22C236E0800FF3260 /* AntDesign.ttf in Resources */,
+				39B779C32C236E0800FF3260 /* Entypo.ttf in Resources */,
+				39B779C42C236E0800FF3260 /* EvilIcons.ttf in Resources */,
+				39B779C52C236E0800FF3260 /* Feather.ttf in Resources */,
+				39B779C62C236E0800FF3260 /* FontAwesome.ttf in Resources */,
+				39B779C72C236E0800FF3260 /* FontAwesome5_Brands.ttf in Resources */,
+				39B779C82C236E0800FF3260 /* FontAwesome5_Regular.ttf in Resources */,
+				39B779C92C236E0800FF3260 /* FontAwesome5_Solid.ttf in Resources */,
+				39B779CA2C236E0800FF3260 /* FontAwesome6_Brands.ttf in Resources */,
+				39B779CB2C236E0800FF3260 /* FontAwesome6_Regular.ttf in Resources */,
+				39B779CC2C236E0800FF3260 /* FontAwesome6_Solid.ttf in Resources */,
+				39B779CD2C236E0800FF3260 /* Fontisto.ttf in Resources */,
+				39B779CE2C236E0800FF3260 /* Foundation.ttf in Resources */,
+				39B779CF2C236E0800FF3260 /* Ionicons.ttf in Resources */,
+				39B779D02C236E0800FF3260 /* MaterialCommunityIcons.ttf in Resources */,
+				39B779D12C236E0800FF3260 /* MaterialIcons.ttf in Resources */,
+				39B779D22C236E0800FF3260 /* Octicons.ttf in Resources */,
+				39B779D32C236E0800FF3260 /* SimpleLineIcons.ttf in Resources */,
+				39B779D42C236E0800FF3260 /* Zocial.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				526AA540B28BF85479ECCAE1 /* PrivacyInfo.xcprivacy in Resources */,
@@ -271,7 +355,24 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
+		0724C38D9A5ABA966A874BB7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TuyonaUz/Pods-TuyonaUz-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TuyonaUz/Pods-TuyonaUz-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TuyonaUz/Pods-TuyonaUz-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2ECA381B88A4D153A564DCD6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -288,7 +389,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TuyonaUz/Pods-TuyonaUz-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
+		318E16FA19DA3F167D9205DA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -310,7 +411,41 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+		595AD754B1E123FC250E966C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TuyonaUz-TuyonaUzTests/Pods-TuyonaUz-TuyonaUzTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TuyonaUz-TuyonaUzTests/Pods-TuyonaUz-TuyonaUzTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TuyonaUz-TuyonaUzTests/Pods-TuyonaUz-TuyonaUzTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6F72DFD29A76D9217D6533DE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TuyonaUz-TuyonaUzTests/Pods-TuyonaUz-TuyonaUzTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TuyonaUz-TuyonaUzTests/Pods-TuyonaUz-TuyonaUzTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TuyonaUz-TuyonaUzTests/Pods-TuyonaUz-TuyonaUzTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F78CF860DA7FFCD71BB29E16 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -330,57 +465,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TuyonaUz-TuyonaUzTests/Pods-TuyonaUz-TuyonaUzTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TuyonaUz-TuyonaUzTests/Pods-TuyonaUz-TuyonaUzTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TuyonaUz-TuyonaUzTests/Pods-TuyonaUz-TuyonaUzTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TuyonaUz/Pods-TuyonaUz-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TuyonaUz/Pods-TuyonaUz-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TuyonaUz/Pods-TuyonaUz-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TuyonaUz-TuyonaUzTests/Pods-TuyonaUz-TuyonaUzTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TuyonaUz-TuyonaUzTests/Pods-TuyonaUz-TuyonaUzTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TuyonaUz-TuyonaUzTests/Pods-TuyonaUz-TuyonaUzTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -416,7 +500,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-TuyonaUz-TuyonaUzTests.debug.xcconfig */;
+			baseConfigurationReference = 8C985F017E6689C0B5DAAA55 /* Pods-TuyonaUz-TuyonaUzTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -443,7 +527,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-TuyonaUz-TuyonaUzTests.release.xcconfig */;
+			baseConfigurationReference = 07C785DEBC165A29C7E82B2F /* Pods-TuyonaUz-TuyonaUzTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -467,7 +551,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-TuyonaUz.debug.xcconfig */;
+			baseConfigurationReference = 98FC503C5EB0C02AA2693584 /* Pods-TuyonaUz.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -494,7 +578,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-TuyonaUz.release.xcconfig */;
+			baseConfigurationReference = 15D6AA7898634C537F3C66B8 /* Pods-TuyonaUz.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
