@@ -1,34 +1,40 @@
-import {
-  SafeAreaView,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {SafeAreaView, StyleSheet, Image, View, ScrollView} from 'react-native';
 import React from 'react';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import {COLORS, SIZES, height} from '../../theme/theme';
+import {COLORS, SIZES, height, width} from '../../theme/theme';
+import Carousel from 'react-native-reanimated-carousel';
+import {SLIDER_DATA, ACTORS_CATEGORY} from '../../data/slider';
+import Header from '../../components/Header/Header';
+import ScrollButton from '../../components/ScrollButton/ScrollButton';
 
 const MainScreen = () => {
   return (
     <SafeAreaView style={styles.main}>
       {/* HEADER */}
-      <View style={styles.header}>
-        <TouchableOpacity activeOpacity={0.7}>
-          <AntDesign
-            name="arrowleft"
-            color={COLORS.blackColor}
-            size={SIZES.h2.md}
-          />
-        </TouchableOpacity>
-        <View style={styles.searchContainer}>
-          <AntDesign
-            name="search1"
-            size={SIZES.medium}
-            color={COLORS.lightGray}
-          />
-          <TextInput placeholder="Быстрый поиск" style={styles.input} />
-        </View>
+      <Header />
+
+      {/* SLIDER */}
+      <View style={styles.container}>
+        <Carousel
+          loop
+          width={width}
+          height={width / 2}
+          autoPlay={true}
+          data={SLIDER_DATA}
+          scrollAnimationDuration={1000}
+          renderItem={({item}) => (
+            <View style={styles.sliderCard}>
+              <Image source={{uri: item.url}} style={styles.image} />
+            </View>
+          )}
+        />
+      </View>
+      {/*  CATEGORY  */}
+      <View style={styles.scrollContainer}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {ACTORS_CATEGORY.map((actor: string) => {
+            return <ScrollButton key={actor} title={actor} />;
+          })}
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
@@ -41,25 +47,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.grayColor,
   },
-  header: {
-    paddingHorizontal: 6,
-    flexDirection: 'row',
-    gap: 10,
-    alignItems: 'center',
+
+  container: {width: width, marginTop: 10, height: height / 5},
+  sliderCard: {
+    width: width - 16,
+    marginLeft: 8,
+    justifyContent: 'center',
   },
-  searchContainer: {
-    backgroundColor: 'red',
-    paddingVertical: SIZES.small,
+  image: {
+    width: '100%',
+    height: height / 5,
     borderRadius: SIZES.small,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: SIZES.medium,
-    columnGap: SIZES.xsmall,
-    flex: 1,
   },
-  input: {
-    height: height / 36,
-    backgroundColor: 'red',
-    flex: 1,
+  scrollContainer: {
+    paddingHorizontal: 8,
+    paddingVertical: 16,
   },
 });
