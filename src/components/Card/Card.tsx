@@ -1,7 +1,8 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {COLORS, SIZES, width} from '../../theme/theme';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {useNavigation} from '@react-navigation/native';
 
 type Card = {
   item: {
@@ -13,8 +14,14 @@ type Card = {
 };
 
 const Card = ({item}: Card) => {
+  const navigation = useNavigation();
+  //TYPES navigation todo
+  const infoNavigationScreen = () => {
+    navigation.navigate('Info');
+  };
+
   return (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={infoNavigationScreen}>
       <View style={styles.like}>
         <AntDesign name="hearto" color={COLORS.blueColor} size={SIZES.large} />
       </View>
@@ -30,7 +37,7 @@ const Card = ({item}: Card) => {
       <View style={styles.btn}>
         <Text>{item.price}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

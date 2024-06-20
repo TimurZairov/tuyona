@@ -1,16 +1,19 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
 
-import MainScreen from './src/screens/MainScreen/MainScreen';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import RootNavigation from './src/navigation/RootNavigation';
 
 const App = () => {
   return (
-    <GestureHandlerRootView style={styles.gesture}>
-      <View style={styles.app}>
-        <MainScreen />
-      </View>
-    </GestureHandlerRootView>
+    <NavigationContainer>
+      <GestureHandlerRootView style={styles.gesture}>
+        <View style={styles.app}>
+          <RootNavigation />
+        </View>
+      </GestureHandlerRootView>
+    </NavigationContainer>
   );
 };
 
