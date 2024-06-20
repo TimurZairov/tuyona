@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 10,
     alignItems: 'center',
+    paddingBottom: 10,
   },
   searchContainer: {
     backgroundColor: COLORS.mainColor,

@@ -16,3 +16,30 @@ export const ACTORS_CATEGORY = [
   'ИнстаЧел',
   'Инфоцыган',
 ];
+
+export const DATA = [
+  {
+    name: 'Marufjon Xujakulov',
+    url: 'https://habarho.com/wp-content/uploads/2021/03/Eks-zvezda-uzbekskoj-estrady-propoveduet-Islam.jpg',
+    price: '100$',
+    services: ['Поздравления', 'Выступление'],
+  },
+  {
+    name: 'Marufjon Xujakulov',
+    url: 'https://repost.uz/storage/uploads/file_5b10456e434296.773592021527793006.jpg',
+    price: '100$',
+    services: ['Поздравления', 'Выступление'],
+  },
+  {
+    name: 'Marufjon Xujakulov',
+    url: 'https://m.asiaterra.info/images/remote/images-2021-kseniya-dasaeva-ob-izuchenii-uzbekskogo-yazyka-1.jpg',
+    price: '100$',
+    services: ['Поздравления', 'Выступление'],
+  },
+  {
+    name: 'Marufjon Xujakulov',
+    url: 'https://uzmuza.net/_ld/19/s88030400.jpg',
+    price: '100$',
+    services: ['Поздравления', 'Выступление'],
+  },
+];
