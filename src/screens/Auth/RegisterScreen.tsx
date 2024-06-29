@@ -1,13 +1,41 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {TextInput} from 'react-native-gesture-handler';
 import {COLORS} from '../../theme/theme';
 import Button from '../../components/Button/Button';
+import {BASE_URL} from '../../config/config';
 
 const RegisterScreen = () => {
-  const registerHandler = () => {
-    console.log('ok');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
+
+  const registerHandler = async () => {
+    console.log(firstName, lastName, username, password);
+    const newUser = {
+      firstName,
+      lastName,
+      username,
+      password,
+      password2,
+    };
+    try {
+      const res = await fetch(`${BASE_URL}/users/register/`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newUser),
+      });
+
+      console.log(res.status);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -28,6 +56,7 @@ const RegisterScreen = () => {
         <TextInput
           style={{height: '100%', width: '100%'}}
           placeholder="first_name"
+          onChangeText={setFirstName}
         />
       </View>
       <View
@@ -42,6 +71,7 @@ const RegisterScreen = () => {
         <TextInput
           style={{height: '100%', width: '100%'}}
           placeholder="last_name"
+          onChangeText={setLastName}
         />
       </View>
       <View
@@ -56,6 +86,7 @@ const RegisterScreen = () => {
         <TextInput
           style={{height: '100%', width: '100%'}}
           placeholder="username"
+          onChangeText={setUsername}
         />
       </View>
       <View
@@ -70,6 +101,7 @@ const RegisterScreen = () => {
         <TextInput
           style={{height: '100%', width: '100%'}}
           placeholder="password"
+          onChangeText={setPassword}
         />
       </View>
       <View
@@ -84,6 +116,7 @@ const RegisterScreen = () => {
         <TextInput
           style={{height: '100%', width: '100%'}}
           placeholder="password2"
+          onChangeText={setPassword2}
         />
       </View>
       <Button onPress={registerHandler}>Register</Button>

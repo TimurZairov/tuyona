@@ -24,13 +24,35 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+
+	<!--  -->
+
 	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>212.193.54.105</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+                <true/>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+                <false/>
+			</dict>
+		</dict>
+	</dict>
+
+
+	<!-- <key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<false/>
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
-	</dict>
+	</dict> -->
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>UILaunchStoryboardName</key>
@@ -70,6 +92,10 @@
   <string>Octicons.ttf</string>
   <string>Zocial.ttf</string>
   <string>Fontisto.ttf</string>
+
+
+<!--  -->
+
 </array>
 </dict>
 </plist>
