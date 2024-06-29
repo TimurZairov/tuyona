@@ -12,7 +12,7 @@ const RegisterScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
-
+  //REGISTRY
   const registerHandler = async () => {
     console.log(firstName, lastName, username, password);
     const newUser = {
