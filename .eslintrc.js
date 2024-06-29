@@ -7,4 +7,13 @@ module.exports = {
     ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
     sourceType: 'module', // Allows for the use of imports
   },
+  rules: {
+    'react-native/no-inline-styles': 0,
+    'prettier/prettier': [
+      'error',
+      {
+        'no-inline-styles': false,
+      },
+    ],
+  },
 };

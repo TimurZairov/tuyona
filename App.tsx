@@ -1,17 +1,20 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import RootNavigation from './src/navigation/RootNavigation';
+
+import TabNavigation from './src/navigation/TabNavigation';
 
 const App = () => {
   return (
     <NavigationContainer>
       <GestureHandlerRootView style={styles.gesture}>
-        <View style={styles.app}>
-          <RootNavigation />
-        </View>
+        <SafeAreaProvider>
+          <View style={styles.app}>
+            <TabNavigation />
+          </View>
+        </SafeAreaProvider>
       </GestureHandlerRootView>
     </NavigationContainer>
   );

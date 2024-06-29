@@ -1,15 +1,20 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, ImageSourcePropType, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {COLORS, SIZES} from '../../theme/theme';
+import {SIZES} from '../../theme/theme';
 
 interface ITitle {
-  title: string;
+  category: {
+    title: string;
+    image: ImageSourcePropType | undefined;
+  };
+  food?: boolean;
 }
 
-const ScrollButton = ({title}: ITitle) => {
+const ScrollButton = ({category, food}: ITitle) => {
   return (
-    <View style={styles.btn}>
-      <Text style={styles.title}>{title}</Text>
+    <View style={[styles.btn, {marginRight: food ? 8 : 0}]}>
+      <Image source={category.image} style={styles.image} />
+      <Text style={styles.title}>{category.title}</Text>
     </View>
   );
 };
@@ -18,14 +23,20 @@ export default ScrollButton;
 
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: COLORS.mainColor,
-    borderRadius: 100,
-    paddingHorizontal: 40,
-    paddingVertical: SIZES.xsmall,
-    marginRight: 8,
+    paddingHorizontal: 8,
+    // paddingVertical: SIZES.xsmall,
+    width: 90,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
-    fontSize: SIZES.h5.md,
-    fontWeight: '600',
+    fontSize: 12,
+    fontWeight: '400',
+    marginTop: 10,
+  },
+  image: {
+    width: 60,
+    height: 60,
+    resizeMode: 'center',
   },
 });

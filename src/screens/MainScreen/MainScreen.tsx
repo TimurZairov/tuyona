@@ -2,27 +2,33 @@ import {SafeAreaView, StyleSheet, Image, View, ScrollView} from 'react-native';
 import React from 'react';
 import {COLORS, SIZES, height, width} from '../../theme/theme';
 import Carousel from 'react-native-reanimated-carousel';
-import {SLIDER_DATA, ACTORS_CATEGORY} from '../../data/slider';
+import {SLIDER_DATA, FOOD_CATEGORY, RESTAURANTS} from '../../data/slider';
 import Header from '../../components/Header/Header';
 import ScrollButton from '../../components/ScrollButton/ScrollButton';
 import MainTitle from '../../components/MainTitle/MainTitle';
 import MainCardList from '../../components/MainCardList/MainCardList';
+import RestaurantCard from '../../components/RestaurantCard/RestaurantCard';
 
 const MainScreen = () => {
   return (
     <SafeAreaView style={styles.main}>
       {/* HEADER */}
       <Header />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {/* SLIDER */}
         <View style={styles.container}>
           <Carousel
             loop
             width={width}
-            height={width / 2}
+            height={height / 4}
+            mode="parallax"
             autoPlay={true}
+            modeConfig={{
+              parallaxAdjacentItemScale: 0.75,
+              parallaxScrollingOffset: 77,
+            }}
             data={SLIDER_DATA}
-            scrollAnimationDuration={1000}
+            scrollAnimationDuration={2000}
             renderItem={({item}) => (
               <View style={styles.sliderCard}>
                 <Image source={{uri: item.url}} style={styles.image} />
@@ -30,16 +36,36 @@ const MainScreen = () => {
             )}
           />
         </View>
-        {/*  CATEGORY  */}
-        <View style={styles.scrollContainer}>
+
+        {/* restaurants */}
+        <View>
+          <MainTitle title="Рестораны" />
+          {/*  CATEGORY  */}
+
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {ACTORS_CATEGORY.map((actor: string) => {
-              return <ScrollButton key={actor} title={actor} />;
+            {FOOD_CATEGORY.map((category, index) => {
+              return (
+                <ScrollButton
+                  key={`${category}-${index}`}
+                  category={category}
+                  food
+                />
+              );
+            })}
+          </ScrollView>
+
+          {/* restaurants scroll  */}
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {RESTAURANTS.map((res, index) => {
+              return (
+                <RestaurantCard key={`${res}-${index}`} restaurant={res} />
+              );
             })}
           </ScrollView>
         </View>
         {/* MAIN TITLES */}
         <MainTitle title="Ведущий" />
+
         <View style={styles.cardListContainer}>
           <MainCardList />
         </View>
@@ -65,9 +91,7 @@ const styles = StyleSheet.create({
 
   container: {width: width, height: height / 5},
   sliderCard: {
-    width: width - 16,
-    marginLeft: 8,
-    justifyContent: 'center',
+    width: width,
   },
   image: {
     width: '100%',
@@ -75,8 +99,15 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.small,
   },
   scrollContainer: {
-    paddingHorizontal: 8,
     paddingVertical: 16,
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   cardListContainer: {},
+  categories: {
+    justifyContent: 'space-between',
+    width: width,
+    flexDirection: 'row',
+    padding: 8,
+  },
 });

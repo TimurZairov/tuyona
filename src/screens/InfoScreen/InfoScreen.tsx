@@ -5,14 +5,16 @@ import ServiceCard from '../../components/ServiceCard/ServiceCard';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const InfoScreen = () => {
   const navigation = useNavigation();
+  const insets = useSafeAreaInsets();
 
   return (
     <View style={styles.info}>
       {/* Navigation */}
-      <View style={styles.header}>
+      <View style={[styles.header, {top: insets.top}]}>
         {/* GO BACK */}
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -26,9 +28,7 @@ const InfoScreen = () => {
         {/* CONTact */}
         <View style={styles.contact}>
           {/*  */}
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={styles.btn}>
+          <TouchableOpacity style={styles.btn}>
             <Ionicons
               name="heart-outline"
               size={SIZES.large}
@@ -36,9 +36,7 @@ const InfoScreen = () => {
             />
           </TouchableOpacity>
           {/*  */}
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={styles.btn}>
+          <TouchableOpacity style={styles.btn}>
             <AntDesign
               name="phone"
               size={SIZES.large}
@@ -46,9 +44,7 @@ const InfoScreen = () => {
             />
           </TouchableOpacity>
           {/*  */}
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={styles.btn}>
+          <TouchableOpacity style={styles.btn}>
             <AntDesign
               name="sharealt"
               size={SIZES.large}
@@ -85,7 +81,6 @@ const styles = StyleSheet.create({
   },
   header: {
     position: 'absolute',
-    top: 50,
     paddingHorizontal: 8,
     zIndex: 30,
     width: '100%',

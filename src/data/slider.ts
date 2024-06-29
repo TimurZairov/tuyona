@@ -8,13 +8,14 @@ export const SLIDER_DATA = [
   },
 ];
 
-export const ACTORS_CATEGORY = [
-  'Ведущий',
-  'Певец',
-  'Комик',
-  'Блогер',
-  'ИнстаЧел',
-  'Инфоцыган',
+export const CATEGORY = ['Рестораны', 'Знаменитости', 'Фотографы'];
+export const FOOD_CATEGORY = [
+  {title: 'Фильтры', image: require('../assets/image/filter.png')},
+  {title: 'Акции', image: require('../assets/image/sale.png')},
+  {title: 'Стейк', image: require('../assets/image/desert.png')},
+  {title: 'Десерт', image: require('../assets/image/meat.png')},
+  {title: 'Салат', image: require('../assets/image/salat.png')},
+  {title: 'Первое Блюдо', image: require('../assets/image/soup.png')},
 ];
 
 export const DATA = [
@@ -41,5 +42,40 @@ export const DATA = [
     url: 'https://uzmuza.net/_ld/19/s88030400.jpg',
     price: '100$',
     services: ['Поздравления', 'Выступление'],
+  },
+];
+
+export const RESTAURANTS = [
+  {
+    image:
+      'https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L3Vwd2s2MTY2MTU3Ny13aWtpbWVkaWEtaW1hZ2Uta293YXBlZWouanBn.jpg',
+    sale: true,
+    name: 'First Rest',
+    logo: 'https://logowik.com/content/uploads/images/restaurant9491.logowik.com.webp',
+    location: '200',
+  },
+  {
+    image:
+      'https://cdn.sortiraparis.com/images/80/100789/834071-too-restaurant-too-hotel-paris-photos-menu-entrees.jpg',
+    sale: true,
+    name: 'First Rest',
+    logo: 'https://i.pinimg.com/736x/08/3b/2f/083b2fe2646cd064e3a294bb716810f9.jpg',
+    location: '200',
+  },
+  {
+    image:
+      'https://cdn.britannica.com/02/239402-050-ACC075DB/plates-of-vegan-foods-ready-serve-restaurant-London.jpg',
+    sale: true,
+    name: 'Second Rest',
+    logo: 'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/fast-food-restaurant-logo%2C-restaurant-logo-design-template-33255790cb8e1186b28609dd9afd4ee6_screen.jpg?ts=1668794604',
+    location: '200',
+  },
+  {
+    image:
+      'https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L2stcGYtcG9tLTEyNDIuanBn.jpg',
+    sale: true,
+    name: 'Third Rest',
+    logo: 'https://marketplace.canva.com/EAFwIrrpQxo/1/0/1600w/canva-brown-flat-illustrative-chef-restaurant-logo-pRMi3FdE_Yc.jpg',
+    location: '200',
   },
 ];
