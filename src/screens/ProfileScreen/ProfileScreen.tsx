@@ -6,9 +6,11 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Button from '../../components/Button/Button';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 
 const ProfileScreen = () => {
   const insets = useSafeAreaInsets();
+  const navigation = useNavigation();
 
   const loginSettings = [
     {
@@ -24,6 +26,14 @@ const ProfileScreen = () => {
       text: 'О программе',
     },
   ];
+  //NAVIGATE TO LOGIN SCREEN
+  const loginUserHandler = () => {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'Login',
+      }),
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -34,7 +44,10 @@ const ProfileScreen = () => {
           Для доступа к профилю зарегистрируйтесь или войдите в существующий
           профиль
         </Text>
-        <Button style={styles.btnCustom} textStyle={styles.textBtn}>
+        <Button
+          style={styles.btnCustom}
+          textStyle={styles.textBtn}
+          onPress={loginUserHandler}>
           Войдите или зарегистрируйтесь
         </Button>
       </View>

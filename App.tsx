@@ -4,7 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
-import TabNavigation from './src/navigation/TabNavigation';
+import RootNavigation from './src/navigation/RootNavigation';
 
 const App = () => {
   return (
@@ -12,7 +12,7 @@ const App = () => {
       <GestureHandlerRootView style={styles.gesture}>
         <SafeAreaProvider>
           <View style={styles.app}>
-            <TabNavigation />
+            <RootNavigation />
           </View>
         </SafeAreaProvider>
       </GestureHandlerRootView>

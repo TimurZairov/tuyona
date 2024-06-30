@@ -6,7 +6,9 @@ import ReminderScreen from '../screens/ReminderScreen/ReminderScreen';
 import FavoriteScreen from '../screens/FavoriteScreen/FavoriteScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {COLORS} from '../theme/theme';
-const Tab = createBottomTabNavigator();
+import {TabNavigationStack} from './types';
+
+const Tab = createBottomTabNavigator<TabNavigationStack>();
 
 const TabNavigation = () => {
   return (
@@ -15,7 +17,8 @@ const TabNavigation = () => {
         headerShown: false,
         tabBarActiveTintColor: COLORS.blueColor,
         tabBarInactiveTintColor: COLORS.lightGray,
-      }}>
+      }}
+      initialRouteName="MainNav">
       <Tab.Screen
         name="MainNav"
         component={MainNavigation}
