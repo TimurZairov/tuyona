@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {COLORS, SIZES} from '../../theme/theme';
@@ -9,7 +9,11 @@ const FavoriteScreen = () => {
   return (
     <View style={styles.favorite}>
       {/* Header */}
-      <View style={[styles.header, {paddingTop: insets.top}]}>
+      <View
+        style={[
+          styles.header,
+          {paddingTop: Platform.OS === 'ios' ? insets.top : 16},
+        ]}>
         <Text style={styles.title}>Избранное</Text>
       </View>
       {/* BODY */}
@@ -45,6 +49,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.23,
     shadowRadius: 2.62,
+    elevation: 4,
   },
   title: {
     fontSize: SIZES.h4.md,

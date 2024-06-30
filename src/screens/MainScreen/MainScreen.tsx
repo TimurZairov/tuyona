@@ -1,4 +1,11 @@
-import {SafeAreaView, StyleSheet, Image, View, ScrollView} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Image,
+  View,
+  ScrollView,
+  Platform,
+} from 'react-native';
 import React from 'react';
 import {COLORS, SIZES, height, width} from '../../theme/theme';
 import Carousel from 'react-native-reanimated-carousel';
@@ -87,6 +94,7 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: COLORS.grayColor,
+    paddingTop: Platform.OS === 'ios' ? 0 : 16,
   },
 
   container: {width: width, height: height / 5},

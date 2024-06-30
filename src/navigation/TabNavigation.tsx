@@ -7,6 +7,7 @@ import FavoriteScreen from '../screens/FavoriteScreen/FavoriteScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {COLORS} from '../theme/theme';
 import {TabNavigationStack} from './types';
+import {Platform} from 'react-native';
 
 const Tab = createBottomTabNavigator<TabNavigationStack>();
 
@@ -17,6 +18,10 @@ const TabNavigation = () => {
         headerShown: false,
         tabBarActiveTintColor: COLORS.blueColor,
         tabBarInactiveTintColor: COLORS.lightGray,
+        tabBarStyle: {
+          height: Platform.OS === 'android' ? 60 : 0,
+          paddingBottom: Platform.OS === 'android' ? 10 : 0,
+        },
       }}
       initialRouteName="MainNav">
       <Tab.Screen

@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {COLORS, SIZES} from '../../theme/theme';
@@ -27,7 +27,11 @@ const ReminderScreen = () => {
   return (
     <>
       {/* HEADER */}
-      <View style={[styles.header, {paddingTop: insets.top}]}>
+      <View
+        style={[
+          styles.header,
+          {paddingTop: Platform.OS === 'ios' ? insets.top : 16},
+        ]}>
         <Text style={styles.title}>Напоминание</Text>
         <View style={styles.btnContainer}>
           <Button

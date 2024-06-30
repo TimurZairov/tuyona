@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -26,7 +26,8 @@ const LoginScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       {/* GO BACK */}
-      <View style={[styles.goBack, {top: insets.top}]}>
+      <View
+        style={[styles.goBack, {top: Platform.OS === 'ios' ? insets.top : 16}]}>
         <GoBack onPress={goBackHandler} />
       </View>
       {/* INPUTS */}

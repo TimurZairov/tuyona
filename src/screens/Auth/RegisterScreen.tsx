@@ -1,7 +1,6 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
-import {TextInput} from 'react-native-gesture-handler';
 import {COLORS, SIZES, width} from '../../theme/theme';
 import Button from '../../components/Button/Button';
 import {BASE_URL} from '../../config/config';
@@ -27,34 +26,35 @@ const RegisterScreen = () => {
   };
 
   //REGISTRY
-  // const registerHandler = async () => {
-  //   console.log(firstName, lastName, username, password);
-  //   const newUser = {
-  //     firstName,
-  //     lastName,
-  //     username,
-  //     password,
-  //     password2,
-  //   };
-  //   try {
-  //     const res = await fetch(`${BASE_URL}/users/register/`, {
-  //       method: 'POST',
-  //       headers: {
-  //         Accept: 'application/json',
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(newUser),
-  //     });
-  //     console.log(res);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const registerHandler = async () => {
+    console.log(firstName, lastName, username, password);
+    const newUser = {
+      firstName,
+      lastName,
+      username,
+      password,
+      password2,
+    };
+    try {
+      const res = await fetch(`${BASE_URL}/users/register/`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newUser),
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       {/* Go Back */}
-      <View style={[styles.goBack, {top: insets.top}]}>
+      <View
+        style={[styles.goBack, {top: Platform.OS === 'ios' ? insets.top : 16}]}>
         <GoBack onPress={loginScreenNavigationHandler} />
       </View>
 
@@ -73,11 +73,11 @@ const RegisterScreen = () => {
       </View>
 
       <View style={styles.wrapper}>
-        <Input placeholder={'password'} setValue={setPassword} />
+        <Input placeholder={'password'} setValue={setPassword} isSecured />
       </View>
 
       <View style={styles.wrapper}>
-        <Input placeholder={'confirm'} setValue={setPassword2} />
+        <Input placeholder={'confirm'} setValue={setPassword2} isSecured />
       </View>
       {/* Login Option */}
       <View style={[styles.wrapper]}>
@@ -92,7 +92,10 @@ const RegisterScreen = () => {
 
       {/* Button */}
 
-      <Button textStyle={styles.textBtn} style={styles.btn}>
+      <Button
+        textStyle={styles.textBtn}
+        style={styles.btn}
+        onPress={registerHandler}>
         Регистрация
       </Button>
     </SafeAreaView>
