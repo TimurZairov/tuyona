@@ -15,5 +15,12 @@ module.exports = {
         'no-inline-styles': false,
       },
     ],
+    'react/no-unstable-nested-components': [
+      {
+        allowAsProps: true | false,
+        customValidators:
+          [] /* optional array of validators used for propTypes validation */,
+      },
+    ],
   },
 };

@@ -1,9 +1,11 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import RegisterScreen from '../screens/Auth/RegisterScreen';
-import LoginScreen from '../screens/Auth/LoginScreen';
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 import MainNavigation from './MainNavigation';
+import ReminderScreen from '../screens/ReminderScreen/ReminderScreen';
+import FavoriteScreen from '../screens/FavoriteScreen/FavoriteScreen';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {COLORS} from '../theme/theme';
 const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
@@ -11,11 +13,49 @@ const TabNavigation = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
+        tabBarActiveTintColor: COLORS.blueColor,
+        tabBarInactiveTintColor: COLORS.lightGray,
       }}>
-      <Tab.Screen name="MainNav" component={MainNavigation} />
-      <Tab.Screen name="Login" component={LoginScreen} />
-      <Tab.Screen name="Register" component={RegisterScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen
+        name="MainNav"
+        component={MainNavigation}
+        options={{
+          tabBarIcon: color => {
+            return <Ionicons name="home-sharp" size={20} color={color.color} />;
+          },
+          title: 'Главная',
+        }}
+      />
+      <Tab.Screen
+        name="Reminder"
+        component={ReminderScreen}
+        options={{
+          tabBarIcon: color => {
+            return <Ionicons name="time" size={20} color={color.color} />;
+          },
+          title: 'Нопоминание',
+        }}
+      />
+      <Tab.Screen
+        name="Favorite"
+        component={FavoriteScreen}
+        options={{
+          tabBarIcon: color => {
+            return <Ionicons name="heart" size={18} color={color.color} />;
+          },
+          title: 'Избранное',
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          tabBarIcon: color => {
+            return <Ionicons name="person" size={18} color={color.color} />;
+          },
+          title: 'Профилиль',
+        }}
+      />
     </Tab.Navigator>
   );
 };
