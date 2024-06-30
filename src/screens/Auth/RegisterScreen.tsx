@@ -31,8 +31,7 @@ const RegisterScreen = () => {
         },
         body: JSON.stringify(newUser),
       });
-
-      console.log(res.status);
+      console.log(res);
     } catch (error) {
       console.log(error);
     }

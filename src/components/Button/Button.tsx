@@ -1,11 +1,24 @@
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
-import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  TextStyle,
+  TouchableOpacity,
+  ViewStyle,
+} from 'react-native';
+import React, {ReactNode} from 'react';
 import {COLORS} from '../../theme/theme';
 
-const Button = ({children, onPress}: any) => {
+interface IButton {
+  children: ReactNode;
+  onPress?: () => void;
+  style?: ViewStyle;
+  textStyle?: TextStyle;
+}
+
+const Button = ({children, onPress, style, textStyle}: IButton) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.btn}>
-      <Text>{children}</Text>
+    <TouchableOpacity onPress={onPress} style={[styles.btn, style]}>
+      <Text style={textStyle}>{children}</Text>
     </TouchableOpacity>
   );
 };

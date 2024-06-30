@@ -5,7 +5,7 @@ import InfoScreen from '../screens/InfoScreen/InfoScreen';
 
 const Stack = createNativeStackNavigator();
 
-const RootNavigation = () => {
+const MainNavigation = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -17,4 +17,4 @@ const RootNavigation = () => {
   );
 };
 
-export default RootNavigation;
+export default MainNavigation;
