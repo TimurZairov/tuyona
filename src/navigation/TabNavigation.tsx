@@ -19,8 +19,8 @@ const TabNavigation = () => {
         tabBarActiveTintColor: COLORS.blueColor,
         tabBarInactiveTintColor: COLORS.lightGray,
         tabBarStyle: {
-          height: Platform.OS === 'android' ? 60 : 0,
-          paddingBottom: Platform.OS === 'android' ? 10 : 0,
+          height: Platform.OS === 'android' ? 60 : 70,
+          paddingBottom: Platform.OS === 'android' ? 10 : 20,
         },
       }}
       initialRouteName="MainNav">

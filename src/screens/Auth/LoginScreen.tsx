@@ -1,5 +1,5 @@
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {COLORS, SIZES, width} from '../../theme/theme';
@@ -8,8 +8,12 @@ import Social from '../../components/Social/Social';
 import Button from '../../components/Button/Button';
 import GoBack from '../../components/GoBack/GoBack';
 import {useNavigation} from '@react-navigation/native';
+import {BASE_URL} from '../../config/config';
 
 const LoginScreen = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
 
@@ -20,7 +24,28 @@ const LoginScreen = () => {
   //RegisterScreen navigation
 
   const registerScreenNavigationHandler = () => {
-    navigation.navigate('Register');
+    navigation.navigate('Register'); // todo types
+  };
+  //USER LOGIN HANDLER
+  const userLoginHandler = async () => {
+    const userData = {
+      username,
+      password,
+    };
+    console.log(userData);
+    try {
+      const user = await fetch(`${BASE_URL}/users/login/`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -33,11 +58,11 @@ const LoginScreen = () => {
       {/* INPUTS */}
       <Text style={styles.name}>Войдите</Text>
       <View style={styles.wrapper}>
-        <Input placeholder={'User name'} />
+        <Input placeholder={'User name'} setValue={setUsername} />
       </View>
 
       <View style={styles.wrapper}>
-        <Input placeholder={'Password'} isSecured />
+        <Input placeholder={'Password'} isSecured setValue={setPassword} />
       </View>
 
       <View style={[styles.wrapper]}>
@@ -56,7 +81,10 @@ const LoginScreen = () => {
       {/* SOCIAL */}
       <Social />
       {/* Button */}
-      <Button textStyle={styles.textBtn} style={styles.btn}>
+      <Button
+        textStyle={styles.textBtn}
+        style={styles.btn}
+        onPress={userLoginHandler}>
         Войти
       </Button>
     </SafeAreaView>
