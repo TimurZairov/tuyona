@@ -1,10 +1,14 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {TextInput} from 'react-native-gesture-handler';
-import {COLORS} from '../../theme/theme';
+import {COLORS, SIZES, width} from '../../theme/theme';
 import Button from '../../components/Button/Button';
 import {BASE_URL} from '../../config/config';
+import GoBack from '../../components/GoBack/GoBack';
+import Input from '../../components/Input/Input';
+import Social from '../../components/Social/Social';
+import {useNavigation} from '@react-navigation/native';
 
 const RegisterScreen = () => {
   const [firstName, setFirstName] = useState('');
@@ -12,113 +16,85 @@ const RegisterScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
-  //REGISTRY
-  const registerHandler = async () => {
-    console.log(firstName, lastName, username, password);
-    const newUser = {
-      firstName,
-      lastName,
-      username,
-      password,
-      password2,
-    };
-    try {
-      const res = await fetch(`${BASE_URL}/users/register/`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newUser),
-      });
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
+
+  const insets = useSafeAreaInsets();
+  const navigation = useNavigation();
+
+  //go back login screen
+
+  const loginScreenNavigationHandler = () => {
+    navigation.goBack();
   };
 
+  //REGISTRY
+  // const registerHandler = async () => {
+  //   console.log(firstName, lastName, username, password);
+  //   const newUser = {
+  //     firstName,
+  //     lastName,
+  //     username,
+  //     password,
+  //     password2,
+  //   };
+  //   try {
+  //     const res = await fetch(`${BASE_URL}/users/register/`, {
+  //       method: 'POST',
+  //       headers: {
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(newUser),
+  //     });
+  //     console.log(res);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   return (
-    <SafeAreaView style={{paddingHorizontal: 8}}>
-      <View>
-        <Text style={{textAlign: 'center', marginVertical: 20}}>TUYONA</Text>
+    <SafeAreaView style={styles.container}>
+      {/* Go Back */}
+      <View style={[styles.goBack, {top: insets.top}]}>
+        <GoBack onPress={loginScreenNavigationHandler} />
       </View>
-      {/* REG */}
-      <View
-        style={{
-          backgroundColor: COLORS.mainColor,
-          height: 50,
-          borderRadius: 10,
-          justifyContent: 'center',
-          paddingHorizontal: 12,
-          marginVertical: 10,
-        }}>
-        <TextInput
-          style={{height: '100%', width: '100%'}}
-          placeholder="first_name"
-          onChangeText={setFirstName}
-        />
+
+      <Text style={styles.name}>Регистрация</Text>
+      {/* INPUTS */}
+      <View style={styles.wrapper}>
+        <Input placeholder={'first_name'} setValue={setFirstName} />
       </View>
-      <View
-        style={{
-          backgroundColor: COLORS.mainColor,
-          height: 50,
-          borderRadius: 10,
-          justifyContent: 'center',
-          paddingHorizontal: 12,
-          marginVertical: 10,
-        }}>
-        <TextInput
-          style={{height: '100%', width: '100%'}}
-          placeholder="last_name"
-          onChangeText={setLastName}
-        />
+
+      <View style={styles.wrapper}>
+        <Input placeholder={'last_name'} setValue={setLastName} />
       </View>
-      <View
-        style={{
-          backgroundColor: COLORS.mainColor,
-          height: 50,
-          borderRadius: 10,
-          justifyContent: 'center',
-          paddingHorizontal: 12,
-          marginVertical: 10,
-        }}>
-        <TextInput
-          style={{height: '100%', width: '100%'}}
-          placeholder="username"
-          onChangeText={setUsername}
-        />
+
+      <View style={styles.wrapper}>
+        <Input placeholder={'username'} setValue={setUsername} />
       </View>
-      <View
-        style={{
-          backgroundColor: COLORS.mainColor,
-          height: 50,
-          borderRadius: 10,
-          justifyContent: 'center',
-          paddingHorizontal: 12,
-          marginVertical: 10,
-        }}>
-        <TextInput
-          style={{height: '100%', width: '100%'}}
-          placeholder="password"
-          onChangeText={setPassword}
-        />
+
+      <View style={styles.wrapper}>
+        <Input placeholder={'password'} setValue={setPassword} />
       </View>
-      <View
-        style={{
-          backgroundColor: COLORS.mainColor,
-          height: 50,
-          borderRadius: 10,
-          justifyContent: 'center',
-          paddingHorizontal: 12,
-          marginVertical: 10,
-        }}>
-        <TextInput
-          style={{height: '100%', width: '100%'}}
-          placeholder="password2"
-          onChangeText={setPassword2}
-        />
+
+      <View style={styles.wrapper}>
+        <Input placeholder={'confirm'} setValue={setPassword2} />
       </View>
-      <Button onPress={registerHandler}>Register</Button>
+      {/* Login Option */}
+      <View style={[styles.wrapper]}>
+        <Text style={styles.account}>
+          У вас нет акаунта?
+          <Text style={styles.registration}> Регистрация</Text>
+        </Text>
+        <Text style={[styles.account, styles.or]}>или</Text>
+      </View>
+      {/* Social */}
+      <Social />
+
+      {/* Button */}
+
+      <Button textStyle={styles.textBtn} style={styles.btn}>
+        Регистрация
+      </Button>
     </SafeAreaView>
   );
 };
@@ -133,4 +109,50 @@ const RegisterScreen = () => {
 
 export default RegisterScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  goBack: {
+    position: 'absolute',
+    left: 8,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.mainColor,
+    justifyContent: 'center',
+  },
+  name: {
+    fontSize: SIZES.h4.md,
+    fontWeight: '800',
+    color: COLORS.blackColor,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  wrapper: {
+    paddingHorizontal: 8,
+    marginBottom: 10,
+  },
+  account: {
+    textAlign: 'center',
+    color: COLORS.blackColor,
+    fontSize: SIZES.small,
+    fontWeight: '400',
+  },
+  registration: {
+    textDecorationLine: 'underline',
+    color: COLORS.blueColor,
+  },
+  or: {
+    marginTop: 20,
+  },
+
+  btn: {
+    alignSelf: 'center',
+    width: width / 1.7,
+    marginTop: 50,
+    borderRadius: 8,
+  },
+  textBtn: {
+    color: COLORS.mainColor,
+    fontSize: SIZES.medium,
+    fontWeight: '700',
+  },
+});
