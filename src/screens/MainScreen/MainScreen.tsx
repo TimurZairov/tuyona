@@ -24,6 +24,7 @@ const MainScreen = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* SLIDER */}
         <View style={styles.container}>
+          {/* CHECK width or height app crashes */}
           <Carousel
             loop
             width={width}

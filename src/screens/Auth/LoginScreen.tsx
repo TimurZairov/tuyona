@@ -8,6 +8,9 @@ import Social from '../../components/Social/Social';
 import Button from '../../components/Button/Button';
 import GoBack from '../../components/GoBack/GoBack';
 import {useNavigation} from '@react-navigation/native';
+
+import {useAppDispatch} from '../../providers/redux/type';
+import {loginAction} from '../../providers/redux/actions/loginAction';
 import {BASE_URL} from '../../config/config';
 
 const LoginScreen = () => {
@@ -16,6 +19,7 @@ const LoginScreen = () => {
 
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
 
   //go back
   const goBackHandler = () => {
@@ -32,20 +36,13 @@ const LoginScreen = () => {
       username,
       password,
     };
-    console.log(userData);
-    try {
-      const user = await fetch(`${BASE_URL}/users/login/`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
-      console.log(user);
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(
+      loginAction({
+        endpoint: 'api/users/login',
+        method: 'post',
+        userData,
+      }),
+    );
   };
 
   return (
