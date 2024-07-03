@@ -11,7 +11,6 @@ import {useNavigation} from '@react-navigation/native';
 
 import {useAppDispatch} from '../../providers/redux/type';
 import {loginAction} from '../../providers/redux/actions/loginAction';
-import {BASE_URL} from '../../config/config';
 
 const LoginScreen = () => {
   const [username, setUsername] = useState('');
@@ -28,7 +27,7 @@ const LoginScreen = () => {
   //RegisterScreen navigation
 
   const registerScreenNavigationHandler = () => {
-    navigation.navigate('Register'); // todo types
+    navigation.navigate('Register');
   };
   //USER LOGIN HANDLER
   const userLoginHandler = async () => {

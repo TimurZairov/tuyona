@@ -1,31 +1,35 @@
-import axios from 'axios';
 import {BASE_URL} from '../../config/config';
 
 //login & registration
-
 export const authApiController = async (
   endpoint: string,
   method: string,
-  userData: {username: string; password: string},
+  data: {
+    username: string;
+    password: string;
+    lastName?: string;
+    firsName?: string;
+    password2?: string;
+  },
 ) => {
-  console.log(endpoint, method, userData);
-  console.log(`${BASE_URL}/${endpoint}`);
   try {
-    const user = await axios({
+    const response = await fetch(BASE_URL + endpoint, {
       method,
-      url: `${BASE_URL}/${endpoint}`,
-      data: userData,
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(data),
     });
 
-    if (!user) {
-      throw new Error('error authApiController');
+    if (!response) {
+      throw new Error('Регистрация не удалась, попробуйте снова!');
     }
-    return user;
+
+    const newUser = await response.json();
+    return newUser;
   } catch (error) {
     console.log('Login error', error);
+    return error;
   }
 };

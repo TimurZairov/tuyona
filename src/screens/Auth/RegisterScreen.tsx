@@ -3,11 +3,13 @@ import React, {useState} from 'react';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {COLORS, SIZES, width} from '../../theme/theme';
 import Button from '../../components/Button/Button';
-import {BASE_URL} from '../../config/config';
 import GoBack from '../../components/GoBack/GoBack';
 import Input from '../../components/Input/Input';
 import Social from '../../components/Social/Social';
 import {useNavigation} from '@react-navigation/native';
+
+import {useAppDispatch} from '../../providers/redux/type';
+import {registerAction} from '../../providers/redux/actions/registerAction';
 
 const RegisterScreen = () => {
   const [firstName, setFirstName] = useState('');
@@ -18,6 +20,7 @@ const RegisterScreen = () => {
 
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
 
   //go back login screen
 
@@ -27,27 +30,15 @@ const RegisterScreen = () => {
 
   //REGISTRY
   const registerHandler = async () => {
-    console.log(firstName, lastName, username, password);
-    const newUser = {
+    const data = {
       firstName,
       lastName,
       username,
       password,
       password2,
     };
-    try {
-      const res = await fetch(`${BASE_URL}/users/register/`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newUser),
-      });
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
+    const results = await dispatch(registerAction(data));
+    console.log(results);
   };
 
   return (

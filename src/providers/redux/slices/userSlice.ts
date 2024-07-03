@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {loginAction} from '../actions/loginAction';
-import {ActionSheetIOS} from 'react-native';
 import {User} from '../../../types/types';
+import {registerAction} from '../actions/registerAction';
 
 interface IInitialState {
   user: User | unknown;
@@ -18,8 +18,19 @@ const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
+    //login
     builder.addCase(loginAction.fulfilled, (state, action) => {
       state.user = action.payload;
+    });
+    builder.addCase(loginAction.rejected, (state, action) => {
+      state.error = action.payload;
+    });
+    //register
+    builder.addCase(registerAction.fulfilled, (state, action) => {
+      state.user = action.payload;
+    });
+    builder.addCase(registerAction.rejected, (state, action) => {
+      state.error = action.payload;
     });
   },
 });

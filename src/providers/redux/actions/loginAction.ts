@@ -1,7 +1,7 @@
 import {authApiController} from './../../../controllers/authController/authApiController';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
-interface ILoginAction {
+export interface ILoginAction {
   endpoint: string;
   method: string;
   userData: {
