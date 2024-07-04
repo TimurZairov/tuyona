@@ -3,23 +3,28 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import Toast from 'react-native-toast-message';
 
 import RootNavigation from './src/navigation/RootNavigation';
 import {Provider} from 'react-redux';
 import {store} from './src/providers/redux/store';
+import {AppContextProvider} from './src/providers/context/context';
 
 const App = () => {
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <GestureHandlerRootView style={styles.gesture}>
-          <SafeAreaProvider>
-            <View style={styles.app}>
-              <RootNavigation />
-            </View>
-          </SafeAreaProvider>
-        </GestureHandlerRootView>
-      </NavigationContainer>
+      <AppContextProvider>
+        <NavigationContainer>
+          <GestureHandlerRootView style={styles.gesture}>
+            <SafeAreaProvider>
+              <View style={styles.app}>
+                <RootNavigation />
+                <Toast />
+              </View>
+            </SafeAreaProvider>
+          </GestureHandlerRootView>
+        </NavigationContainer>
+      </AppContextProvider>
     </Provider>
   );
 };

@@ -1,6 +1,6 @@
 import {BASE_URL} from '../../config/config';
 
-//login & registration
+//login & registration api
 export const authApiController = async (
   endpoint: string,
   method: string,
@@ -12,6 +12,7 @@ export const authApiController = async (
     password2?: string;
   },
 ) => {
+  console.log(data, endpoint);
   try {
     const response = await fetch(BASE_URL + endpoint, {
       method,

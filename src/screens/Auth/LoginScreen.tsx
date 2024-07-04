@@ -11,13 +11,18 @@ import {useNavigation} from '@react-navigation/native';
 
 import {useAppDispatch} from '../../providers/redux/type';
 import {loginAction} from '../../providers/redux/actions/loginAction';
+import {ProfileNavigationProp} from '../../navigation/types';
+import {useAppContext} from '../../providers/context/context';
 
 const LoginScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
+  //
+  const {setAccessToken} = useAppContext();
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation();
+  const navigation = useNavigation<ProfileNavigationProp>();
   const dispatch = useAppDispatch();
 
   //go back
@@ -30,18 +35,24 @@ const LoginScreen = () => {
     navigation.navigate('Register');
   };
   //USER LOGIN HANDLER
+
   const userLoginHandler = async () => {
-    const userData = {
+    if (loading) {
+      return;
+    }
+    const data = {
       username,
       password,
     };
-    dispatch(
+
+    setLoading(true);
+    await dispatch(
       loginAction({
-        endpoint: 'api/users/login',
-        method: 'post',
-        userData,
+        data,
+        setAccessToken,
       }),
     );
+    setLoading(false);
   };
 
   return (
