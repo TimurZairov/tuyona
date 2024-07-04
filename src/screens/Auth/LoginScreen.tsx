@@ -1,5 +1,5 @@
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {COLORS, SIZES, width} from '../../theme/theme';
@@ -20,7 +20,7 @@ const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
 
   //
-  const {setAccessToken} = useAppContext();
+  const {setAccessToken, accessToken} = useAppContext();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<ProfileNavigationProp>();
   const dispatch = useAppDispatch();
@@ -35,7 +35,6 @@ const LoginScreen = () => {
     navigation.navigate('Register');
   };
   //USER LOGIN HANDLER
-
   const userLoginHandler = async () => {
     if (loading) {
       return;
@@ -46,14 +45,20 @@ const LoginScreen = () => {
     };
 
     setLoading(true);
+    //login
     await dispatch(
       loginAction({
         data,
         setAccessToken,
       }),
     );
-    setLoading(false);
   };
+
+  useEffect(() => {
+    if (accessToken !== null) {
+      navigation.replace('Tab');
+    }
+  }, [accessToken]);
 
   return (
     <SafeAreaView style={styles.container}>

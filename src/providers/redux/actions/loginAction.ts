@@ -3,7 +3,6 @@ import {authApiController} from './../../../controllers/authController/authApiCo
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {getUser} from '../../../common/getUserApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useAppContext} from '../../context/context';
 import {Dispatch, SetStateAction} from 'react';
 
 export interface ILoginAction {
@@ -32,6 +31,7 @@ export const loginAction = createAsyncThunk(
         return;
       }
       const user = await getUser(token.access);
+      console.log(user);
       await AsyncStorage.setItem('refreshToken', token.refresh);
       setAccessToken(token.access);
       return user;

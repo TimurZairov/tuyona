@@ -29,7 +29,6 @@ export const AppContextProvider = ({children}: TAppContextProvider) => {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [language, setLanguage] = useState('ru');
 
-  console.log(accessToken);
   return (
     <AppContext.Provider
       value={{accessToken, setAccessToken, language, setLanguage}}>
