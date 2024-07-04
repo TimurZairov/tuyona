@@ -27,10 +27,10 @@ export const authApiController = async (
       throw new Error('Регистрация не удалась, попробуйте снова!');
     }
 
-    const newUser = await response.json();
-    return newUser;
+    const generatedToken = await response.json();
+    return generatedToken;
   } catch (error) {
-    console.log('Login error', error);
+    console.log('authApiController error', error);
     return error;
   }
 };

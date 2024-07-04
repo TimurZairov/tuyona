@@ -4,6 +4,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {getUser} from '../../../common/getUserApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Dispatch, SetStateAction} from 'react';
+import {User} from '../../../types/types';
 
 export interface ILoginAction {
   data: {
@@ -22,6 +23,7 @@ export const loginAction = createAsyncThunk(
   async ({data, setAccessToken}: ILoginAction, {rejectWithValue}) => {
     try {
       const token = await authApiController('/users/login/', 'post', data);
+
       if (!token?.access) {
         Toast.show({
           type: 'error',
@@ -30,13 +32,14 @@ export const loginAction = createAsyncThunk(
         });
         return;
       }
-      const user = await getUser(token.access);
-      console.log(user);
+      const user: User | undefined = await getUser(token.access);
+
       await AsyncStorage.setItem('refreshToken', token.refresh);
       setAccessToken(token.access);
       return user;
     } catch (error) {
       const customError = error as CustomError;
+      console.log('login user', customError.message);
       return rejectWithValue(customError.message);
     }
   },

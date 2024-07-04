@@ -1,5 +1,5 @@
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {COLORS, SIZES, width} from '../../theme/theme';
 import Button from '../../components/Button/Button';
@@ -10,6 +10,9 @@ import {useNavigation} from '@react-navigation/native';
 
 import {useAppDispatch} from '../../providers/redux/type';
 import {registerAction} from '../../providers/redux/actions/registerAction';
+import {useAppContext} from '../../providers/context/context';
+import {RegisterNavigationProp} from '../../navigation/types';
+import Toast from 'react-native-toast-message';
 
 const RegisterScreen = () => {
   const [firstName, setFirstName] = useState('');
@@ -17,10 +20,12 @@ const RegisterScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation();
+  const navigation = useNavigation<RegisterNavigationProp>();
   const dispatch = useAppDispatch();
+  const {setAccessToken, accessToken} = useAppContext();
 
   //go back login screen
 
@@ -30,6 +35,18 @@ const RegisterScreen = () => {
 
   //REGISTRY
   const registerHandler = async () => {
+    if (loading) {
+      return;
+    }
+    if (password !== password2) {
+      Toast.show({
+        type: 'error',
+        text1: 'Ошибка',
+        text2: 'Пароли дожны совпадать',
+      });
+      return;
+    }
+    setLoading(true);
     const data = {
       firstName,
       lastName,
@@ -37,9 +54,16 @@ const RegisterScreen = () => {
       password,
       password2,
     };
-    const results = await dispatch(registerAction(data));
-    console.log(results);
+    await dispatch(registerAction({data, setAccessToken}));
+    setLoading(false);
   };
+
+  //if access token !== null navigate to main screen
+  useEffect(() => {
+    if (accessToken !== null && accessToken !== undefined) {
+      navigation.replace('Tab');
+    }
+  }, [accessToken]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -86,7 +110,8 @@ const RegisterScreen = () => {
       <Button
         textStyle={styles.textBtn}
         style={styles.btn}
-        onPress={registerHandler}>
+        onPress={registerHandler}
+        loading={loading}>
         Регистрация
       </Button>
     </SafeAreaView>

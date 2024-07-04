@@ -18,3 +18,8 @@ export type ProfileNavigationProp = NativeStackNavigationProp<
   RootNavigationStack,
   'Register'
 >;
+
+export type RegisterNavigationProp = NativeStackNavigationProp<
+  RootNavigationStack,
+  'Tab'
+>;

@@ -14,6 +14,8 @@ const useRefreshAccessToken = () => {
       //check is refresh token is in storage
       try {
         const isRefreshToken = await AsyncStorage.getItem('refreshToken');
+        console.log(isRefreshToken);
+
         if (!isRefreshToken) {
           console.log('user not authorized');
           dispatch(logOutUser());

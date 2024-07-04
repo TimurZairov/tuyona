@@ -39,12 +39,12 @@ const LoginScreen = () => {
     if (loading) {
       return;
     }
+    setLoading(true);
     const data = {
       username,
       password,
     };
 
-    setLoading(true);
     //login
     await dispatch(
       loginAction({
@@ -52,10 +52,12 @@ const LoginScreen = () => {
         setAccessToken,
       }),
     );
+
+    setLoading(false);
   };
 
   useEffect(() => {
-    if (accessToken !== null) {
+    if (accessToken !== null && accessToken !== undefined) {
       navigation.replace('Tab');
     }
   }, [accessToken]);
@@ -96,7 +98,8 @@ const LoginScreen = () => {
       <Button
         textStyle={styles.textBtn}
         style={styles.btn}
-        onPress={userLoginHandler}>
+        onPress={userLoginHandler}
+        loading={loading}>
         Войти
       </Button>
     </SafeAreaView>
