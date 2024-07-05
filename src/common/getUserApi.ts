@@ -11,8 +11,9 @@ export const getUser = async (token: string) => {
         Authorization: 'Bearer ' + token,
       },
     });
-
+    // check status TODO
     if (!response) {
+      //return user null or undefined
       return;
     }
 

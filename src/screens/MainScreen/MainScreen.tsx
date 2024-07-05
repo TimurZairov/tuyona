@@ -15,8 +15,12 @@ import ScrollButton from '../../components/ScrollButton/ScrollButton';
 import MainTitle from '../../components/MainTitle/MainTitle';
 import MainCardList from '../../components/MainCardList/MainCardList';
 import RestaurantCard from '../../components/RestaurantCard/RestaurantCard';
+import {useAppSelector} from '../../providers/redux/type';
 
 const MainScreen = () => {
+  const {user} = useAppSelector(state => state.user);
+
+  console.log(user);
   return (
     <SafeAreaView style={styles.main}>
       {/* HEADER */}
