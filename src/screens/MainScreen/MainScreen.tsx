@@ -20,7 +20,7 @@ import {useAppSelector} from '../../providers/redux/type';
 const MainScreen = () => {
   const {user} = useAppSelector(state => state.user);
 
-  console.log(user);
+  // console.log(user);
   return (
     <SafeAreaView style={styles.main}>
       {/* HEADER */}

@@ -1,9 +1,11 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
 import useRefreshAccessToken from '../../common/hooks/useRefreshAccessToken';
-
+import {useTranslation} from 'react-i18next';
+import '../../common/services/i18next';
 const SplashScreen = ({navigation}: any) => {
   const {isReady} = useRefreshAccessToken();
+  const {t} = useTranslation();
 
   // useEffect(() => {
   //   const timeout = setTimeout(() => {
@@ -13,7 +15,6 @@ const SplashScreen = ({navigation}: any) => {
   //     clearTimeout(timeout);
   //   };
   // }, []);
-  console.log(isReady);
 
   useEffect(() => {
     if (isReady) {
@@ -23,6 +24,7 @@ const SplashScreen = ({navigation}: any) => {
   return (
     <View style={styles.splash}>
       <Text>TUYONA</Text>
+      <Text>{t('welcome')}</Text>
     </View>
   );
 };
