@@ -37,7 +37,6 @@ export const AppContextProvider = ({children}: TAppContextProvider) => {
       const isLanguage = await AsyncStorage.getItem('currentLanguage');
       if (!isLanguage) {
         i18next.changeLanguage('ru');
-        setLanguage('ru');
         return;
       }
       i18next.changeLanguage(isLanguage);

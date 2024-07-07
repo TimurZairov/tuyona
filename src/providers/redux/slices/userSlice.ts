@@ -1,10 +1,10 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {loginAction} from '../actions/loginAction';
 import {User} from '../../../types/types';
 import {registerAction} from '../actions/registerAction';
 
 interface IInitialState {
-  user: User | unknown;
+  user: User | unknown | any;
   error: Error | unknown;
 }
 
@@ -20,7 +20,7 @@ const userSlice = createSlice({
     logOutUser: state => {
       state.user = null;
     },
-    setUser: (state, action) => {
+    setUser: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
     },
   },

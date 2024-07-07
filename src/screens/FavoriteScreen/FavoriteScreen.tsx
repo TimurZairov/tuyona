@@ -10,8 +10,8 @@ import {wishListAction} from '../../providers/redux/actions/wishListAction';
 const FavoriteScreen = () => {
   const insets = useSafeAreaInsets();
   const dispatch = useAppDispatch();
-
   const {accessToken, language} = useAppContext();
+  //state
   const {wishList, error} = useAppSelector(state => state.wishList);
   //GET WISHLIST
   useEffect(() => {

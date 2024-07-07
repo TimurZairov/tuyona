@@ -9,9 +9,11 @@ interface ILoginSettings {
     text: string;
   };
   index: number;
+  length?: number;
 }
 
-const LoginSettings = ({item, index}: ILoginSettings) => {
+const LoginSettings = ({item, index, length}: ILoginSettings) => {
+  console.log(length);
   return (
     <>
       <View style={styles.container}>
@@ -24,7 +26,7 @@ const LoginSettings = ({item, index}: ILoginSettings) => {
           style={styles.iconSet}
         />
       </View>
-      {index === 2 ? null : <View style={styles.divider} />}
+      {index + 1 === length ? null : <View style={styles.divider} />}
     </>
   );
 };

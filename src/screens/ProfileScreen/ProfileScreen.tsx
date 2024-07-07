@@ -7,10 +7,15 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Button from '../../components/Button/Button';
 import {CommonActions, useNavigation} from '@react-navigation/native';
+import {useAppSelector} from '../../providers/redux/type';
+import {useAppContext} from '../../providers/context/context';
+import UserProfileScreen from './UserProfileScreen';
 
 const ProfileScreen = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
+  const {accessToken} = useAppContext();
+  const {user} = useAppSelector(state => state.user);
 
   const loginSettings = [
     {
@@ -34,6 +39,10 @@ const ProfileScreen = () => {
       }),
     );
   };
+
+  if (user && accessToken) {
+    return <UserProfileScreen user={user} />;
+  }
 
   return (
     <View style={styles.container}>
