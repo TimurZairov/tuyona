@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {COLORS, SIZES, height} from '../../theme/theme';
 import LoginSettings from '../../components/LoginSettings/LoginSettings';
@@ -47,7 +47,11 @@ const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       {/* header */}
-      <View style={[styles.header, {paddingTop: insets.top}]}>
+      <View
+        style={[
+          styles.header,
+          {paddingTop: Platform.OS === 'ios' ? insets.top : 20},
+        ]}>
         <Text style={styles.title}>Войти в профиль</Text>
         <Text style={styles.subTitle}>
           Для доступа к профилю зарегистрируйтесь или войдите в существующий
@@ -64,7 +68,14 @@ const ProfileScreen = () => {
       <View style={styles.body}>
         <View>
           {loginSettings.map((item, index) => {
-            return <LoginSettings key={index} item={item} index={index} />;
+            return (
+              <LoginSettings
+                key={index}
+                item={item}
+                index={index}
+                length={loginSettings.length}
+              />
+            );
           })}
         </View>
       </View>

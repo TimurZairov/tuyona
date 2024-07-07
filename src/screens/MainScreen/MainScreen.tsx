@@ -36,14 +36,16 @@ const MainScreen = () => {
           'accept-Language': language,
         },
       });
-      // console.log(res);
+      const services = await res.json();
     })();
   }, []);
   return (
     <SafeAreaView style={styles.main}>
       {/* HEADER */}
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.mainScroll}>
         {/* SLIDER */}
         <View style={styles.container}>
           {/* CHECK width or height app crashes */}
@@ -68,10 +70,9 @@ const MainScreen = () => {
         </View>
         <Header />
         {/* restaurants */}
-        <View>
-          <MainTitle title={t('restaurants')} />
-          {/*  CATEGORY  */}
+        {/*  CATEGORY  */}
 
+        <View style={{marginTop: 12}}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {FOOD_CATEGORY.map((category, index) => {
               return (
@@ -83,6 +84,10 @@ const MainScreen = () => {
               );
             })}
           </ScrollView>
+        </View>
+
+        <View>
+          <MainTitle title={t('restaurants')} />
 
           {/* restaurants scroll  */}
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -117,7 +122,9 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: COLORS.grayColor,
-    paddingTop: Platform.OS === 'ios' ? 0 : 16,
+  },
+  mainScroll: {
+    marginBottom: 16,
   },
 
   container: {width: width, height: height / 5},

@@ -60,11 +60,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 10,
     alignItems: 'center',
-    paddingBottom: 10,
   },
   searchContainer: {
     backgroundColor: COLORS.mainColor,
-    paddingVertical: SIZES.small,
+    paddingVertical: 6,
     borderRadius: SIZES.small,
     flexDirection: 'row',
     alignItems: 'center',
@@ -73,8 +72,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   input: {
-    height: height / 36,
+    height: 40,
+    // backgroundColor: 'red',
+    fontSize: 14,
     flex: 1,
+    color: COLORS.blackColor,
+    overflow: 'hidden',
   },
   notification: {
     marginRight: 6,

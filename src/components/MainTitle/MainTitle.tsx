@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 8,
     justifyContent: 'space-between',
-    marginVertical: 20,
+    marginVertical: 16,
   },
   title: {
     fontSize: SIZES.h4.md,

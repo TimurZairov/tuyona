@@ -1,5 +1,6 @@
 import {Image, ImageSourcePropType, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {COLORS} from '../../theme/theme';
 
 interface ITitle {
   category: {
@@ -12,7 +13,10 @@ interface ITitle {
 const ScrollButton = ({category, food}: ITitle) => {
   return (
     <View style={[styles.btn, {marginRight: food ? 8 : 0}]}>
-      <Image source={category.image} style={styles.image} />
+      <View style={styles.imageWrapper}>
+        <Image source={category.image} style={styles.image} />
+      </View>
+
       <Text style={styles.title}>{category.title}</Text>
     </View>
   );
@@ -23,10 +27,14 @@ export default ScrollButton;
 const styles = StyleSheet.create({
   btn: {
     paddingHorizontal: 8,
-    // paddingVertical: SIZES.xsmall,
     width: 90,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  imageWrapper: {
+    backgroundColor: COLORS.mainColor,
+    padding: 8,
+    borderRadius: 100,
   },
   title: {
     fontSize: 12,

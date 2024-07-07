@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {COLORS} from '../../theme/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -13,10 +13,9 @@ interface ILoginSettings {
 }
 
 const LoginSettings = ({item, index, length}: ILoginSettings) => {
-  console.log(length);
   return (
     <>
-      <View style={styles.container}>
+      <TouchableOpacity style={styles.container}>
         <View style={styles.icon}>{item.icon}</View>
         <Text>{item.text}</Text>
         <Ionicons
@@ -25,7 +24,7 @@ const LoginSettings = ({item, index, length}: ILoginSettings) => {
           color={COLORS.lightGray}
           style={styles.iconSet}
         />
-      </View>
+      </TouchableOpacity>
       {index + 1 === length ? null : <View style={styles.divider} />}
     </>
   );

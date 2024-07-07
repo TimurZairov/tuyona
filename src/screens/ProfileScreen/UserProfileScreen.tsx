@@ -37,7 +37,7 @@ const UserProfileScreen = ({user}: IUserProfileScreen) => {
 
     {
       icon: <Ionicons name="exit-outline" size={26} />,
-      text: 'О программе',
+      text: 'Выйти из приложения',
     },
   ];
 
