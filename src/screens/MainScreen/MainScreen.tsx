@@ -6,7 +6,7 @@ import {
   ScrollView,
   Platform,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {COLORS, SIZES, height, width} from '../../theme/theme';
 import Carousel from 'react-native-reanimated-carousel';
 import {SLIDER_DATA, FOOD_CATEGORY, RESTAURANTS} from '../../data/slider';
@@ -16,15 +16,33 @@ import MainTitle from '../../components/MainTitle/MainTitle';
 import MainCardList from '../../components/MainCardList/MainCardList';
 import RestaurantCard from '../../components/RestaurantCard/RestaurantCard';
 import {useAppSelector} from '../../providers/redux/type';
+import {useTranslation} from 'react-i18next';
+import {BASE_URL} from '../../config/config';
+import {useAppContext} from '../../providers/context/context';
 
 const MainScreen = () => {
   const {user} = useAppSelector(state => state.user);
+  const {t} = useTranslation();
+  const {language} = useAppContext();
 
-  // console.log(user);
+  useEffect(() => {
+    //get services
+    (async () => {
+      const res = await fetch(BASE_URL + '/services/', {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'accept-Language': language,
+        },
+      });
+      // console.log(res);
+    })();
+  }, []);
   return (
     <SafeAreaView style={styles.main}>
       {/* HEADER */}
-      <Header />
+
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* SLIDER */}
         <View style={styles.container}>
@@ -48,10 +66,10 @@ const MainScreen = () => {
             )}
           />
         </View>
-
+        <Header />
         {/* restaurants */}
         <View>
-          <MainTitle title="Рестораны" />
+          <MainTitle title={t('restaurants')} />
           {/*  CATEGORY  */}
 
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -76,7 +94,7 @@ const MainScreen = () => {
           </ScrollView>
         </View>
         {/* MAIN TITLES */}
-        <MainTitle title="Ведущий" />
+        <MainTitle title={t('leading')} />
 
         <View style={styles.cardListContainer}>
           <MainCardList />
@@ -84,7 +102,7 @@ const MainScreen = () => {
 
         {/*  */}
 
-        <MainTitle title="Певец" />
+        <MainTitle title={t('singers')} />
         <View style={styles.cardListContainer}>
           <MainCardList />
         </View>

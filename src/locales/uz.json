@@ -1,3 +1,14 @@
 {
-  "welcome": "xush kelibsiz"
+  // MAIN SCREEN
+  "welcome": "Xush kelibsiz",
+  "search": "Tezkor qidiruv",
+  "restaurants": "Restoranlar",
+  "leading": "Etakchi",
+  "singers": "Ashulachi",
+  "all": "Hammasi",
+  //   TABS
+  "mainScreen": "Bosh",
+  "reminder": "Eslatmalar",
+  "favorite": "Sevimli",
+  "profile": "Profil"
 }

@@ -1,11 +1,25 @@
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {COLORS, SIZES} from '../../theme/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useAppContext} from '../../providers/context/context';
+import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
+import {wishListAction} from '../../providers/redux/actions/wishListAction';
 
 const FavoriteScreen = () => {
   const insets = useSafeAreaInsets();
+  const dispatch = useAppDispatch();
+
+  const {accessToken, language} = useAppContext();
+  const {wishList, error} = useAppSelector(state => state.wishList);
+  //GET WISHLIST
+  useEffect(() => {
+    if (accessToken) {
+      dispatch(wishListAction({accessToken: accessToken.toString(), language}));
+    }
+  }, [accessToken]);
+
   return (
     <View style={styles.favorite}>
       {/* Header */}

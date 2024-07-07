@@ -8,10 +8,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {COLORS} from '../theme/theme';
 import {TabNavigationStack} from './types';
 import {Platform} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 const Tab = createBottomTabNavigator<TabNavigationStack>();
 
 const TabNavigation = () => {
+  const {t} = useTranslation();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -31,7 +33,7 @@ const TabNavigation = () => {
           tabBarIcon: color => {
             return <Ionicons name="home-sharp" size={20} color={color.color} />;
           },
-          title: 'Главная',
+          title: `${t('mainScreen')}`,
         }}
       />
       <Tab.Screen
@@ -41,7 +43,7 @@ const TabNavigation = () => {
           tabBarIcon: color => {
             return <Ionicons name="time" size={20} color={color.color} />;
           },
-          title: 'Нопоминание',
+          title: `${t('reminder')}`,
         }}
       />
       <Tab.Screen
@@ -51,7 +53,7 @@ const TabNavigation = () => {
           tabBarIcon: color => {
             return <Ionicons name="heart" size={18} color={color.color} />;
           },
-          title: 'Избранное',
+          title: `${t('favorite')}`,
         }}
       />
       <Tab.Screen
@@ -61,7 +63,7 @@ const TabNavigation = () => {
           tabBarIcon: color => {
             return <Ionicons name="person" size={18} color={color.color} />;
           },
-          title: 'Профилиль',
+          title: `${t('profile')}`,
         }}
       />
     </Tab.Navigator>

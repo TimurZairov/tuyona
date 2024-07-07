@@ -5,12 +5,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import {COLORS, SIZES, height} from '../../theme/theme';
+import {useTranslation} from 'react-i18next';
 
 const Header = () => {
+  const {t} = useTranslation();
+
   return (
     <View style={styles.header}>
       <View style={styles.searchContainer}>
@@ -19,9 +23,10 @@ const Header = () => {
           size={SIZES.medium}
           color={COLORS.lightGray}
         />
-        <TextInput placeholder="Быстрый поиск" style={styles.input} />
+        <TextInput placeholder={t('search').toString()} style={styles.input} />
       </View>
-      <TouchableOpacity activeOpacity={0.7} style={styles.notification}>
+      {/* Notification */}
+      {/* <TouchableOpacity activeOpacity={0.7} style={styles.notification}>
         <Ionicons
           name="notifications"
           color={COLORS.blackColor}
@@ -30,6 +35,18 @@ const Header = () => {
         <View style={styles.notificationNum}>
           <Text style={styles.notificationText}>4</Text>
         </View>
+      </TouchableOpacity> */}
+
+      {/* Filter */}
+      <TouchableOpacity activeOpacity={0.7} style={styles.notification}>
+        <FontAwesome6
+          name="sliders"
+          color={COLORS.blackColor}
+          size={SIZES.h2.md}
+        />
+        {/* <View style={styles.notificationNum}>
+          <Text style={styles.notificationText}>4</Text>
+        </View> */}
       </TouchableOpacity>
     </View>
   );

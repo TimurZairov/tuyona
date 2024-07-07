@@ -13,14 +13,14 @@ import {
 type AppContextType = {
   accessToken: unknown | string;
   setAccessToken: Dispatch<SetStateAction<string | null>>;
-  language: unknown | string;
-  setLanguage: Dispatch<SetStateAction<string | null>>;
+  language: string;
+  setLanguage: Dispatch<SetStateAction<string>>;
 };
 
 const AppContext = createContext<AppContextType>({
   accessToken: null,
   setAccessToken: () => {},
-  language: null,
+  language: 'ru',
   setLanguage: () => {},
 });
 
@@ -30,7 +30,7 @@ type TAppContextProvider = {
 
 export const AppContextProvider = ({children}: TAppContextProvider) => {
   const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [language, setLanguage] = useState<string | null>(null);
+  const [language, setLanguage] = useState<string>('ru');
 
   useEffect(() => {
     (async () => {
