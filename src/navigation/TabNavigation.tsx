@@ -9,6 +9,7 @@ import {COLORS} from '../theme/theme';
 import {TabNavigationStack} from './types';
 import {Platform} from 'react-native';
 import {useTranslation} from 'react-i18next';
+import CartScreen from '../screens/CartScreen/CartScreen';
 
 const Tab = createBottomTabNavigator<TabNavigationStack>();
 
@@ -54,6 +55,16 @@ const TabNavigation = () => {
             return <Ionicons name="heart" size={18} color={color.color} />;
           },
           title: `${t('favorite')}`,
+        }}
+      />
+      <Tab.Screen
+        name="Cart"
+        component={CartScreen}
+        options={{
+          tabBarIcon: color => {
+            return <Ionicons name="cart" size={18} color={color.color} />;
+          },
+          title: `${t('cart')}`,
         }}
       />
       <Tab.Screen

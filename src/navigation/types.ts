@@ -12,6 +12,7 @@ export type TabNavigationStack = {
   Reminder: undefined;
   Favorite: undefined;
   Profile: undefined;
+  Cart: undefined;
 };
 
 export type ProfileNavigationProp = NativeStackNavigationProp<

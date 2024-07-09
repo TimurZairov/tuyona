@@ -33,10 +33,11 @@ const MainScreen = () => {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          'accept-Language': language,
+          'Accept-language': language,
         },
       });
       const services = await res.json();
+      console.log(services);
     })();
   }, []);
   return (

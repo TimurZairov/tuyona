@@ -12,7 +12,7 @@ export const getMethodApi = async (
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: token ? 'Bearer ' + token : '',
-        'accept-Language': language,
+        'Accept-language': language,
       },
     });
     return await response.json();
