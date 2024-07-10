@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {Cart} from '../../../types/types';
-import {getCart} from '../actions/cartAction';
+import {getCartAction} from '../actions/cartAction';
 
 interface ICart {
   cart: Cart[];
@@ -17,10 +17,10 @@ const cartSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(getCart.fulfilled, (state, action) => {
+    builder.addCase(getCartAction.fulfilled, (state, action) => {
       state.cart = action.payload;
     });
-    builder.addCase(getCart.rejected, (state, action) => {
+    builder.addCase(getCartAction.rejected, (state, action) => {
       state.error = action.payload;
     });
   },

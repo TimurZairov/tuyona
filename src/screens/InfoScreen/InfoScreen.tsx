@@ -1,15 +1,62 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {COLORS, SIZES, height, width} from '../../theme/theme';
 import ServiceCard from '../../components/ServiceCard/ServiceCard';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {useNavigation} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import Button from '../../components/Button/Button';
+import {useAppContext} from '../../providers/context/context';
+import {useAppDispatch} from '../../providers/redux/type';
+import {addToCartAction} from '../../providers/redux/actions/cartAction';
+import Toast from 'react-native-toast-message';
+
+//types for routes params
+interface InfoRouteParams {
+  id: string;
+}
+type InfoScreenRouteProp = RouteProp<{Info: InfoRouteParams}, 'Info'>;
 
 const InfoScreen = () => {
+  const [loading, setLoading] = useState(false);
+
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
+  const route = useRoute<InfoScreenRouteProp>();
+  const {accessToken} = useAppContext();
+  const dispatch = useAppDispatch();
+
+  const {id} = route.params;
+
+  const addToCart = async () => {
+    if (loading) {
+      return;
+    }
+    setLoading(true);
+    const newItem = {
+      service: id,
+      count: '1.00',
+    };
+
+    try {
+      if (!accessToken || accessToken === null || accessToken === undefined) {
+        Toast.show({
+          type: 'info',
+          text1: 'Ошибка',
+          text2:
+            'Вы не авторизованны, пройдите авторзацию или зарегистрируйтесь ',
+        });
+      }
+      await dispatch(
+        addToCartAction({token: accessToken!.toString(), data: newItem}),
+      );
+    } catch (error) {
+      console.log('info screen', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <View style={styles.info}>
@@ -66,7 +113,13 @@ const InfoScreen = () => {
         {/* Service */}
         <Text style={styles.service}>Услуги</Text>
         <ServiceCard />
-        <ServiceCard />
+        {/* CHECK */}
+        <Button
+          style={{borderRadius: 8}}
+          textStyle={{color: COLORS.mainColor}}
+          onPress={addToCart}>
+          Добавить в корзину
+        </Button>
       </View>
     </View>
   );

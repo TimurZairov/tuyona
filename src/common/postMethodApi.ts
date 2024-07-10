@@ -1,23 +1,23 @@
 import {BASE_URL} from '../config/config';
 
-export const getMethodApi = async (
+export const postMethodApi = async (
   endpoint: string,
-  language: string,
-  token?: string | undefined,
+  data: Object,
+  token: string,
 ) => {
-  console.log(endpoint, language);
+  console.log(endpoint, token);
   try {
     const response = await fetch(BASE_URL + endpoint, {
-      method: 'GET',
+      method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Accept-language': language,
-        Authorization: token ? 'Bearer ' + token : '',
+        Authorization: 'Bearer ' + token,
       },
+      body: JSON.stringify(data),
     });
     return await response.json();
   } catch (error) {
-    console.log('getMethodApi', error);
+    console.log('postMethodApi', error);
   }
 };

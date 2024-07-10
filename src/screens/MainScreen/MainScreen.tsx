@@ -1,11 +1,4 @@
-import {
-  SafeAreaView,
-  StyleSheet,
-  Image,
-  View,
-  ScrollView,
-  Platform,
-} from 'react-native';
+import {SafeAreaView, StyleSheet, Image, View, ScrollView} from 'react-native';
 import React, {useEffect} from 'react';
 import {COLORS, SIZES, height, width} from '../../theme/theme';
 import Carousel from 'react-native-reanimated-carousel';
@@ -15,30 +8,21 @@ import ScrollButton from '../../components/ScrollButton/ScrollButton';
 import MainTitle from '../../components/MainTitle/MainTitle';
 import MainCardList from '../../components/MainCardList/MainCardList';
 import RestaurantCard from '../../components/RestaurantCard/RestaurantCard';
-import {useAppSelector} from '../../providers/redux/type';
+import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
 import {useTranslation} from 'react-i18next';
-import {BASE_URL} from '../../config/config';
 import {useAppContext} from '../../providers/context/context';
+import {getServices} from '../../providers/redux/actions/servicesAction';
 
 const MainScreen = () => {
   const {user} = useAppSelector(state => state.user);
   const {t} = useTranslation();
+
   const {language} = useAppContext();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     //get services
-    (async () => {
-      const res = await fetch(BASE_URL + '/services/', {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'Accept-language': language,
-        },
-      });
-      const services = await res.json();
-      console.log(services);
-    })();
+    dispatch(getServices({language}));
   }, []);
   return (
     <SafeAreaView style={styles.main}>
@@ -108,10 +92,10 @@ const MainScreen = () => {
 
         {/*  */}
 
-        <MainTitle title={t('singers')} />
+        {/* <MainTitle title={t('singers')} />
         <View style={styles.cardListContainer}>
           <MainCardList />
-        </View>
+        </View> */}
       </ScrollView>
     </SafeAreaView>
   );

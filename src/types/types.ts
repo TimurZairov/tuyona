@@ -32,6 +32,28 @@ export type Cart = {
   };
 };
 
+export type Service = {
+  id: number;
+  service_provider: number;
+  title: string;
+  short_description: string;
+  price: string;
+  price_with_discount: string;
+  position: number;
+  is_quantitative: boolean;
+  promotion: null;
+  categories: [
+    {
+      id: number;
+      title: string;
+      icon: null;
+      photo: null;
+    },
+  ];
+  photos: [];
+  in_wishlist: boolean;
+};
+
 // {
 //   "id": 0,
 //   "user": 0,
@@ -46,4 +68,26 @@ export type Cart = {
 //   "total": "-.66",
 //   "total_with_discount": "9150812887585.",
 //   "is_quantitative": true
+// }
+
+// {
+//   "id": 33,
+//   "service_provider": 2,
+//   "title": "Музыкальные Поздравления",
+//   "short_description": "Персонализированные песни и музыкальные поздравления.",
+//   "price": "800000.00",
+//   "price_with_discount": "800000.00",
+//   "position": 0,
+//   "is_quantitative": true,
+//   "promotion": null,
+//   "categories": [
+//     {
+//       "id": 4,
+//       "title": "Певцы",
+//       "icon": null,
+//       "photo": null
+//     }
+//   ],
+//   "photos": [],
+//   "in_wishlist": false
 // }

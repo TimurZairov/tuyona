@@ -15,6 +15,13 @@ export type TabNavigationStack = {
   Cart: undefined;
 };
 
+export type MainNavigationStack = {
+  Main: undefined;
+  Info: {
+    id: number;
+  };
+};
+
 export type ProfileNavigationProp = NativeStackNavigationProp<
   RootNavigationStack,
   'Register'
@@ -23,4 +30,8 @@ export type ProfileNavigationProp = NativeStackNavigationProp<
 export type RegisterNavigationProp = NativeStackNavigationProp<
   RootNavigationStack,
   'Tab'
+>;
+export type InfoNavigationProp = NativeStackNavigationProp<
+  MainNavigationStack,
+  'Info'
 >;

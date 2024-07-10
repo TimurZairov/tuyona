@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
 import {useAppContext} from '../../providers/context/context';
-import {getCart} from '../../providers/redux/actions/cartAction';
+import {getCartAction} from '../../providers/redux/actions/cartAction';
 
 const CartScreen = () => {
   const insets = useSafeAreaInsets();
@@ -16,9 +16,11 @@ const CartScreen = () => {
 
   useEffect(() => {
     if (accessToken) {
-      dispatch(getCart({accessToken: accessToken.toString(), language}));
+      dispatch(getCartAction({accessToken: accessToken.toString(), language}));
     }
   }, [accessToken]);
+
+  console.log(cart);
 
   return (
     <View style={styles.favorite}>

@@ -3,21 +3,18 @@ import React from 'react';
 import {COLORS, SIZES, width} from '../../theme/theme';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
+import {Service} from '../../types/types';
+import {InfoNavigationProp, MainNavigationStack} from '../../navigation/types';
 
 type Card = {
-  item: {
-    name: string;
-    url: string;
-    price: string;
-    services: string[];
-  };
+  item: Service;
 };
 
 const Card = ({item}: Card) => {
-  const navigation = useNavigation();
-  //TYPES navigation todo
+  const navigation = useNavigation<InfoNavigationProp>();
+
   const infoNavigationScreen = () => {
-    navigation.navigate('Info');
+    navigation.navigate('Info', {id: item.id});
   };
 
   return (
@@ -25,15 +22,8 @@ const Card = ({item}: Card) => {
       <View style={styles.like}>
         <AntDesign name="hearto" color={COLORS.blueColor} size={SIZES.large} />
       </View>
-      <Image source={{uri: item.url}} style={styles.image} />
-      <Text style={styles.name}>{item.name}</Text>
-      {item.services.map(text => {
-        return (
-          <View key={text} style={styles.services}>
-            <Text style={styles.text}>{text}...</Text>
-          </View>
-        );
-      })}
+      <Image source={{uri: item?.url}} style={styles.image} />
+      <Text style={styles.name}>{item.title}</Text>
       <View style={styles.btn}>
         <Text>{item.price}</Text>
       </View>
@@ -66,7 +56,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   name: {
-    fontSize: SIZES.h4.sm,
+    fontSize: SIZES.h5.sm,
     fontWeight: '600',
     marginTop: 10,
     color: COLORS.blackColor,
