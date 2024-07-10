@@ -10,11 +10,14 @@ import {TabNavigationStack} from './types';
 import {Platform} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import CartScreen from '../screens/CartScreen/CartScreen';
+import {useAppSelector} from '../providers/redux/type';
 
 const Tab = createBottomTabNavigator<TabNavigationStack>();
 
 const TabNavigation = () => {
   const {t} = useTranslation();
+  const {cart} = useAppSelector(state => state.cart);
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -65,6 +68,7 @@ const TabNavigation = () => {
             return <Ionicons name="cart" size={18} color={color.color} />;
           },
           title: `${t('cart')}`,
+          tabBarBadge: cart.length === 0 ? undefined : cart.length,
         }}
       />
       <Tab.Screen

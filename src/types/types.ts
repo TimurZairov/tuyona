@@ -21,15 +21,19 @@ export type Cart = {
   user: number;
   service: {
     id: number;
-    service_provider: number;
+    service_provider: {
+      id: number;
+      name: string;
+      short_description: string;
+    };
     title: string;
-    count: string;
-    price: string;
-    price_with_discount: string;
-    total: string;
-    total_with_discount: string;
-    is_quantitative: boolean;
   };
+  count: string;
+  price: string;
+  price_with_discount: string;
+  total: string;
+  total_with_discount: string;
+  is_quantitative: boolean;
 };
 
 export type Service = {
@@ -53,6 +57,26 @@ export type Service = {
   photos: [];
   in_wishlist: boolean;
 };
+
+// {
+//   "id": 10,
+//   "user": 5,
+//   "service": {
+//     "id": 30,
+//     "service_provider": {
+//       "id": 1,
+//       "name": "Маруфжон Хужакулов",
+//       "short_description": "Талантливый узбекский ведущий, известный своим обаянием, профессионализмом и способностью создавать уникальную атмосферу на любом мероприятии."
+//     },
+//     "title": "Профессиональное ведение выступлений"
+//   },
+//   "count": "1.00",
+//   "price": "1000000.00",
+//   "price_with_discount": "1000000.00",
+//   "total": "1000000.00",
+//   "total_with_discount": "1000000.00",
+//   "is_quantitative": false
+// }
 
 // {
 //   "id": 0,

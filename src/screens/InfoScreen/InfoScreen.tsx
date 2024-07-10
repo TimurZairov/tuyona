@@ -9,7 +9,10 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Button from '../../components/Button/Button';
 import {useAppContext} from '../../providers/context/context';
 import {useAppDispatch} from '../../providers/redux/type';
-import {addToCartAction} from '../../providers/redux/actions/cartAction';
+import {
+  addToCartAction,
+  getCartAction,
+} from '../../providers/redux/actions/cartAction';
 import Toast from 'react-native-toast-message';
 
 //types for routes params
@@ -24,7 +27,7 @@ const InfoScreen = () => {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
   const route = useRoute<InfoScreenRouteProp>();
-  const {accessToken} = useAppContext();
+  const {accessToken, language} = useAppContext();
   const dispatch = useAppDispatch();
 
   const {id} = route.params;
@@ -55,6 +58,10 @@ const InfoScreen = () => {
       console.log('info screen', error);
     } finally {
       setLoading(false);
+      if (!accessToken) {
+        return;
+      }
+      dispatch(getCartAction({accessToken: accessToken!.toString(), language}));
     }
   };
 

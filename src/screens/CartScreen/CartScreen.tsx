@@ -1,15 +1,18 @@
-import {Platform, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect} from 'react';
+import {FlatList, Platform, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {COLORS, SIZES} from '../../theme/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
 import {useAppContext} from '../../providers/context/context';
 import {getCartAction} from '../../providers/redux/actions/cartAction';
+import Button from '../../components/Button/Button';
+import {BASE_URL} from '../../config/config';
 
 const CartScreen = () => {
   const insets = useSafeAreaInsets();
   const {accessToken, language} = useAppContext();
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useAppDispatch();
   const {cart} = useAppSelector(state => state.cart);
@@ -18,7 +21,31 @@ const CartScreen = () => {
     if (accessToken) {
       dispatch(getCartAction({accessToken: accessToken.toString(), language}));
     }
-  }, [cart.length]);
+  }, []);
+  //rewrite TODO
+  const removeCartItem = async (id: any) => {
+    if (loading) {
+      return;
+    }
+    setLoading(true);
+    cart.filter(item => {});
+    try {
+      const response = await fetch(BASE_URL + `/cart/${id}/`, {
+        method: 'DELETE',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + accessToken,
+        },
+      });
+      console.log(response);
+      dispatch(getCartAction({accessToken: accessToken!.toString(), language}));
+    } catch (error) {
+      console.log('CartScreen', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <View style={styles.favorite}>
@@ -32,7 +59,22 @@ const CartScreen = () => {
       </View>
       {/* BODY */}
       {cart && cart.length > 0 ? (
-        <Text>Cart not empty</Text>
+        <FlatList
+          data={cart || []}
+          contentContainerStyle={{padding: 8}}
+          renderItem={({item}) => {
+            return (
+              <View style={styles.cart}>
+                <View style={{width: '60%'}}>
+                  <Text>{item.service.title}</Text>
+                  <Text>{item.price}</Text>
+                  <Text>{item.service.service_provider.name}</Text>
+                </View>
+                <Button onPress={() => removeCartItem(item.id)}>удалить</Button>
+              </View>
+            );
+          }}
+        />
       ) : (
         // EMPTY CART
         <View style={styles.body}>
@@ -92,5 +134,14 @@ const styles = StyleSheet.create({
     fontSize: SIZES.medium,
     color: COLORS.blackColor,
     fontWeight: '300',
+  },
+  cart: {
+    marginBottom: 10,
+    borderWidth: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
 });
