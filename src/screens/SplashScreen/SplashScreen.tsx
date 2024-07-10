@@ -3,6 +3,10 @@ import React, {useEffect} from 'react';
 import useRefreshAccessToken from '../../common/hooks/useRefreshAccessToken';
 import {useTranslation} from 'react-i18next';
 import '../../common/services/i18next';
+import {getCartAction} from '../../providers/redux/actions/cartAction';
+import {useAppDispatch} from '../../providers/redux/type';
+import {useAppContext} from '../../providers/context/context';
+
 const SplashScreen = ({navigation}: any) => {
   const {isReady} = useRefreshAccessToken();
   const {t} = useTranslation();

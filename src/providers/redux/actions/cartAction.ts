@@ -16,7 +16,7 @@ export const getCartAction = createAsyncThunk(
     if (!cart) {
       throw new Error('Что то пошло не так...');
     }
-    console.log(cart);
+
     return cart;
   },
 );
@@ -28,7 +28,7 @@ export const addToCartAction = createAsyncThunk(
     if (!result) {
       throw new Error('Что то пошло не так...');
     }
-    console.log(result);
+
     return await result;
   },
 );

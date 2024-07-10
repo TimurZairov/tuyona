@@ -18,9 +18,7 @@ const CartScreen = () => {
     if (accessToken) {
       dispatch(getCartAction({accessToken: accessToken.toString(), language}));
     }
-  }, [accessToken]);
-
-  console.log(cart);
+  }, [cart.length]);
 
   return (
     <View style={styles.favorite}>
@@ -33,13 +31,17 @@ const CartScreen = () => {
         <Text style={styles.title}>Корзина</Text>
       </View>
       {/* BODY */}
-      <View style={styles.body}>
-        <View style={styles.iconWrapper}>
-          <Ionicons name="cart" size={60} color={COLORS.mainColor} />
+      {cart && cart.length > 0 ? (
+        <Text>Cart not empty</Text>
+      ) : (
+        // EMPTY CART
+        <View style={styles.body}>
+          <View style={styles.iconWrapper}>
+            <Ionicons name="cart" size={60} color={COLORS.mainColor} />
+          </View>
+          <Text style={styles.title}>Корина пуста</Text>
         </View>
-        <Text style={styles.title}>Корина пуста</Text>
-        {/* <Text style={styles.subTitle}>У вас еще нет новых напоминаний</Text> */}
-      </View>
+      )}
     </View>
   );
 };
