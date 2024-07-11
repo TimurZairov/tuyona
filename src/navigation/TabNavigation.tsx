@@ -40,7 +40,7 @@ const TabNavigation = () => {
           title: `${t('mainScreen')}`,
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Reminder"
         component={ReminderScreen}
         options={{
@@ -49,7 +49,7 @@ const TabNavigation = () => {
           },
           title: `${t('reminder')}`,
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Favorite"
         component={FavoriteScreen}

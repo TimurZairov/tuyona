@@ -10,7 +10,7 @@ export const SLIDER_DATA = [
 
 export const CATEGORY = ['Рестораны', 'Знаменитости', 'Фотографы'];
 export const FOOD_CATEGORY = [
-  {title: 'Фильтры', image: require('../assets/image/filter.png')},
+  // {title: 'Фильтры', image: require('../assets/image/filter.png')},
   {title: 'Акции', image: require('../assets/image/sale.png')},
   {title: 'Стейк', image: require('../assets/image/desert.png')},
   {title: 'Десерт', image: require('../assets/image/meat.png')},

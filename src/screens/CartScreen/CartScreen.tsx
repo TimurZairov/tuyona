@@ -8,6 +8,7 @@ import {useAppContext} from '../../providers/context/context';
 import {getCartAction} from '../../providers/redux/actions/cartAction';
 import Button from '../../components/Button/Button';
 import {BASE_URL} from '../../config/config';
+import {filterCart} from '../../providers/redux/slices/cartSlice';
 
 const CartScreen = () => {
   const insets = useSafeAreaInsets();
@@ -28,7 +29,10 @@ const CartScreen = () => {
       return;
     }
     setLoading(true);
-    cart.filter(item => {});
+    const filtered = cart.filter(item => {
+      return item.id !== id;
+    });
+    dispatch(filterCart(filtered));
     try {
       const response = await fetch(BASE_URL + `/cart/${id}/`, {
         method: 'DELETE',
@@ -39,7 +43,9 @@ const CartScreen = () => {
         },
       });
       console.log(response);
-      dispatch(getCartAction({accessToken: accessToken!.toString(), language}));
+      await dispatch(
+        getCartAction({accessToken: accessToken!.toString(), language}),
+      );
     } catch (error) {
       console.log('CartScreen', error);
     } finally {
@@ -88,7 +94,7 @@ const CartScreen = () => {
   );
 };
 
-export default CartScreen;
+export default React.memo(CartScreen);
 
 const styles = StyleSheet.create({
   favorite: {

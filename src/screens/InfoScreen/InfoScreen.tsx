@@ -14,6 +14,10 @@ import {
   getCartAction,
 } from '../../providers/redux/actions/cartAction';
 import Toast from 'react-native-toast-message';
+import {
+  addToWishList,
+  wishListAction,
+} from '../../providers/redux/actions/wishListAction';
 
 //types for routes params
 interface InfoRouteParams {
@@ -31,7 +35,7 @@ const InfoScreen = () => {
   const dispatch = useAppDispatch();
 
   const {id} = route.params;
-
+  //ADD TO CART ITEMS
   const addToCart = async () => {
     if (loading) {
       return;
@@ -65,6 +69,38 @@ const InfoScreen = () => {
     }
   };
 
+  //ADD TO WISHLIST
+  const addToWishListItems = async () => {
+    if (loading) {
+      return;
+    }
+
+    setLoading(true);
+    const newItem = {
+      service: id,
+    };
+
+    try {
+      if (!accessToken || accessToken === null || accessToken === undefined) {
+        Toast.show({
+          type: 'info',
+          text1: 'Ошибка',
+          text2:
+            'Вы не авторизованны, пройдите авторзацию или зарегистрируйтесь ',
+        });
+      }
+      await dispatch(addToWishList({data: newItem, token: accessToken}));
+    } catch (error) {
+      console.log('info screen add to wishlist', error);
+    } finally {
+      setLoading(false);
+      //todo
+      await dispatch(
+        wishListAction({accessToken: accessToken!.toString(), language}),
+      );
+    }
+  };
+
   return (
     <View style={styles.info}>
       {/* Navigation */}
@@ -82,7 +118,7 @@ const InfoScreen = () => {
         {/* CONTact */}
         <View style={styles.contact}>
           {/*  */}
-          <TouchableOpacity style={styles.btn}>
+          <TouchableOpacity style={styles.btn} onPress={addToWishListItems}>
             <Ionicons
               name="heart-outline"
               size={SIZES.large}

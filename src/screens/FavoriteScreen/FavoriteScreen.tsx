@@ -1,13 +1,17 @@
-import {Platform, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect} from 'react';
+import {FlatList, Platform, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {COLORS, SIZES} from '../../theme/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useAppContext} from '../../providers/context/context';
 import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
 import {wishListAction} from '../../providers/redux/actions/wishListAction';
+import Button from '../../components/Button/Button';
+import {BASE_URL} from '../../config/config';
 
 const FavoriteScreen = () => {
+  const [loading, setLoading] = useState(false);
+
   const insets = useSafeAreaInsets();
   const dispatch = useAppDispatch();
   const {accessToken, language} = useAppContext();
@@ -20,6 +24,32 @@ const FavoriteScreen = () => {
     }
   }, [accessToken]);
 
+  const removeFromWishList = async (id: any) => {
+    if (loading) {
+      return;
+    }
+    setLoading(true);
+
+    try {
+      await fetch(BASE_URL + `/wishlist/${id}/`, {
+        method: 'DELETE',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + accessToken,
+        },
+      });
+
+      await dispatch(
+        wishListAction({accessToken: accessToken!.toString(), language}),
+      );
+    } catch (error) {
+      console.log('CartScreen', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <View style={styles.favorite}>
       {/* Header */}
@@ -31,13 +61,36 @@ const FavoriteScreen = () => {
         <Text style={styles.title}>Избранное</Text>
       </View>
       {/* BODY */}
-      <View style={styles.body}>
-        <View style={styles.iconWrapper}>
-          <Ionicons name="heart" size={60} color={COLORS.mainColor} />
+
+      {wishList && wishList.length > 0 ? (
+        <FlatList
+          data={wishList || []}
+          contentContainerStyle={{padding: 8}}
+          renderItem={({item}) => {
+            return (
+              <View style={styles.cart}>
+                <View style={{width: '60%'}}>
+                  <Text>{item.service.title}</Text>
+                  <Text>{item.service.service_provider.short_description}</Text>
+                  <Text>{item.service.service_provider.name}</Text>
+                </View>
+                <Button onPress={() => removeFromWishList(item.id)}>
+                  удалить
+                </Button>
+              </View>
+            );
+          }}
+        />
+      ) : (
+        // EMPTY CART
+        <View style={styles.body}>
+          <View style={styles.iconWrapper}>
+            <Ionicons name="heart" size={60} color={COLORS.mainColor} />
+          </View>
+          <Text style={styles.title}>Список избранных пуст</Text>
+          <Text style={styles.subTitle}>У вас еще нет новых напоминаний</Text>
         </View>
-        <Text style={styles.title}>Список избранных пуст</Text>
-        <Text style={styles.subTitle}>У вас еще нет новых напоминаний</Text>
-      </View>
+      )}
     </View>
   );
 };
@@ -88,5 +141,17 @@ const styles = StyleSheet.create({
     fontSize: SIZES.medium,
     color: COLORS.blackColor,
     fontWeight: '300',
+  },
+
+  //
+
+  cart: {
+    marginBottom: 10,
+    borderWidth: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
 });
