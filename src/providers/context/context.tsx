@@ -9,12 +9,15 @@ import {
   useEffect,
   useState,
 } from 'react';
+import {getMethodApi} from '../../common/getMethodApi';
+import {Category} from '../../types/types';
 
 type AppContextType = {
   accessToken: unknown | string;
   setAccessToken: Dispatch<SetStateAction<string | null>>;
   language: string;
   setLanguage: Dispatch<SetStateAction<string>>;
+  categories: Category[];
 };
 
 const AppContext = createContext<AppContextType>({
@@ -22,6 +25,7 @@ const AppContext = createContext<AppContextType>({
   setAccessToken: () => {},
   language: 'ru',
   setLanguage: () => {},
+  categories: [],
 });
 
 type TAppContextProvider = {
@@ -31,7 +35,8 @@ type TAppContextProvider = {
 export const AppContextProvider = ({children}: TAppContextProvider) => {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [language, setLanguage] = useState<string>('ru');
-
+  const [categories, setCategories] = useState([]);
+  //LANGUAGE
   useEffect(() => {
     (async () => {
       const isLanguage = await AsyncStorage.getItem('currentLanguage');
@@ -44,9 +49,25 @@ export const AppContextProvider = ({children}: TAppContextProvider) => {
     })();
   }, []);
 
+  //CATEGORIES
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await getMethodApi('/service-categories/', language);
+        if (!response) {
+          throw new Error('категории отсутствуют');
+        }
+        setCategories(response);
+      } catch (error) {
+        console.log('getCategories', error);
+      }
+    })();
+  }, []);
+
   return (
     <AppContext.Provider
-      value={{accessToken, setAccessToken, language, setLanguage}}>
+      value={{accessToken, setAccessToken, language, setLanguage, categories}}>
       {children}
     </AppContext.Provider>
   );

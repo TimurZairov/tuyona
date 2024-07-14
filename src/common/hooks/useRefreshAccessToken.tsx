@@ -8,10 +8,10 @@ import {getUser} from '../getUserApi';
 import useMainData from './useMainData';
 
 const useRefreshAccessToken = () => {
-  const {setAccessToken} = useAppContext();
+  const {setAccessToken, language} = useAppContext();
   const dispatch = useAppDispatch();
   const [isReady, setIsReady] = useState(false);
-  const {isDone} = useMainData();
+  const {isDone, banners} = useMainData();
 
   useEffect(() => {
     (async () => {
@@ -47,6 +47,7 @@ const useRefreshAccessToken = () => {
           dispatch(logOutUser());
           return;
         }
+
         //GET USER
         const isUser = await getUser(newToken?.access);
         if (!isUser) {
@@ -69,7 +70,7 @@ const useRefreshAccessToken = () => {
     };
   }, []);
 
-  return {isReady, isDone};
+  return {isReady, isDone, banners};
 };
 
 export default useRefreshAccessToken;

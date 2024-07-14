@@ -8,7 +8,7 @@ import {useAppDispatch} from '../../providers/redux/type';
 import {useAppContext} from '../../providers/context/context';
 
 const SplashScreen = ({navigation}: any) => {
-  const {isReady} = useRefreshAccessToken();
+  const {isReady, isDone, banners} = useRefreshAccessToken();
   const {t} = useTranslation();
 
   // useEffect(() => {
@@ -21,7 +21,7 @@ const SplashScreen = ({navigation}: any) => {
   // }, []);
 
   useEffect(() => {
-    if (isReady) {
+    if (isReady && isDone && banners) {
       navigation.replace('Tab');
     }
   }, [isReady]);

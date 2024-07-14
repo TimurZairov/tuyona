@@ -15,6 +15,12 @@ export type WishList = {
   };
   created_at: Date;
 };
+export type Category = {
+  icon: string | null;
+  id: number;
+  photo: string | null;
+  title: string;
+};
 
 export type Cart = {
   id: number;

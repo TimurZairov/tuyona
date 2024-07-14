@@ -2,7 +2,6 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 import MainNavigation from './MainNavigation';
-import ReminderScreen from '../screens/ReminderScreen/ReminderScreen';
 import FavoriteScreen from '../screens/FavoriteScreen/FavoriteScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {COLORS} from '../theme/theme';

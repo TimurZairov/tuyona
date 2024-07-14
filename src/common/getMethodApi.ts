@@ -16,6 +16,7 @@ export const getMethodApi = async (
         Authorization: token ? 'Bearer ' + token : '',
       },
     });
+
     return await response.json();
   } catch (error) {
     console.log('getMethodApi', error);

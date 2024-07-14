@@ -1,4 +1,11 @@
-import {SafeAreaView, StyleSheet, Image, View, ScrollView} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Image,
+  View,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 import React, {useEffect} from 'react';
 import {COLORS, SIZES, height, width} from '../../theme/theme';
 import Carousel from 'react-native-reanimated-carousel';
@@ -15,9 +22,12 @@ import {getServices} from '../../providers/redux/actions/servicesAction';
 
 const MainScreen = () => {
   const {user} = useAppSelector(state => state.user);
-  const {t} = useTranslation();
+  const {banners} = useAppSelector(state => state.banners);
 
-  const {language} = useAppContext();
+  const {t} = useTranslation();
+  const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
+
+  const {language, categories} = useAppContext();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -36,8 +46,8 @@ const MainScreen = () => {
           {/* CHECK width or height app crashes */}
           <Carousel
             loop
-            width={width}
-            height={height / 4}
+            width={screenWidth}
+            height={screenHeight / 4}
             mode="parallax"
             autoPlay={true}
             modeConfig={{
@@ -108,9 +118,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.grayColor,
   },
-  mainScroll: {
-    marginBottom: 16,
-  },
+  mainScroll: {},
 
   container: {width: width, height: height / 5},
   sliderCard: {
@@ -126,7 +134,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  cardListContainer: {},
+  cardListContainer: {
+    marginBottom: 16,
+  },
   categories: {
     justifyContent: 'space-between',
     width: width,
