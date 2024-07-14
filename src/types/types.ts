@@ -13,6 +13,16 @@ export type Banner = {
   target_url: string;
 };
 
+export interface ICategory {
+  category: {
+    title: string;
+    photo: string | null;
+    icon: string | null;
+    id: number;
+  };
+  food?: boolean;
+}
+
 export type WishList = {
   id: number;
   service: {

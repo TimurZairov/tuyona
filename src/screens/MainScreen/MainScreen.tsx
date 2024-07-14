@@ -20,6 +20,7 @@ import {useTranslation} from 'react-i18next';
 import {useAppContext} from '../../providers/context/context';
 import {getServices} from '../../providers/redux/actions/servicesAction';
 import {Banner} from '../../types/types';
+import CategoryCard from '../../components/CategoryCard/CategoryCard';
 
 const MainScreen = () => {
   const {user} = useAppSelector(state => state.user);
@@ -84,14 +85,19 @@ const MainScreen = () => {
         </View>
 
         <View>
-          <MainTitle title={t('restaurants')} />
+          {/* <MainTitle title={t('restaurants')} /> */}
 
           {/* restaurants scroll  */}
-          <ScrollView showsHorizontalScrollIndicator={false}>
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{paddingHorizontal: 8, paddingTop: 16}}>
             {categories &&
-              categories.map((res, index) => {
+              categories.map((category, index) => {
                 return (
-                  <RestaurantCard key={`${res}-${index}`} restaurant={res} />
+                  <CategoryCard
+                    key={`${category}-${index}`}
+                    category={category}
+                  />
                 );
               })}
           </ScrollView>

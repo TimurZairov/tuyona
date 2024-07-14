@@ -1,28 +1,25 @@
-import {Image, ImageSourcePropType, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  ImageSourcePropType,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React from 'react';
 import {COLORS} from '../../theme/theme';
 import {SvgUri} from 'react-native-svg';
-// import SvgUri from 'react-native-svg-uri';
+import {ICategory} from '../../types/types';
 
-interface ITitle {
-  category: {
-    title: string;
-    photo: string | null;
-    icon: string | null;
-    id: number;
-  };
-  food?: boolean;
-}
-
-const ScrollButton = ({category, food}: ITitle) => {
+const ScrollButton = ({category, food}: ICategory) => {
   return (
     <View style={[styles.btn, {marginRight: food ? 8 : 0}]}>
-      <View style={styles.imageWrapper}>
+      <Pressable style={styles.imageWrapper}>
         {/* <Image source={category.image} style={styles.image} /> */}
         {category && category.icon && (
           <SvgUri height={70} width={70} uri={category.icon} />
         )}
-      </View>
+      </Pressable>
 
       <Text style={styles.title}>{category.title}</Text>
     </View>
