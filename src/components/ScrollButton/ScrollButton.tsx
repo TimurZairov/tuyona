@@ -1,13 +1,14 @@
 import {Image, ImageSourcePropType, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {COLORS} from '../../theme/theme';
-import SvgUri from 'react-native-svg-uri';
+import {SvgUri} from 'react-native-svg';
+// import SvgUri from 'react-native-svg-uri';
 
 interface ITitle {
   category: {
     title: string;
     photo: string | null;
-    icon: string;
+    icon: string | null;
     id: number;
   };
   food?: boolean;
@@ -19,13 +20,7 @@ const ScrollButton = ({category, food}: ITitle) => {
       <View style={styles.imageWrapper}>
         {/* <Image source={category.image} style={styles.image} /> */}
         {category && category.icon && (
-          <SvgUri
-            height={70}
-            width={70}
-            source={{
-              uri: category.icon,
-            }}
-          />
+          <SvgUri height={70} width={70} uri={category.icon} />
         )}
       </View>
 

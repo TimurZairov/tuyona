@@ -87,20 +87,21 @@ const MainScreen = () => {
           <MainTitle title={t('restaurants')} />
 
           {/* restaurants scroll  */}
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {RESTAURANTS.map((res, index) => {
-              return (
-                <RestaurantCard key={`${res}-${index}`} restaurant={res} />
-              );
-            })}
+          <ScrollView showsHorizontalScrollIndicator={false}>
+            {categories &&
+              categories.map((res, index) => {
+                return (
+                  <RestaurantCard key={`${res}-${index}`} restaurant={res} />
+                );
+              })}
           </ScrollView>
         </View>
         {/* MAIN TITLES */}
-        <MainTitle title={t('leading')} />
+        {/* <MainTitle title={t('leading')} /> */}
 
-        <View style={styles.cardListContainer}>
+        {/* <View style={styles.cardListContainer}>
           <MainCardList />
-        </View>
+        </View> */}
 
         {/*  */}
 

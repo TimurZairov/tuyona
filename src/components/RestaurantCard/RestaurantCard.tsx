@@ -6,19 +6,23 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 interface IRestaurantCard {
   restaurant: {
-    image: string;
-    sale: boolean;
-    name: string;
-    logo: string;
-    location: string;
+    category: {
+      title: string;
+      photo: string | null;
+      icon: string | null;
+      id: number;
+    };
+    food?: boolean;
   };
 }
 
 const RestaurantCard = ({restaurant}: IRestaurantCard) => {
+  console.log(restaurant);
+
   return (
     <Pressable style={styles.card}>
       {/* Main image */}
-      <Image source={{uri: restaurant.image}} style={styles.image} />
+      <Image source={{uri: restaurant?.photo}} style={styles.image} />
       {/* FOOTER */}
       <View style={styles.footer}>
         <Image source={{uri: restaurant.logo}} style={styles.logo} />
