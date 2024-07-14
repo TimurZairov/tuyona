@@ -19,6 +19,7 @@ import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
 import {useTranslation} from 'react-i18next';
 import {useAppContext} from '../../providers/context/context';
 import {getServices} from '../../providers/redux/actions/servicesAction';
+import {Banner} from '../../types/types';
 
 const MainScreen = () => {
   const {user} = useAppSelector(state => state.user);
@@ -54,11 +55,11 @@ const MainScreen = () => {
               parallaxAdjacentItemScale: 0.75,
               parallaxScrollingOffset: 77,
             }}
-            data={SLIDER_DATA}
+            data={banners}
             scrollAnimationDuration={2000}
-            renderItem={({item}) => (
+            renderItem={({item}: {item: Pick<Banner, 'photo'>}) => (
               <View style={styles.sliderCard}>
-                <Image source={{uri: item.url}} style={styles.image} />
+                <Image source={{uri: item.photo}} style={styles.image} />
               </View>
             )}
           />
@@ -69,15 +70,16 @@ const MainScreen = () => {
 
         <View style={{marginTop: 12}}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {FOOD_CATEGORY.map((category, index) => {
-              return (
-                <ScrollButton
-                  key={`${category}-${index}`}
-                  category={category}
-                  food
-                />
-              );
-            })}
+            {categories &&
+              categories.map((category, index) => {
+                return (
+                  <ScrollButton
+                    key={`${category}-${index}`}
+                    category={category}
+                    food
+                  />
+                );
+              })}
           </ScrollView>
         </View>
 

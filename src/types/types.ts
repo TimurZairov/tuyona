@@ -6,6 +6,13 @@ export type User = {
   avatar: string;
 };
 
+export type Banner = {
+  id: number;
+  photo: string;
+  position: number;
+  target_url: string;
+};
+
 export type WishList = {
   id: number;
   service: {

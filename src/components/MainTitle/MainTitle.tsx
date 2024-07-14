@@ -12,7 +12,6 @@ const MainTitle = ({title}: ITitle) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.text}>{t('all')}</Text>
     </View>
   );
 };
@@ -31,10 +30,5 @@ const styles = StyleSheet.create({
     fontSize: SIZES.h4.md,
     fontWeight: '700',
     color: COLORS.blackColor,
-  },
-  text: {
-    color: COLORS.blueColor,
-    fontSize: SIZES.small,
-    fontWeight: '400',
   },
 });

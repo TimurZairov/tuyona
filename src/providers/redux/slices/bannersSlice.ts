@@ -1,8 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {bannerAction} from '../actions/bannerAction';
+import {Banner} from '../../../types/types';
 
 interface IInitialState {
-  banners: string[];
+  banners: Banner[];
   error: Error | unknown;
 }
 
