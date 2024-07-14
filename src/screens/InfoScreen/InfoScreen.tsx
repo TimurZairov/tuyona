@@ -88,8 +88,11 @@ const InfoScreen = () => {
           text2:
             'Вы не авторизованны, пройдите авторзацию или зарегистрируйтесь ',
         });
+        return;
       }
-      await dispatch(addToWishList({data: newItem, token: accessToken}));
+      await dispatch(
+        addToWishList({data: newItem, token: accessToken!.toString()}),
+      );
     } catch (error) {
       console.log('info screen add to wishlist', error);
     } finally {

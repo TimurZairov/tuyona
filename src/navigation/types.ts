@@ -17,6 +17,7 @@ export type TabNavigationStack = {
 
 export type MainNavigationStack = {
   Main: undefined;
+  ServiceList: undefined;
   Info: {
     id: number;
   };

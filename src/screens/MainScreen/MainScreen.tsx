@@ -66,11 +66,13 @@ const MainScreen = () => {
           />
         </View>
         <Header />
-        {/* restaurants */}
-        {/*  CATEGORY  */}
 
+        {/*  CATEGORY  */}
         <View style={{marginTop: 12}}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{paddingHorizontal: 8}}>
             {categories &&
               categories.map((category, index) => {
                 return (
@@ -85,9 +87,7 @@ const MainScreen = () => {
         </View>
 
         <View>
-          {/* <MainTitle title={t('restaurants')} /> */}
-
-          {/* restaurants scroll  */}
+          {/* Categories */}
           <ScrollView
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{paddingHorizontal: 8, paddingTop: 16}}>

@@ -19,7 +19,6 @@ const MainCardList = () => {
   return (
     <FlatList
       data={services || []}
-      horizontal
       showsHorizontalScrollIndicator={false}
       removeClippedSubviews={true}
       keyExtractor={item => item.id.toString()}
@@ -36,5 +35,6 @@ export default MainCardList;
 const styles = StyleSheet.create({
   flatList: {
     paddingLeft: 8,
+    marginTop: 16,
   },
 });
