@@ -1,5 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {wishListAction} from '../actions/wishListAction';
+import {
+  addToWishList,
+  removeFromWishList,
+  wishListAction,
+} from '../actions/wishListAction';
 import {WishList} from '../../../types/types';
 
 interface IInitialState {
@@ -21,6 +25,18 @@ const wishListSlice = createSlice({
       state.wishList = action.payload;
     });
     builder.addCase(wishListAction.rejected, (state, action) => {
+      state.error = action.payload;
+    });
+    builder.addCase(addToWishList.fulfilled, (state, action) => {
+      state.wishList = action.payload;
+    });
+    builder.addCase(addToWishList.rejected, (state, action) => {
+      state.error = action.payload;
+    });
+    builder.addCase(removeFromWishList.fulfilled, (state, action) => {
+      state.wishList = action.payload;
+    });
+    builder.addCase(removeFromWishList.rejected, (state, action) => {
       state.error = action.payload;
     });
   },

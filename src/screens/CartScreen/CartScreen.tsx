@@ -70,11 +70,17 @@ const CartScreen = () => {
           contentContainerStyle={{padding: 8}}
           renderItem={({item}) => {
             return (
-              <View style={styles.cart}>
-                <View style={{width: '60%'}}>
-                  <Text>{item.service.title}</Text>
-                  <Text>{item.price}</Text>
-                  <Text>{item.service.service_provider.name}</Text>
+              <View style={styles.card}>
+                <View style={{width: '100%'}}>
+                  <View style={styles.image} />
+                  <Text style={styles.name}>
+                    {item.service.service_provider.name}
+                  </Text>
+                  <Text style={styles.name}>{item.price}</Text>
+                  <Text style={styles.title}>{item.service.title}</Text>
+                  <Text style={styles.description}>
+                    {item.service.service_provider.short_description}
+                  </Text>
                 </View>
                 <Button onPress={() => removeCartItem(item.id)}>удалить</Button>
               </View>
@@ -141,13 +147,40 @@ const styles = StyleSheet.create({
     color: COLORS.blackColor,
     fontWeight: '300',
   },
-  cart: {
+  card: {
     marginBottom: 10,
-    borderWidth: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
+    backgroundColor: COLORS.mainColor,
+    shadowColor: '#000',
+    padding: 10,
+    borderRadius: 10,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+
+    elevation: 4,
+  },
+
+  image: {
+    width: '100%',
+    height: 200,
+    backgroundColor: COLORS.grayColor,
+    marginBottom: 10,
+    borderRadius: 6,
+  },
+
+  name: {
+    fontSize: SIZES.h4.sm,
+    fontWeight: '600',
+    marginBottom: 6,
+    color: COLORS.blackColor,
+  },
+  description: {
+    fontSize: SIZES.h5.md,
+    fontWeight: '400',
+    color: COLORS.blackColor,
+    marginBottom: 10,
   },
 });

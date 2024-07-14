@@ -12,6 +12,11 @@ export type WishList = {
     id: number;
     partner: number;
     title: string;
+    service_provider: {
+      id: number;
+      name: string;
+      short_description: string;
+    };
   };
   created_at: Date;
 };
