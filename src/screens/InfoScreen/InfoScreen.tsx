@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {COLORS, SIZES, height, width} from '../../theme/theme';
 import ServiceCard from '../../components/ServiceCard/ServiceCard';
@@ -18,6 +18,7 @@ import {
   addToWishList,
   wishListAction,
 } from '../../providers/redux/actions/wishListAction';
+import {getMethodApi} from '../../common/getMethodApi';
 
 //types for routes params
 interface InfoRouteParams {
@@ -27,6 +28,7 @@ type InfoScreenRouteProp = RouteProp<{Info: InfoRouteParams}, 'Info'>;
 
 const InfoScreen = () => {
   const [loading, setLoading] = useState(false);
+  const [service, setService] = useState({});
 
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
@@ -35,6 +37,7 @@ const InfoScreen = () => {
   const dispatch = useAppDispatch();
 
   const {id} = route.params;
+
   //ADD TO CART ITEMS
   const addToCart = async () => {
     if (loading) {
@@ -103,6 +106,24 @@ const InfoScreen = () => {
       );
     }
   };
+  //get service by service id
+  useEffect(() => {
+    (async () => {
+      setLoading(true);
+      const result = await getMethodApi(
+        `/services/${id}/`,
+        language,
+        accessToken,
+      );
+      if (!result) {
+        setLoading(false);
+        return;
+      }
+
+      setService(result);
+      setLoading(false);
+    })();
+  }, []);
 
   return (
     <View style={styles.info}>
@@ -146,19 +167,24 @@ const InfoScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-
+      {/* CHECK TYPES */}
       {/* MAIN */}
-      <Image
-        source={{
-          uri: 'https://repost.uz/storage/uploads/file_5b10456e434296.773592021527793006.jpg',
-        }}
-        style={styles.image}
-      />
+      {service?.photos?.length > 0 && (
+        <Image
+          source={{
+            uri: service?.photos[0]?.photo,
+          }}
+          style={styles.image}
+        />
+      )}
       {/* INFO */}
       <View style={styles.container}>
         {/* Service */}
         <Text style={styles.service}>Услуги</Text>
-        <ServiceCard />
+        <ServiceCard
+          description={service?.description}
+          price={service?.price}
+        />
         {/* CHECK */}
         <Button
           style={{borderRadius: 8}}

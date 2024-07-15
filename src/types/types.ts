@@ -82,7 +82,12 @@ export type Service = {
       photo: null;
     },
   ];
-  photos: [];
+  photos: [
+    {
+      id: number;
+      photo: string;
+    },
+  ];
   in_wishlist: boolean;
 };
 

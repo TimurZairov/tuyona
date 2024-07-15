@@ -3,7 +3,7 @@ import {BASE_URL} from '../config/config';
 export const getMethodApi = async (
   endpoint: string,
   language: string,
-  token?: string | undefined,
+  token?: string | undefined | unknown,
 ) => {
   console.log(endpoint, language);
   try {

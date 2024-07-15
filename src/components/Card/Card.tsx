@@ -1,16 +1,16 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
-import {COLORS, SIZES, width} from '../../theme/theme';
+import React, {memo} from 'react';
+import {COLORS, SIZES} from '../../theme/theme';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 import {Service} from '../../types/types';
-import {InfoNavigationProp, MainNavigationStack} from '../../navigation/types';
+import {InfoNavigationProp} from '../../navigation/types';
 
 type Card = {
   item: Service;
 };
 
-const Card = ({item}: Card) => {
+const Card = memo(({item}: Card) => {
   const navigation = useNavigation<InfoNavigationProp>();
 
   const infoNavigationScreen = () => {
@@ -22,14 +22,14 @@ const Card = ({item}: Card) => {
       <View style={styles.like}>
         <AntDesign name="hearto" color={COLORS.blueColor} size={SIZES.large} />
       </View>
-      <Image source={{uri: item?.url}} style={styles.image} />
-      <Text style={styles.name}>{item.title}</Text>
+      <Image source={{uri: item?.photos[0]?.photo}} style={styles.image} />
+      <Text style={styles.name}>{item?.title}</Text>
       <View style={styles.btn}>
-        <Text>{item.price}</Text>
+        <Text>{item?.price}</Text>
       </View>
     </TouchableOpacity>
   );
-};
+});
 
 export default Card;
 
@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   image: {
-    width: width / 2.5,
-    aspectRatio: 1,
+    width: '100%',
+    height: 200,
     resizeMode: 'cover',
     borderRadius: 10,
   },

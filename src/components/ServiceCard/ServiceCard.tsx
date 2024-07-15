@@ -3,7 +3,7 @@ import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {COLORS, SIZES, width} from '../../theme/theme';
 
-const ServiceCard = () => {
+const ServiceCard = ({description, price}: any) => {
   return (
     <View style={styles.card}>
       <View style={styles.cardHeader}>
@@ -11,13 +11,14 @@ const ServiceCard = () => {
         <Ionicons name="chevron-forward" size={SIZES.large} />
       </View>
       <Text>
-        It is a long established fact that a reader will be distracted by the
+        {/* It is a long established fact that a reader will be distracted by the
         readable content of a page when looking at its layout. The point of
         using Lorem Ipsum is that it has a more-or-less normal distribution of
-        letters, as opposed to using
+        letters, as opposed to using */}
+        {description}
       </Text>
       <View style={styles.btn}>
-        <Text>100$</Text>
+        <Text>{price}$</Text>
       </View>
     </View>
   );

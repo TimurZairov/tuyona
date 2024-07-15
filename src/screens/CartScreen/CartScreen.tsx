@@ -1,4 +1,12 @@
-import {FlatList, Platform, StyleSheet, Text, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {COLORS, SIZES} from '../../theme/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -9,6 +17,8 @@ import {getCartAction} from '../../providers/redux/actions/cartAction';
 import Button from '../../components/Button/Button';
 import {BASE_URL} from '../../config/config';
 import {filterCart} from '../../providers/redux/slices/cartSlice';
+import {useNavigation} from '@react-navigation/native';
+import {InfoNavigationProp} from '../../navigation/types';
 
 const CartScreen = () => {
   const insets = useSafeAreaInsets();
@@ -16,6 +26,7 @@ const CartScreen = () => {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useAppDispatch();
+  const navigation = useNavigation<InfoNavigationProp>();
   const {cart} = useAppSelector(state => state.cart);
 
   useEffect(() => {
@@ -53,6 +64,13 @@ const CartScreen = () => {
     }
   };
 
+  // make common
+  const navigateToInfo = (id: string) => {
+    if (id) {
+      navigation.navigate('Info', {id: +id});
+    }
+  };
+
   return (
     <View style={styles.favorite}>
       {/* Header */}
@@ -70,9 +88,14 @@ const CartScreen = () => {
           contentContainerStyle={{padding: 8}}
           renderItem={({item}) => {
             return (
-              <View style={styles.card}>
+              <TouchableOpacity
+                style={styles.card}
+                onPress={() => navigateToInfo(item?.service?.id.toString())}>
                 <View style={{width: '100%'}}>
-                  <View style={styles.image} />
+                  <Image
+                    source={{uri: item?.service?.photos[0]?.photo}}
+                    style={styles.image}
+                  />
                   <Text style={styles.name}>
                     {item.service.service_provider.name}
                   </Text>
@@ -83,7 +106,7 @@ const CartScreen = () => {
                   </Text>
                 </View>
                 <Button onPress={() => removeCartItem(item.id)}>удалить</Button>
-              </View>
+              </TouchableOpacity>
             );
           }}
         />

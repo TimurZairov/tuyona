@@ -1,10 +1,14 @@
 import {FlatList, StyleSheet} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import Card from '../Card/Card';
-import {DATA} from '../../data/slider';
 import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
 import {getServices} from '../../providers/redux/actions/servicesAction';
 import {useAppContext} from '../../providers/context/context';
+import {Service} from '../../types/types';
+
+type TCard = {
+  item: Service;
+};
 
 const MainCardList = () => {
   const dispatch = useAppDispatch();
@@ -16,6 +20,8 @@ const MainCardList = () => {
     dispatch(getServices({language}));
   }, []);
 
+  const renderItem = useCallback(({item}: TCard) => <Card item={item} />, []);
+
   return (
     <FlatList
       data={services || []}
@@ -23,9 +29,7 @@ const MainCardList = () => {
       removeClippedSubviews={true}
       keyExtractor={item => item.id.toString()}
       contentContainerStyle={styles.flatList}
-      renderItem={({item}) => {
-        return <Card item={item} />;
-      }}
+      renderItem={renderItem}
     />
   );
 };

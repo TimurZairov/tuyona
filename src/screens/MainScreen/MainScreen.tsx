@@ -9,12 +9,9 @@ import {
 import React, {useEffect} from 'react';
 import {COLORS, SIZES, height, width} from '../../theme/theme';
 import Carousel from 'react-native-reanimated-carousel';
-import {SLIDER_DATA, FOOD_CATEGORY, RESTAURANTS} from '../../data/slider';
 import Header from '../../components/Header/Header';
 import ScrollButton from '../../components/ScrollButton/ScrollButton';
-import MainTitle from '../../components/MainTitle/MainTitle';
-import MainCardList from '../../components/MainCardList/MainCardList';
-import RestaurantCard from '../../components/RestaurantCard/RestaurantCard';
+
 import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
 import {useTranslation} from 'react-i18next';
 import {useAppContext} from '../../providers/context/context';
@@ -45,25 +42,27 @@ const MainScreen = () => {
         style={styles.mainScroll}>
         {/* SLIDER */}
         <View style={styles.container}>
-          {/* CHECK width or height app crashes */}
-          <Carousel
-            loop
-            width={screenWidth}
-            height={screenHeight / 4}
-            mode="parallax"
-            autoPlay={true}
-            modeConfig={{
-              parallaxAdjacentItemScale: 0.75,
-              parallaxScrollingOffset: 77,
-            }}
-            data={banners}
-            scrollAnimationDuration={2000}
-            renderItem={({item}: {item: Pick<Banner, 'photo'>}) => (
-              <View style={styles.sliderCard}>
-                <Image source={{uri: item.photo}} style={styles.image} />
-              </View>
-            )}
-          />
+          {/* TODO CHECK TYPES */}
+          {banners && banners?.results?.length > 0 && (
+            <Carousel
+              loop
+              width={screenWidth}
+              height={screenHeight / 4}
+              mode="parallax"
+              autoPlay={true}
+              modeConfig={{
+                parallaxAdjacentItemScale: 0.75,
+                parallaxScrollingOffset: 77,
+              }}
+              data={banners?.results}
+              scrollAnimationDuration={2000}
+              renderItem={({item}: {item: Pick<Banner, 'photo'>}) => (
+                <View style={styles.sliderCard}>
+                  <Image source={{uri: item.photo}} style={styles.image} />
+                </View>
+              )}
+            />
+          )}
         </View>
         <Header />
 
@@ -74,7 +73,7 @@ const MainScreen = () => {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{paddingHorizontal: 8}}>
             {categories &&
-              categories.map((category, index) => {
+              categories?.map((category, index) => {
                 return (
                   <ScrollButton
                     key={`${category}-${index}`}
@@ -92,7 +91,7 @@ const MainScreen = () => {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{paddingHorizontal: 8, paddingTop: 16}}>
             {categories &&
-              categories.map((category, index) => {
+              categories?.map((category, index) => {
                 return (
                   <CategoryCard
                     key={`${category}-${index}`}

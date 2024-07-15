@@ -1,4 +1,12 @@
-import {FlatList, Platform, StyleSheet, Text, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {COLORS, SIZES} from '../../theme/theme';
@@ -10,12 +18,16 @@ import {
   wishListAction,
 } from '../../providers/redux/actions/wishListAction';
 import Button from '../../components/Button/Button';
+import {useNavigation} from '@react-navigation/native';
+import {InfoNavigationProp} from '../../navigation/types';
 
 const FavoriteScreen = () => {
   const [loading, setLoading] = useState(false);
 
   const insets = useSafeAreaInsets();
   const dispatch = useAppDispatch();
+  const navigation = useNavigation<InfoNavigationProp>();
+
   const {accessToken, language} = useAppContext();
   //state
   const {wishList, error} = useAppSelector(state => state.wishList);
@@ -38,6 +50,14 @@ const FavoriteScreen = () => {
       console.log('CartScreen', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  //
+
+  const navigateToInfo = (id: string) => {
+    if (id) {
+      navigation.navigate('Info', {id: +id});
     }
   };
 
@@ -66,9 +86,16 @@ const FavoriteScreen = () => {
           contentContainerStyle={{padding: 8}}
           renderItem={({item}) => {
             return (
-              <View style={styles.card}>
+              // MAKE COMPONENT
+              <TouchableOpacity
+                style={styles.card}
+                onPress={() => navigateToInfo(item?.service?.id.toString())}>
                 <View style={{width: '100%'}}>
-                  <View style={styles.image} />
+                  <Image
+                    // CHECK TYPES
+                    source={{uri: item?.service?.photos[0]?.photo}}
+                    style={styles.image}
+                  />
                   <Text style={styles.name}>
                     {item.service.service_provider.name}
                   </Text>
@@ -80,7 +107,7 @@ const FavoriteScreen = () => {
                 <Button onPress={() => removeItemFromWishList(item.id)}>
                   удалить
                 </Button>
-              </View>
+              </TouchableOpacity>
             );
           }}
         />
@@ -167,6 +194,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: 200,
+    resizeMode: 'cover',
     backgroundColor: COLORS.grayColor,
     marginBottom: 10,
     borderRadius: 6,
