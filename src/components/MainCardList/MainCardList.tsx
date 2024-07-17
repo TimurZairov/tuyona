@@ -1,8 +1,7 @@
 import {FlatList, StyleSheet} from 'react-native';
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback} from 'react';
 import Card from '../Card/Card';
 import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
-import {getServices} from '../../providers/redux/actions/servicesAction';
 import {useAppContext} from '../../providers/context/context';
 import {Service} from '../../types/types';
 
@@ -15,10 +14,10 @@ const MainCardList = () => {
   const {language} = useAppContext();
   const {services} = useAppSelector(state => state.services);
 
-  useEffect(() => {
-    //get services
-    dispatch(getServices({language}));
-  }, []);
+  // useEffect(() => {
+  //   //get services
+  //   dispatch(getServices({language}));
+  // }, []);
 
   const renderItem = useCallback(({item}: TCard) => <Card item={item} />, []);
 

@@ -10,7 +10,7 @@ const useMainData = () => {
 
   const dispatch = useAppDispatch();
   const {accessToken, language} = useAppContext();
-
+  //GET CART IF USER EXIST
   useEffect(() => {
     if (accessToken) {
       dispatch(getCartAction({accessToken: accessToken.toString(), language}));
@@ -21,7 +21,7 @@ const useMainData = () => {
       setIsDone(false);
     };
   }, [accessToken]);
-
+  //get BANNERS FOR SLIDER
   useEffect(() => {
     dispatch(bannerAction({language}));
     setBanners(true);

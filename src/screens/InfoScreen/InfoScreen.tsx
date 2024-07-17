@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {COLORS, SIZES, height, width} from '../../theme/theme';
 import ServiceCard from '../../components/ServiceCard/ServiceCard';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -43,6 +50,18 @@ const InfoScreen = () => {
     if (loading) {
       return;
     }
+
+    if (!accessToken || accessToken === null || accessToken === undefined) {
+      Toast.show({
+        type: 'info',
+        text1: 'Ошибка',
+        text2:
+          'Вы не авторизованны, пройдите авторзацию или зарегистрируйтесь ',
+      });
+      navigation.navigate('Login');
+      return;
+    }
+
     setLoading(true);
     const newItem = {
       service: id,
@@ -50,14 +69,6 @@ const InfoScreen = () => {
     };
 
     try {
-      if (!accessToken || accessToken === null || accessToken === undefined) {
-        Toast.show({
-          type: 'info',
-          text1: 'Ошибка',
-          text2:
-            'Вы не авторизованны, пройдите авторзацию или зарегистрируйтесь ',
-        });
-      }
       await dispatch(
         addToCartAction({token: accessToken!.toString(), data: newItem}),
       );
@@ -78,21 +89,23 @@ const InfoScreen = () => {
       return;
     }
 
+    if (!accessToken || accessToken === null || accessToken === undefined) {
+      Toast.show({
+        type: 'info',
+        text1: 'Ошибка',
+        text2:
+          'Вы не авторизованны, пройдите авторзацию или зарегистрируйтесь ',
+      });
+      navigation.navigate('Login');
+      return;
+    }
+
     setLoading(true);
     const newItem = {
       service: id,
     };
 
     try {
-      if (!accessToken || accessToken === null || accessToken === undefined) {
-        Toast.show({
-          type: 'info',
-          text1: 'Ошибка',
-          text2:
-            'Вы не авторизованны, пройдите авторзацию или зарегистрируйтесь ',
-        });
-        return;
-      }
       await dispatch(
         addToWishList({data: newItem, token: accessToken!.toString()}),
       );
@@ -128,7 +141,8 @@ const InfoScreen = () => {
   return (
     <View style={styles.info}>
       {/* Navigation */}
-      <View style={[styles.header, {top: insets.top}]}>
+      <View
+        style={[styles.header, {top: Platform.OS === 'ios' ? insets.top : 16}]}>
         {/* GO BACK */}
         <TouchableOpacity
           onPress={() => navigation.goBack()}

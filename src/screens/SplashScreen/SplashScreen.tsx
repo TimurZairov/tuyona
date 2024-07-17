@@ -3,22 +3,10 @@ import React, {useEffect} from 'react';
 import useRefreshAccessToken from '../../common/hooks/useRefreshAccessToken';
 import {useTranslation} from 'react-i18next';
 import '../../common/services/i18next';
-import {getCartAction} from '../../providers/redux/actions/cartAction';
-import {useAppDispatch} from '../../providers/redux/type';
-import {useAppContext} from '../../providers/context/context';
 
 const SplashScreen = ({navigation}: any) => {
   const {isReady, isDone, banners} = useRefreshAccessToken();
   const {t} = useTranslation();
-
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     navigation.replace('Tab');
-  //   }, 2000);
-  //   return () => {
-  //     clearTimeout(timeout);
-  //   };
-  // }, []);
 
   useEffect(() => {
     if (isReady && isDone && banners) {
@@ -29,14 +17,6 @@ const SplashScreen = ({navigation}: any) => {
     <View style={styles.splash}>
       <Text>TUYONA</Text>
       <Text>{t('welcome')}</Text>
-      {/* <View>
-        <TouchableOpacity>
-          <Text>RU</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text>UZ</Text>
-        </TouchableOpacity>
-      </View> */}
     </View>
   );
 };

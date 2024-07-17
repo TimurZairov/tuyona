@@ -16,6 +16,7 @@ const Input = ({placeholder, isSecured, setValue}: IInput) => {
         placeholder={placeholder}
         secureTextEntry={isSecured}
         onChangeText={setValue}
+        style={styles.textInput}
       />
       {isSecured && (
         <Pressable>
@@ -39,5 +40,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  textInput: {
+    color: COLORS.blackColor,
   },
 });

@@ -15,7 +15,11 @@ const initialState: IInitialSate = {
 const servicesSlice = createSlice({
   name: 'services',
   initialState,
-  reducers: {},
+  reducers: {
+    setFilteredItems: (state, action) => {
+      state.services = action.payload;
+    },
+  },
 
   extraReducers: builder => {
     builder.addCase(getServices.fulfilled, (state, action) => {
@@ -24,6 +28,6 @@ const servicesSlice = createSlice({
   },
 });
 
-const {} = servicesSlice.actions;
+export const {setFilteredItems} = servicesSlice.actions;
 
 export default servicesSlice.reducer;

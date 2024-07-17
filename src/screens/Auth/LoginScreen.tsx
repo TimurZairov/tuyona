@@ -57,7 +57,6 @@ const LoginScreen = () => {
   };
 
   useEffect(() => {
-    console.log(accessToken);
     if (accessToken !== null && accessToken !== undefined) {
       navigation.replace('Tab');
     }

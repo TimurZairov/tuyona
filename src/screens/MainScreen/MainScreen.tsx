@@ -5,6 +5,8 @@ import {
   View,
   ScrollView,
   Dimensions,
+  Pressable,
+  Linking,
 } from 'react-native';
 import React, {useEffect} from 'react';
 import {COLORS, SIZES, height, width} from '../../theme/theme';
@@ -27,12 +29,24 @@ const MainScreen = () => {
   const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
   const {language, categories} = useAppContext();
-  const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    //get services
-    dispatch(getServices({language}));
-  }, []);
+  console.log(JSON.stringify(categories, null, 2));
+
+  const dispatch = useAppDispatch();
+  //open URl
+  const openLinkUrl = async (url: string) => {
+    if (!url) {
+      return;
+    }
+    await Linking.openURL(url);
+  };
+
+  //CHECK IF NEED
+  // useEffect(() => {
+  //   //get services
+  //   dispatch(getServices({language}));
+  // }, []);
+
   return (
     <SafeAreaView style={styles.main}>
       {/* HEADER */}
@@ -56,10 +70,12 @@ const MainScreen = () => {
               }}
               data={banners?.results}
               scrollAnimationDuration={2000}
-              renderItem={({item}: {item: Pick<Banner, 'photo'>}) => (
-                <View style={styles.sliderCard}>
+              renderItem={({item}: {item: Banner}) => (
+                <Pressable
+                  style={styles.sliderCard}
+                  onPress={() => openLinkUrl(item.target_url)}>
                   <Image source={{uri: item.photo}} style={styles.image} />
-                </View>
+                </Pressable>
               )}
             />
           )}
@@ -101,19 +117,6 @@ const MainScreen = () => {
               })}
           </ScrollView>
         </View>
-        {/* MAIN TITLES */}
-        {/* <MainTitle title={t('leading')} /> */}
-
-        {/* <View style={styles.cardListContainer}>
-          <MainCardList />
-        </View> */}
-
-        {/*  */}
-
-        {/* <MainTitle title={t('singers')} />
-        <View style={styles.cardListContainer}>
-          <MainCardList />
-        </View> */}
       </ScrollView>
     </SafeAreaView>
   );
