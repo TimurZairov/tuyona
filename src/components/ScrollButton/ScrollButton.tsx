@@ -1,11 +1,4 @@
-import {
-  Image,
-  ImageSourcePropType,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {COLORS} from '../../theme/theme';
 import {SvgUri} from 'react-native-svg';

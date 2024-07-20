@@ -43,5 +43,6 @@ const styles = StyleSheet.create({
   },
   textInput: {
     color: COLORS.blackColor,
+    flex: 1,
   },
 });

@@ -6,6 +6,7 @@ import '../../common/services/i18next';
 
 const SplashScreen = ({navigation}: any) => {
   const {isReady, isDone, banners} = useRefreshAccessToken();
+
   const {t} = useTranslation();
 
   useEffect(() => {
