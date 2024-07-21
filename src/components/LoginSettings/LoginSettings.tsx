@@ -7,17 +7,22 @@ interface ILoginSettings {
   item: {
     icon: React.JSX.Element;
     text: string;
+    onPress?: () => void | undefined;
   };
   index: number;
   length?: number;
 }
 
 const LoginSettings = ({item, index, length}: ILoginSettings) => {
+  const {icon, text, onPress} = item;
+
   return (
     <>
-      <TouchableOpacity style={styles.container}>
-        <View style={styles.icon}>{item.icon}</View>
-        <Text>{item.text}</Text>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={onPress ? () => onPress() : () => {}}>
+        <View style={styles.icon}>{icon}</View>
+        <Text>{text}</Text>
         <Ionicons
           name="chevron-forward-outline"
           size={20}

@@ -14,25 +14,21 @@ import Carousel from 'react-native-reanimated-carousel';
 import Header from '../../components/Header/Header';
 import ScrollButton from '../../components/ScrollButton/ScrollButton';
 
-import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
 import {useTranslation} from 'react-i18next';
 import {useAppContext} from '../../providers/context/context';
-import {getServices} from '../../providers/redux/actions/servicesAction';
 import {Banner} from '../../types/types';
 import CategoryCard from '../../components/CategoryCard/CategoryCard';
+import {useAppSelector} from '../../providers/redux/type';
 
 const MainScreen = () => {
-  const {user} = useAppSelector(state => state.user);
   const {banners} = useAppSelector(state => state.banners);
 
   const {t} = useTranslation();
   const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
-
   const {language, categories} = useAppContext();
 
-  console.log(JSON.stringify(categories, null, 2));
+  console.log(JSON.stringify(banners, null, 2));
 
-  const dispatch = useAppDispatch();
   //open URl
   const openLinkUrl = async (url: string) => {
     if (!url) {
@@ -57,7 +53,7 @@ const MainScreen = () => {
         {/* SLIDER */}
         <View style={styles.container}>
           {/* TODO CHECK TYPES */}
-          {banners && banners?.results?.length > 0 && (
+          {banners && banners?.length > 0 && (
             <Carousel
               loop
               width={screenWidth}
@@ -68,7 +64,7 @@ const MainScreen = () => {
                 parallaxAdjacentItemScale: 0.75,
                 parallaxScrollingOffset: 77,
               }}
-              data={banners?.results}
+              data={banners}
               scrollAnimationDuration={2000}
               renderItem={({item}: {item: Banner}) => (
                 <Pressable

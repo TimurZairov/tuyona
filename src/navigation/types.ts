@@ -11,7 +11,7 @@ export type TabNavigationStack = {
   MainNav: undefined;
   Reminder: undefined;
   Favorite: undefined;
-  Profile: undefined;
+  ProfileStack: undefined;
   Cart: undefined;
 };
 

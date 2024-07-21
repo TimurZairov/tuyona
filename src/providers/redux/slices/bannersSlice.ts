@@ -18,7 +18,7 @@ const bannerSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(bannerAction.fulfilled, (state, action) => {
-      state.banners = action.payload;
+      state.banners = action.payload.results;
     });
     builder.addCase(bannerAction.rejected, (state, action) => {
       state.error = action.payload;

@@ -17,10 +17,14 @@ const ProfileScreen = () => {
   const {accessToken} = useAppContext();
   const {user} = useAppSelector(state => state.user);
 
+  //CHECK NAVIGATION TYPES
   const loginSettings = [
     {
       icon: <MaterialIcons name="language" size={26} />,
       text: 'Изменить язык',
+      onPress: () => {
+        navigation.navigate('Language');
+      },
     },
     {
       icon: <MaterialIcons name="support-agent" size={26} />,

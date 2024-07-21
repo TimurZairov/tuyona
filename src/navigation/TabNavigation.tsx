@@ -10,6 +10,7 @@ import {Platform} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import CartScreen from '../screens/CartScreen/CartScreen';
 import {useAppSelector} from '../providers/redux/type';
+import ProfileStack from './ProfileStack';
 
 const Tab = createBottomTabNavigator<TabNavigationStack>();
 
@@ -72,8 +73,8 @@ const TabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
+        name="ProfileStack"
+        component={ProfileStack}
         options={{
           tabBarIcon: color => {
             return <Ionicons name="person" size={18} color={color.color} />;
