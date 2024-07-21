@@ -7,15 +7,17 @@ import {User} from '../../types/types';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LoginSettings from '../../components/LoginSettings/LoginSettings';
 import {useNavigation} from '@react-navigation/native';
+import {useAppSelector} from '../../providers/redux/type';
 
 interface IUserProfileScreen {
   user: User;
 }
 
-const UserProfileScreen = ({user}: IUserProfileScreen) => {
+const UserProfileScreen = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
-
+  const {user} = useAppSelector(state => state.user);
+  console.log(user);
   const profileSettings = [
     {
       icon: <MaterialIcons name="settings" size={26} />,
@@ -66,6 +68,7 @@ const UserProfileScreen = ({user}: IUserProfileScreen) => {
             </View>
           </View>
           <Text style={styles.name}>{user?.username}</Text>
+          <Text style={styles.name}>{user?.first_name}</Text>
         </View>
       </View>
       {/* BODY */}

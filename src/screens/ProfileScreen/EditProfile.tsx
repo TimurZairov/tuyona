@@ -2,28 +2,54 @@ import {StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import Input from '../../components/Input/Input';
 import {COLORS} from '../../theme/theme';
-import {useAppSelector} from '../../providers/redux/type';
+import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
 import {User} from '../../types/types';
 import Button from '../../components/Button/Button';
-
-interface IUser {
-  user: User;
-}
+import {userEdit} from '../../providers/redux/actions/userAction';
+import {useAppContext} from '../../providers/context/context';
+import {useNavigation} from '@react-navigation/native';
 
 const EditProfile = () => {
   const {user} = useAppSelector(state => state.user);
-  const [userName, setUserName] = useState<string | undefined>(
+  const {accessToken} = useAppContext();
+  const dispatch = useAppDispatch();
+  const navigation = useNavigation();
+
+  const [loading, setLoading] = useState(false);
+  const [firstName, setFirstName] = useState<string | undefined>(
     user?.first_name,
   );
   const [lastName, setLastName] = useState(user?.last_name);
   const [phoneNumber, setPhoneNumber] = useState(user?.phone_number);
 
+  const updateUserData = async () => {
+    if (loading) {
+      return;
+    }
+    setLoading(true);
+    const usersData = {
+      first_name: firstName,
+      last_name: lastName,
+      phone_number: phoneNumber,
+      username: user?.username,
+    };
+    if (accessToken) {
+      await dispatch(
+        userEdit({data: usersData, token: accessToken.toString()}),
+      );
+    }
+    setLoading(false);
+    setTimeout(() => {
+      navigation.goBack();
+    }, 1000);
+  };
+
   return (
     <View style={styles.container}>
       <Input
         placeholder="Имя"
-        value={userName}
-        setValue={setUserName}
+        value={firstName}
+        setValue={setFirstName}
         inputStyle={styles.input}
       />
       <Input
@@ -38,7 +64,9 @@ const EditProfile = () => {
         setValue={setPhoneNumber}
         inputStyle={styles.input}
       />
-      <Button style={styles.btn}>Сохранить</Button>
+      <Button style={styles.btn} onPress={updateUserData} loading={loading}>
+        Сохранить
+      </Button>
     </View>
   );
 };

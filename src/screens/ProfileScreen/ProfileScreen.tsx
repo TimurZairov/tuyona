@@ -45,7 +45,7 @@ const ProfileScreen = () => {
   };
 
   if (user && accessToken) {
-    return <UserProfileScreen user={user} />;
+    return <UserProfileScreen />;
   }
 
   return (

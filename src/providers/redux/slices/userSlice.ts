@@ -2,6 +2,7 @@ import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {loginAction} from '../actions/loginAction';
 import {User} from '../../../types/types';
 import {registerAction} from '../actions/registerAction';
+import {userEdit} from '../actions/userAction';
 
 interface IInitialState {
   user: User | undefined;
@@ -37,6 +38,13 @@ const userSlice = createSlice({
       state.user = action.payload;
     });
     builder.addCase(registerAction.rejected, (state, action) => {
+      state.error = action.payload;
+    });
+    //edit user
+    builder.addCase(userEdit.fulfilled, (state, action) => {
+      state.user = action.payload;
+    });
+    builder.addCase(userEdit.rejected, (state, action) => {
       state.error = action.payload;
     });
   },
