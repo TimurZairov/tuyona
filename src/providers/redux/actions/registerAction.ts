@@ -33,7 +33,7 @@ export const registerAction = createAsyncThunk(
 
       const user: User | undefined = await getUser(token.access);
 
-      await AsyncStorage.setItem('refreshToken', token?.tokens.refresh);
+      await AsyncStorage.setItem('refreshToken', token?.tokens?.refresh);
       setAccessToken(token?.tokens?.access);
       return user;
     } catch (error) {

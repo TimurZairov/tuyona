@@ -6,6 +6,7 @@ import {COLORS, SIZES, height} from '../../theme/theme';
 import {User} from '../../types/types';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LoginSettings from '../../components/LoginSettings/LoginSettings';
+import {useNavigation} from '@react-navigation/native';
 
 interface IUserProfileScreen {
   user: User;
@@ -13,6 +14,7 @@ interface IUserProfileScreen {
 
 const UserProfileScreen = ({user}: IUserProfileScreen) => {
   const insets = useSafeAreaInsets();
+  const navigation = useNavigation();
 
   const profileSettings = [
     {
@@ -22,6 +24,13 @@ const UserProfileScreen = ({user}: IUserProfileScreen) => {
     {
       icon: <MaterialIcons name="support-agent" size={26} />,
       text: 'Сервис поддрежки',
+    },
+    {
+      icon: <Ionicons name="person" size={26} />,
+      text: 'Персональные данные',
+      onPress: () => {
+        navigation.navigate('Edit');
+      },
     },
     {
       icon: <Ionicons name="information-circle-outline" size={26} />,

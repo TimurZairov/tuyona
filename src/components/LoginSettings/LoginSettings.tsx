@@ -7,7 +7,7 @@ interface ILoginSettings {
   item: {
     icon: React.JSX.Element;
     text: string;
-    onPress?: () => void | undefined;
+    onPress?: () => void;
   };
   index: number;
   length?: number;

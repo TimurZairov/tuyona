@@ -1,4 +1,4 @@
-import {StyleSheet, Pressable, TextInput, View} from 'react-native';
+import {StyleSheet, Pressable, TextInput, View, ViewStyle} from 'react-native';
 import React, {Dispatch, SetStateAction} from 'react';
 import {COLORS, height} from '../../theme/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -6,17 +6,26 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 interface IInput {
   placeholder: string;
   isSecured?: boolean;
-  setValue?: Dispatch<SetStateAction<string>>;
+  setValue?: Dispatch<SetStateAction<string | undefined>>;
+  value?: string | undefined;
+  inputStyle?: ViewStyle;
 }
 
-const Input = ({placeholder, isSecured, setValue}: IInput) => {
+const Input = ({
+  placeholder,
+  isSecured,
+  setValue,
+  value,
+  inputStyle,
+}: IInput) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, inputStyle]}>
       <TextInput
         placeholder={placeholder}
         secureTextEntry={isSecured}
         onChangeText={setValue}
         style={styles.textInput}
+        value={value}
       />
       {isSecured && (
         <Pressable>

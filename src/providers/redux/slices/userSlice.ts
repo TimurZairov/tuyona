@@ -4,12 +4,12 @@ import {User} from '../../../types/types';
 import {registerAction} from '../actions/registerAction';
 
 interface IInitialState {
-  user: User | unknown | any;
+  user: User | undefined;
   error: Error | unknown;
 }
 
 const initialState: IInitialState = {
-  user: null,
+  user: undefined,
   error: null,
 };
 
@@ -18,7 +18,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     logOutUser: state => {
-      state.user = null;
+      state.user = undefined;
     },
     setUser: (state, action: PayloadAction<User>) => {
       state.user = action.payload;

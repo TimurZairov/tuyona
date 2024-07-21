@@ -15,8 +15,8 @@ import {ProfileNavigationProp} from '../../navigation/types';
 import {useAppContext} from '../../providers/context/context';
 
 const LoginScreen = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState<string | undefined>('');
+  const [password, setPassword] = useState<string | undefined>('');
   const [loading, setLoading] = useState(false);
 
   //
