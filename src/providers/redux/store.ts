@@ -2,15 +2,16 @@ import {configureStore} from '@reduxjs/toolkit';
 import userSlice from './slices/userSlice';
 import wishListSlice from './slices/wishListSlice';
 import cartSlice from './slices/cartSlice';
-import servicesSLices from './slices/servicesSLices';
+
 import bannerSlice from './slices/bannersSlice';
+import serviceProviderSlice from './slices/serviceProviderSlice';
 
 export const store = configureStore({
   reducer: {
     user: userSlice,
     wishList: wishListSlice,
     cart: cartSlice,
-    services: servicesSLices,
+    serviceProvider: serviceProviderSlice,
     banners: bannerSlice,
   },
   middleware: getDefaultMiddleware =>

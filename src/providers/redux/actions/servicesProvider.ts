@@ -1,18 +1,17 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {getMethodApi} from '../../../common/getMethodApi';
-import {BASE_URL} from '../../../config/config';
 
 export const getServices = createAsyncThunk(
-  'get/services',
+  'get/serviceProvider',
   async ({language = 'ru'}: {language: string}) => {
     try {
-      const result = await getMethodApi('/services/', language);
+      const result = await getMethodApi('/service-providers/', language);
       if (!result) {
         throw new Error('Что то пошло не так попробуйте позже...');
       }
       return result;
     } catch (error) {
-      console.log('get services', error);
+      console.log('get serviceProvider', error);
     }
   },
 );

@@ -5,7 +5,7 @@ import MainTitle from '../MainTitle/MainTitle';
 import {ICategory} from '../../types/types';
 import {useNavigation} from '@react-navigation/native';
 import {BASE_URL} from '../../config/config';
-import {setFilteredItems} from '../../providers/redux/slices/servicesSLices';
+import {setFilteredItems} from '../../providers/redux/slices/serviceProviderSlice';
 import {useAppDispatch} from '../../providers/redux/type';
 import {useAppContext} from '../../providers/context/context';
 

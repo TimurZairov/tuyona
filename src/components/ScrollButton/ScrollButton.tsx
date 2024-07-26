@@ -7,7 +7,7 @@ import {BASE_URL} from '../../config/config';
 import {useAppContext} from '../../providers/context/context';
 import {useAppDispatch} from '../../providers/redux/type';
 import {useNavigation} from '@react-navigation/native';
-import {setFilteredItems} from '../../providers/redux/slices/servicesSLices';
+import {setFilteredItems} from '../../providers/redux/slices/serviceProviderSlice';
 
 const ScrollButton = ({category, food}: ICategory) => {
   const {language} = useAppContext();
@@ -21,7 +21,8 @@ const ScrollButton = ({category, food}: ICategory) => {
   const getFilteredList = async (id: any) => {
     try {
       const result = await fetch(
-        BASE_URL + '/service-categories/' + id + '/services/',
+        BASE_URL + '/service-providers/' + id + '/services/',
+
         {
           method: 'GET',
           headers: {

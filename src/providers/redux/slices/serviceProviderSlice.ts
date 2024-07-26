@@ -1,33 +1,33 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {Service} from '../../../types/types';
-import {getServices} from '../actions/servicesAction';
+import {getServices} from '../actions/servicesProvider';
 
 interface IInitialSate {
-  services: Service[];
+  serviceProvider: Service[];
   error: Error | unknown;
 }
 
 const initialState: IInitialSate = {
-  services: [],
+  serviceProvider: [],
   error: null,
 };
 
-const servicesSlice = createSlice({
+const serviceProviderSlice = createSlice({
   name: 'services',
   initialState,
   reducers: {
     setFilteredItems: (state, action) => {
-      state.services = action.payload;
+      state.serviceProvider = action.payload;
     },
   },
 
   extraReducers: builder => {
     builder.addCase(getServices.fulfilled, (state, action) => {
-      state.services = action.payload.results;
+      state.serviceProvider = action.payload.results;
     });
   },
 });
 
-export const {setFilteredItems} = servicesSlice.actions;
+export const {setFilteredItems} = serviceProviderSlice.actions;
 
-export default servicesSlice.reducer;
+export default serviceProviderSlice.reducer;

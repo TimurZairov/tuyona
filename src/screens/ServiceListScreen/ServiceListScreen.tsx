@@ -11,7 +11,7 @@ const ServiceListScreen = () => {
   const navigation = useNavigation();
 
   return (
-    <View>
+    <View style={styles.container}>
       <View
         style={[
           styles.header,
@@ -29,8 +29,9 @@ const ServiceListScreen = () => {
         <Text style={styles.title}>категории</Text>
         <View style={{width: 40}} />
       </View>
-
-      <MainCardList />
+      <View style={styles.scrollWrapper}>
+        <MainCardList />
+      </View>
     </View>
   );
 };
@@ -38,6 +39,9 @@ const ServiceListScreen = () => {
 export default ServiceListScreen;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   header: {
     padding: 10,
     backgroundColor: COLORS.mainColor,
@@ -55,6 +59,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2.62,
     elevation: 4,
   },
+  scrollWrapper: {paddingHorizontal: 8, marginTop: 16, flex: 1},
   title: {
     fontSize: SIZES.h4.md,
     fontWeight: '700',
