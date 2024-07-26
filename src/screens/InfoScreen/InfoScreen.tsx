@@ -26,6 +26,8 @@ import {
   wishListAction,
 } from '../../providers/redux/actions/wishListAction';
 import {getMethodApi} from '../../common/getMethodApi';
+import useModalContact from '../../common/hooks/useModalContact';
+import ModalContacts from '../../components/ModalCotacts/ModalContacts';
 
 //types for routes params
 interface InfoRouteParams {
@@ -43,6 +45,7 @@ const InfoScreen = () => {
   const route = useRoute<InfoScreenRouteProp>();
   const {accessToken, language} = useAppContext();
   const dispatch = useAppDispatch();
+  const {modal, modalToggle} = useModalContact();
 
   const {wishList} = useAppSelector(state => state.wishList);
 
@@ -201,13 +204,20 @@ const InfoScreen = () => {
             )}
           </TouchableOpacity>
           {/*  */}
-          <TouchableOpacity style={styles.btn}>
+          <TouchableOpacity style={styles.btn} onPress={modalToggle}>
             <AntDesign
               name="phone"
               size={SIZES.large}
               color={COLORS.mainColor}
             />
           </TouchableOpacity>
+
+          {/* MODAL */}
+          {modal && (
+            <View style={styles.modal}>
+              <ModalContacts />
+            </View>
+          )}
           {/*  */}
           <TouchableOpacity style={styles.btn}>
             <AntDesign
@@ -263,6 +273,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  modal: {
+    position: 'absolute',
+    top: 50,
+    right: 40,
+  },
+
   btn: {
     backgroundColor: 'rgba(1, 1, 1, 0.25)',
     padding: 10,
