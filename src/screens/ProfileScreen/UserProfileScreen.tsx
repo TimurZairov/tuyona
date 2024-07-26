@@ -1,19 +1,33 @@
-import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, {useState} from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {COLORS, SIZES, height} from '../../theme/theme';
-import {User} from '../../types/types';
+import {COLORS, SIZES, height, width} from '../../theme/theme';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LoginSettings from '../../components/LoginSettings/LoginSettings';
 import {useNavigation} from '@react-navigation/native';
-import {useAppSelector} from '../../providers/redux/type';
+import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
+import {galleryPermission} from '../../common/premissions/premissions';
+import {useAppContext} from '../../providers/context/context';
+import {userEdit} from '../../providers/redux/actions/userAction';
 
 const UserProfileScreen = () => {
+  const [base64Url, setBase64Url] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const {user} = useAppSelector(state => state.user);
+  const {accessToken} = useAppContext();
+  const dispatch = useAppDispatch();
 
   const profileSettings = [
     {
@@ -50,16 +64,53 @@ const UserProfileScreen = () => {
   ];
 
   const pickImage = async () => {
+    let isGranted;
+    if (Platform.OS === 'android') {
+      isGranted = await galleryPermission();
+    }
+    if (!isGranted) {
+      return;
+    }
+
     try {
-      const images = await ImagePicker.openPicker({
-        multiple: true,
+      const image = await ImagePicker.openPicker({
+        multiple: false,
+        cropping: true,
+        mediaType: 'photo',
+        includeBase64: true,
       });
-      console.log(images);
+      const base64String = `data:${image.mime};base64,${image.data}`;
+      if (!image) {
+        return;
+      }
+      setBase64Url(base64String);
+      // updateUserData();
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 
+  //update avatar
+
+  const updateUserData = async () => {
+    console.log('+++++');
+    if (loading) {
+      return;
+    }
+    setLoading(true);
+    const usersData = {
+      first_name: user?.first_name,
+      last_name: user?.last_name,
+      phone_number: user?.phone_number,
+      username: user?.username,
+      avatar: base64Url,
+    };
+
+    await dispatch(userEdit({data: usersData, token: accessToken!.toString()}));
+
+    setLoading(false);
+  };
+  console.log(user);
   return (
     <View>
       {/* Header */}
@@ -70,10 +121,19 @@ const UserProfileScreen = () => {
             {paddingTop: Platform.OS === 'ios' ? insets.top : 18},
           ]}>
           <TouchableOpacity style={styles.wrapper} onPress={pickImage}>
-            <Ionicons name="person" size={50} color={COLORS.lightGray} />
-            <View style={styles.plus}>
-              <Text style={styles.plusText}>+</Text>
-            </View>
+            {user?.avatar || base64Url !== null ? (
+              <Image
+                source={{uri: user?.avatar || base64Url!}}
+                style={styles.image}
+              />
+            ) : (
+              <>
+                <Ionicons name="person" size={50} color={COLORS.lightGray} />
+                <View style={styles.plus}>
+                  <Text style={styles.plusText}>+</Text>
+                </View>
+              </>
+            )}
           </TouchableOpacity>
           <Text style={styles.name}>{user?.username}</Text>
           <Text style={styles.name}>{user?.first_name}</Text>
@@ -126,15 +186,23 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   wrapper: {
-    padding: 30,
+    width: width / 3,
+    aspectRatio: 1,
     backgroundColor: COLORS.grayColor,
     borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
   },
   name: {
     fontSize: SIZES.h5.lg,
     fontWeight: '800',
     marginTop: 10,
     color: COLORS.blackColor,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
   },
   plus: {
     position: 'absolute',

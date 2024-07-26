@@ -13,6 +13,7 @@ interface IData {
 export const userEdit = createAsyncThunk(
   'editUser/ user',
   async ({data, token}: {data: IData; token: string}) => {
+    console.log(data);
     try {
       const result = await fetch(BASE_URL + '/users/me/', {
         method: 'PUT',
