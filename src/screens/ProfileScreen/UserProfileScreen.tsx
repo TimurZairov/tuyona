@@ -1,5 +1,6 @@
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
+import ImagePicker from 'react-native-image-crop-picker';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {COLORS, SIZES, height} from '../../theme/theme';
@@ -9,15 +10,11 @@ import LoginSettings from '../../components/LoginSettings/LoginSettings';
 import {useNavigation} from '@react-navigation/native';
 import {useAppSelector} from '../../providers/redux/type';
 
-interface IUserProfileScreen {
-  user: User;
-}
-
 const UserProfileScreen = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const {user} = useAppSelector(state => state.user);
-  console.log(user);
+
   const profileSettings = [
     {
       icon: <MaterialIcons name="settings" size={26} />,
@@ -52,6 +49,17 @@ const UserProfileScreen = () => {
     },
   ];
 
+  const pickImage = async () => {
+    try {
+      const images = await ImagePicker.openPicker({
+        multiple: true,
+      });
+      console.log(images);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <View>
       {/* Header */}
@@ -61,12 +69,12 @@ const UserProfileScreen = () => {
             styles.headerContainer,
             {paddingTop: Platform.OS === 'ios' ? insets.top : 18},
           ]}>
-          <View style={styles.wrapper}>
+          <TouchableOpacity style={styles.wrapper} onPress={pickImage}>
             <Ionicons name="person" size={50} color={COLORS.lightGray} />
             <View style={styles.plus}>
               <Text style={styles.plusText}>+</Text>
             </View>
-          </View>
+          </TouchableOpacity>
           <Text style={styles.name}>{user?.username}</Text>
           <Text style={styles.name}>{user?.first_name}</Text>
         </View>

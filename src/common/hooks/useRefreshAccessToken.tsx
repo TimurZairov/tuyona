@@ -6,6 +6,7 @@ import {BASE_URL} from '../../config/config';
 import {logOutUser, setUser} from '../../providers/redux/slices/userSlice';
 import {getUser} from '../getUserApi';
 import useMainData from './useMainData';
+import {wishListAction} from '../../providers/redux/actions/wishListAction';
 
 const useRefreshAccessToken = () => {
   const {setAccessToken, language} = useAppContext();
@@ -55,9 +56,13 @@ const useRefreshAccessToken = () => {
           dispatch(logOutUser());
           return;
         }
-
+        //user
         dispatch(setUser(isUser));
         setAccessToken(newToken?.access);
+        //get wishList
+        dispatch(
+          wishListAction({accessToken: newToken?.access.toString(), language}),
+        );
       } catch (error) {
         console.log('useRefreshToken error', error);
       } finally {

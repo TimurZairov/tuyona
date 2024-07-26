@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   Image,
   Platform,
@@ -15,7 +15,7 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Button from '../../components/Button/Button';
 import {useAppContext} from '../../providers/context/context';
-import {useAppDispatch} from '../../providers/redux/type';
+import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
 import {
   addToCartAction,
   getCartAction,
@@ -36,12 +36,15 @@ type InfoScreenRouteProp = RouteProp<{Info: InfoRouteParams}, 'Info'>;
 const InfoScreen = () => {
   const [loading, setLoading] = useState(false);
   const [service, setService] = useState({});
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
   const route = useRoute<InfoScreenRouteProp>();
   const {accessToken, language} = useAppContext();
   const dispatch = useAppDispatch();
+
+  const {wishList} = useAppSelector(state => state.wishList);
 
   const {id} = route.params;
 
@@ -101,6 +104,7 @@ const InfoScreen = () => {
     }
 
     setLoading(true);
+    setIsFavorite(true);
     const newItem = {
       service: id,
     };
@@ -119,6 +123,23 @@ const InfoScreen = () => {
       );
     }
   };
+
+  const checkFavoriteList = useCallback(() => {
+    let isInclude;
+
+    if (wishList.length > 0) {
+      isInclude = wishList?.map(item => {
+        if (item.service.id.toString() === id.toString()) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    }
+
+    return isInclude;
+  }, [wishList]);
+
   //get service by service id
   useEffect(() => {
     (async () => {
@@ -137,6 +158,14 @@ const InfoScreen = () => {
       setLoading(false);
     })();
   }, []);
+  //isFavorite check
+  useEffect(() => {
+    const favorite = checkFavoriteList();
+
+    if (favorite?.includes(true)) {
+      setIsFavorite(true);
+    }
+  }, [wishList]);
 
   return (
     <View style={styles.info}>
@@ -157,11 +186,19 @@ const InfoScreen = () => {
         <View style={styles.contact}>
           {/*  */}
           <TouchableOpacity style={styles.btn} onPress={addToWishListItems}>
-            <Ionicons
-              name="heart-outline"
-              size={SIZES.large}
-              color={COLORS.mainColor}
-            />
+            {isFavorite ? (
+              <Ionicons
+                name="heart"
+                size={SIZES.large}
+                color={COLORS.blueColor}
+              />
+            ) : (
+              <Ionicons
+                name="heart-outline"
+                size={SIZES.large}
+                color={COLORS.mainColor}
+              />
+            )}
           </TouchableOpacity>
           {/*  */}
           <TouchableOpacity style={styles.btn}>
@@ -211,7 +248,7 @@ const InfoScreen = () => {
   );
 };
 
-export default InfoScreen;
+export default React.memo(InfoScreen);
 
 const styles = StyleSheet.create({
   info: {

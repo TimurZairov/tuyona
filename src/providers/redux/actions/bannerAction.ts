@@ -8,7 +8,7 @@ export const bannerAction = createAsyncThunk(
     if (!banners) {
       throw new Error('Что то пошло не так...');
     }
-    console.log(banners);
+
     return banners;
   },
 );

@@ -114,6 +114,8 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    // compile project(':react-native-image-crop-picker')
 }
 
 project.ext.vectoricons = [

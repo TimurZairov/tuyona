@@ -5,7 +5,6 @@ export const getMethodApi = async (
   language: string,
   token?: string | undefined | unknown,
 ) => {
-  console.log(endpoint, language);
   try {
     const response = await fetch(BASE_URL + endpoint, {
       method: 'GET',

@@ -27,8 +27,6 @@ const MainScreen = () => {
   const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
   const {language, categories} = useAppContext();
 
-  console.log(JSON.stringify(banners, null, 2));
-
   //open URl
   const openLinkUrl = async (url: string) => {
     if (!url) {
@@ -36,12 +34,6 @@ const MainScreen = () => {
     }
     await Linking.openURL(url);
   };
-
-  //CHECK IF NEED
-  // useEffect(() => {
-  //   //get services
-  //   dispatch(getServices({language}));
-  // }, []);
 
   return (
     <SafeAreaView style={styles.main}>

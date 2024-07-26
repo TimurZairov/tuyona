@@ -70,7 +70,13 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 
+	<!-- CAMERA GALERY -->
+<key>NSCameraUsageDescription</key>
+	<string>Для изменения аватарки профиля необходимо дать доступ к вашей камере. Пожалуйста, разрешите доступ к камере.</string>
+<key>NSPhotoLibraryUsageDescription</key>
+	<string>Для изменения аватарки профиля из галереи необходимо дать доступ к вашим медиа-файлам. Пожалуйста, разрешите доступ к галерее.</string>
 
+<!-- react native vector icon -->
 	<key>UIAppFonts</key>
 <array>
   <string>AntDesign.ttf</string>
@@ -92,10 +98,7 @@
   <string>Octicons.ttf</string>
   <string>Zocial.ttf</string>
   <string>Fontisto.ttf</string>
-
-
 <!--  -->
-
 </array>
 </dict>
 </plist>

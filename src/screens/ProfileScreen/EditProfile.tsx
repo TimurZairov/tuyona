@@ -1,9 +1,8 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React, {useState} from 'react';
 import Input from '../../components/Input/Input';
 import {COLORS} from '../../theme/theme';
 import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
-import {User} from '../../types/types';
 import Button from '../../components/Button/Button';
 import {userEdit} from '../../providers/redux/actions/userAction';
 import {useAppContext} from '../../providers/context/context';
