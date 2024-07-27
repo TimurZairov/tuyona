@@ -11,11 +11,6 @@ type TCard = {
 const MainCardList = () => {
   const {serviceProvider} = useAppSelector(state => state.serviceProvider);
 
-  // useEffect(() => {
-  //   //get services
-  //   dispatch(getServices({language}));
-  // }, []);
-
   const renderItem = useCallback(({item}: TCard) => <Card item={item} />, []);
 
   return (

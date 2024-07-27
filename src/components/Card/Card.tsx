@@ -4,17 +4,17 @@ import {COLORS, SIZES} from '../../theme/theme';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 import {Service} from '../../types/types';
-import {InfoNavigationProp} from '../../navigation/types';
+import {ServiceProviderNavigationProp} from '../../navigation/types';
 
 type Card = {
   item: Service;
 };
 
 const Card = memo(({item}: Card) => {
-  const navigation = useNavigation<InfoNavigationProp>();
+  const navigation = useNavigation<ServiceProviderNavigationProp>();
 
   const infoNavigationScreen = () => {
-    navigation.navigate('Info', {id: item.id});
+    navigation.navigate('Provider', {id: item.id});
   };
 
   return (
@@ -23,10 +23,11 @@ const Card = memo(({item}: Card) => {
         <AntDesign name="hearto" color={COLORS.blueColor} size={SIZES.large} />
       </View>
       <Image source={{uri: item?.photos[0]?.photo}} style={styles.image} />
-      <Text style={styles.name}>{item?.title}</Text>
-      <View style={styles.btn}>
+      <Text style={styles.name}>{item?.name}</Text>
+      <Text style={styles.desc}>{item?.short_description}</Text>
+      {/* <View style={styles.btn}>
         <Text>{item?.price}</Text>
-      </View>
+      </View> */}
     </TouchableOpacity>
   );
 });
@@ -56,6 +57,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   name: {
+    fontSize: SIZES.h5.lg,
+    fontWeight: '800',
+    marginTop: 10,
+    color: COLORS.blackColor,
+  },
+  desc: {
     fontSize: SIZES.h5.sm,
     fontWeight: '600',
     marginTop: 10,

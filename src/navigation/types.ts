@@ -21,6 +21,9 @@ export type MainNavigationStack = {
   Info: {
     id: number;
   };
+  Provider: {
+    id: number;
+  };
 };
 
 export type ProfileNavigationProp = NativeStackNavigationProp<
@@ -35,4 +38,14 @@ export type RegisterNavigationProp = NativeStackNavigationProp<
 export type InfoNavigationProp = NativeStackNavigationProp<
   MainNavigationStack,
   'Info'
+>;
+
+export type ServiceProviderNavigationProp = NativeStackNavigationProp<
+  MainNavigationStack,
+  'Provider'
+>;
+
+export type ServiceListNavigationProp = NativeStackNavigationProp<
+  MainNavigationStack,
+  'ServiceList'
 >;

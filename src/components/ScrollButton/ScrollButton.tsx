@@ -8,20 +8,19 @@ import {useAppContext} from '../../providers/context/context';
 import {useAppDispatch} from '../../providers/redux/type';
 import {useNavigation} from '@react-navigation/native';
 import {setFilteredItems} from '../../providers/redux/slices/serviceProviderSlice';
+import {ServiceListNavigationProp} from '../../navigation/types';
 
 const ScrollButton = ({category, food}: ICategory) => {
   const {language} = useAppContext();
   const dispatch = useAppDispatch();
-  const navigation = useNavigation();
-  //answers
+  const navigation = useNavigation<ServiceListNavigationProp>();
   const [categoryId, setCategoryId] = useState([]);
-  //get filtered listItem
 
   //check later it doubled
   const getFilteredList = async (id: any) => {
     try {
       const result = await fetch(
-        BASE_URL + '/service-providers/' + id + '/services/',
+        BASE_URL + '/service-categories/' + id + '/providers/',
 
         {
           method: 'GET',

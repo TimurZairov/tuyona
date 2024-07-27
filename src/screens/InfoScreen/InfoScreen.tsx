@@ -230,14 +230,16 @@ const InfoScreen = () => {
       </View>
       {/* CHECK TYPES */}
       {/* MAIN */}
-      {service?.photos?.length > 0 && (
-        <Image
-          source={{
-            uri: service?.photos[0]?.photo,
-          }}
-          style={styles.image}
-        />
-      )}
+      <View style={styles.mainImage}>
+        {service?.photos?.length > 0 && (
+          <Image
+            source={{
+              uri: service?.photos[0]?.photo,
+            }}
+            style={styles.image}
+          />
+        )}
+      </View>
       {/* INFO */}
       <View style={styles.container}>
         {/* Service */}
@@ -247,12 +249,12 @@ const InfoScreen = () => {
           price={service?.price}
         />
         {/* CHECK */}
-        <Button
+        {/* <Button
           style={{borderRadius: 8}}
           textStyle={{color: COLORS.mainColor}}
           onPress={addToCart}>
           Добавить в корзину
-        </Button>
+        </Button> */}
       </View>
     </View>
   );
@@ -289,7 +291,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-
+  mainImage: {
+    width: '100%',
+    height: height / 2.5,
+  },
   image: {
     height: height / 2.5,
     borderBottomStartRadius: 20,

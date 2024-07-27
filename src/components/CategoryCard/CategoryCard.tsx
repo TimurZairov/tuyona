@@ -15,6 +15,7 @@ const CategoryCard = ({category}: ICategory) => {
   const {language} = useAppContext();
 
   const getFilteredList = async (id: any) => {
+    console.log(id);
     try {
       const result = await fetch(
         BASE_URL + '/service-categories/' + id + '/services/',
@@ -28,13 +29,11 @@ const CategoryCard = ({category}: ICategory) => {
         },
       );
 
-      // console.log(JSON.stringify(result, null, 2));
       const filteredList = await result.json();
 
       if (!filteredList) {
         throw new Error('filtered action');
       }
-      // console.log(JSON.stringify(filteredList, null, 2));
       dispatch(setFilteredItems(filteredList));
       navigation.navigate('ServiceList');
     } catch (error) {

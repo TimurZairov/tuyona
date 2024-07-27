@@ -64,13 +64,13 @@ const UserProfileScreen = () => {
   ];
 
   const pickImage = async () => {
-    let isGranted;
-    if (Platform.OS === 'android') {
-      isGranted = await galleryPermission();
-    }
-    if (!isGranted) {
-      return;
-    }
+    // let isGranted;
+    // if (Platform.OS === 'android') {
+    //   isGranted = await galleryPermission();
+    // }
+    // if (!isGranted) {
+    //   return;
+    // }
 
     try {
       const image = await ImagePicker.openPicker({
@@ -84,7 +84,7 @@ const UserProfileScreen = () => {
         return;
       }
       setBase64Url(base64String);
-      // updateUserData();
+      updateUserData(base64String);
     } catch (error) {
       console.log(error);
     }
@@ -92,8 +92,7 @@ const UserProfileScreen = () => {
 
   //update avatar
 
-  const updateUserData = async () => {
-    console.log('+++++');
+  const updateUserData = async (url: string) => {
     if (loading) {
       return;
     }
@@ -103,14 +102,12 @@ const UserProfileScreen = () => {
       last_name: user?.last_name,
       phone_number: user?.phone_number,
       username: user?.username,
-      avatar: base64Url,
+      avatar: url,
     };
 
     await dispatch(userEdit({data: usersData, token: accessToken!.toString()}));
-
     setLoading(false);
   };
-  console.log(user);
   return (
     <View>
       {/* Header */}
