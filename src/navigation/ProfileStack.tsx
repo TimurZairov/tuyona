@@ -5,22 +5,23 @@ import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 import LanguageScreen from '../screens/LanguageScreen/LanguageScreen';
 import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
 import EditProfile from '../screens/ProfileScreen/EditProfile';
+import {ProfileNavigationStack} from './types';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<ProfileNavigationStack>();
 
 const ProfileStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="Language" component={LanguageScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
       <Stack.Screen
+        name="Edit"
+        component={EditProfile}
         options={{
           headerShown: true,
         }}
-        name="Profile"
-        component={ProfileScreen}
       />
-      <Stack.Screen name="Language" component={LanguageScreen} />
-      <Stack.Screen name="Settings" component={SettingsScreen} />
-      <Stack.Screen name="Edit" component={EditProfile} />
     </Stack.Navigator>
   );
 };

@@ -26,6 +26,13 @@ export type MainNavigationStack = {
   };
 };
 
+export type ProfileNavigationStack = {
+  Profile: undefined;
+  Language: undefined;
+  Settings: undefined;
+  Edit: undefined;
+};
+
 export type ProfileNavigationProp = NativeStackNavigationProp<
   RootNavigationStack,
   'Register'
@@ -48,4 +55,9 @@ export type ServiceProviderNavigationProp = NativeStackNavigationProp<
 export type ServiceListNavigationProp = NativeStackNavigationProp<
   MainNavigationStack,
   'ServiceList'
+>;
+
+export type EditNavigationProp = NativeStackNavigationProp<
+  ProfileNavigationStack,
+  'Edit'
 >;

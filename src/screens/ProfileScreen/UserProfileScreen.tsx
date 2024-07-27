@@ -18,13 +18,14 @@ import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
 import {galleryPermission} from '../../common/premissions/premissions';
 import {useAppContext} from '../../providers/context/context';
 import {userEdit} from '../../providers/redux/actions/userAction';
+import {EditNavigationProp} from '../../navigation/types';
 
 const UserProfileScreen = () => {
   const [base64Url, setBase64Url] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation();
+  const navigation = useNavigation<EditNavigationProp>();
   const {user} = useAppSelector(state => state.user);
   const {accessToken} = useAppContext();
   const dispatch = useAppDispatch();

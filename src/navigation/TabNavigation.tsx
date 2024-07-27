@@ -61,7 +61,7 @@ const TabNavigation = () => {
           title: `${t('favorite')}`,
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Cart"
         component={CartScreen}
         options={{
@@ -71,7 +71,7 @@ const TabNavigation = () => {
           title: `${t('cart')}`,
           tabBarBadge: cart.length === 0 ? undefined : cart.length,
         }}
-      />
+      /> */}
       <Tab.Screen
         name="ProfileStack"
         component={ProfileStack}
