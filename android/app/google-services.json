@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "915047744821",
+    "project_id": "tuyona-3e421",
+    "storage_bucket": "tuyona-3e421.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915047744821:android:48d679dbb7069d452af87c",
+        "android_client_info": {
+          "package_name": "com.tuyonauz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5vdvew8n6nqXcMgoCUNptLWSKqGitQTE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

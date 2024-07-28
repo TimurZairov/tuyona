@@ -13,6 +13,7 @@ export type TabNavigationStack = {
   Favorite: undefined;
   ProfileStack: undefined;
   Cart: undefined;
+  Map: undefined;
 };
 
 export type MainNavigationStack = {

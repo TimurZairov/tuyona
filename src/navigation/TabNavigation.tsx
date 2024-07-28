@@ -11,6 +11,8 @@ import {useTranslation} from 'react-i18next';
 import CartScreen from '../screens/CartScreen/CartScreen';
 import {useAppSelector} from '../providers/redux/type';
 import ProfileStack from './ProfileStack';
+import ReminderScreen from '../screens/ReminderScreen/ReminderScreen';
+import MapScreen from '../screens/MapScreen/MapScreen';
 
 const Tab = createBottomTabNavigator<TabNavigationStack>();
 
@@ -41,6 +43,18 @@ const TabNavigation = () => {
           title: `${t('mainScreen')}`,
         }}
       />
+
+      <Tab.Screen
+        name="Map"
+        component={MapScreen}
+        options={{
+          tabBarIcon: color => {
+            return <Ionicons name="map" size={20} color={color.color} />;
+          },
+          title: 'Карта',
+        }}
+      />
+
       {/* <Tab.Screen
         name="Reminder"
         component={ReminderScreen}
