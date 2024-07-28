@@ -15,11 +15,11 @@ import {RegisterNavigationProp} from '../../navigation/types';
 import Toast from 'react-native-toast-message';
 
 const RegisterScreen = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [password2, setPassword2] = useState('');
+  const [firstName, setFirstName] = useState<string | undefined>('');
+  const [lastName, setLastName] = useState<string | undefined>('');
+  const [username, setUsername] = useState<string | undefined>('');
+  const [password, setPassword] = useState<string | undefined>('');
+  const [password2, setPassword2] = useState<string | undefined>('');
   const [loading, setLoading] = useState(false);
 
   const insets = useSafeAreaInsets();
@@ -117,14 +117,6 @@ const RegisterScreen = () => {
     </SafeAreaView>
   );
 };
-
-// {
-//     "first_name": "string",
-//     "last_name": "string",
-//     "username": "string",
-//     "password": "string",
-//     "password2": "string"
-//   }
 
 export default RegisterScreen;
 

@@ -73,6 +73,7 @@ const UserProfileScreen = () => {
     //   return;
     // }
 
+    //IMAGE PICKER implementation
     try {
       const image = await ImagePicker.openPicker({
         multiple: false,
@@ -92,23 +93,20 @@ const UserProfileScreen = () => {
   };
 
   //update avatar
-
   const updateUserData = async (url: string) => {
     if (loading) {
       return;
     }
     setLoading(true);
     const usersData = {
-      first_name: user?.first_name,
-      last_name: user?.last_name,
-      phone_number: user?.phone_number,
-      username: user?.username,
+      ...user,
       avatar: url,
     };
 
     await dispatch(userEdit({data: usersData, token: accessToken!.toString()}));
     setLoading(false);
   };
+
   return (
     <View>
       {/* Header */}

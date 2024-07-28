@@ -28,21 +28,22 @@ import {
 import {getMethodApi} from '../../common/getMethodApi';
 import useModalContact from '../../common/hooks/useModalContact';
 import ModalContacts from '../../components/ModalCotacts/ModalContacts';
+import {LoginNavigationProp} from '../../navigation/types';
 
 //types for routes params
 interface InfoRouteParams {
   id: string;
 }
-type InfoScreenRouteProp = RouteProp<{Info: InfoRouteParams}, 'Info'>;
+type InfoScreenRouteParams = RouteProp<{Info: InfoRouteParams}, 'Info'>;
 
 const InfoScreen = () => {
   const [loading, setLoading] = useState(false);
   const [service, setService] = useState({});
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<LoginNavigationProp>();
   const insets = useSafeAreaInsets();
-  const route = useRoute<InfoScreenRouteProp>();
+  const route = useRoute<InfoScreenRouteParams>();
   const {accessToken, language} = useAppContext();
   const dispatch = useAppDispatch();
   const {modal, modalToggle} = useModalContact();

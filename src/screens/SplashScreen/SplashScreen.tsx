@@ -3,8 +3,13 @@ import React, {useEffect} from 'react';
 import useRefreshAccessToken from '../../common/hooks/useRefreshAccessToken';
 import {useTranslation} from 'react-i18next';
 import '../../common/services/i18next';
+import {RegisterNavigationProp} from '../../navigation/types';
 
-const SplashScreen = ({navigation}: any) => {
+interface NavigationProp {
+  navigation: RegisterNavigationProp;
+}
+
+const SplashScreen = ({navigation}: NavigationProp) => {
   const {isReady, isDone, banners} = useRefreshAccessToken();
 
   const {t} = useTranslation();

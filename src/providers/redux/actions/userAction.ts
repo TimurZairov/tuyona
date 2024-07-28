@@ -5,9 +5,10 @@ import Toast from 'react-native-toast-message';
 import {getUser} from '../../../common/getUserApi';
 
 interface IData {
-  first_name: string | undefined;
-  last_name: string | undefined;
-  phone_number: string | undefined;
+  first_name?: string | undefined;
+  last_name?: string | undefined;
+  phone_number?: string | undefined;
+  avatar?: string | undefined;
 }
 
 export const userEdit = createAsyncThunk(

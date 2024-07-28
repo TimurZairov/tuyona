@@ -61,3 +61,14 @@ export type EditNavigationProp = NativeStackNavigationProp<
   ProfileNavigationStack,
   'Edit'
 >;
+
+export type LoginNavigationProp = NativeStackNavigationProp<
+  RootNavigationStack,
+  'Login'
+>;
+
+export type SettingsNavigationProp = NativeStackNavigationProp<
+  ProfileNavigationStack,
+  'Language',
+  'Settings'
+>;

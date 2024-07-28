@@ -10,10 +10,11 @@ import {CommonActions, useNavigation} from '@react-navigation/native';
 import {useAppSelector} from '../../providers/redux/type';
 import {useAppContext} from '../../providers/context/context';
 import UserProfileScreen from './UserProfileScreen';
+import {SettingsNavigationProp} from '../../navigation/types';
 
 const ProfileScreen = () => {
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation();
+  const navigation = useNavigation<SettingsNavigationProp>();
   const {accessToken} = useAppContext();
   const {user} = useAppSelector(state => state.user);
 

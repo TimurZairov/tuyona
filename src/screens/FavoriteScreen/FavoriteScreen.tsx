@@ -30,7 +30,7 @@ const FavoriteScreen = () => {
 
   const {accessToken, language} = useAppContext();
   //state
-  const {wishList, error} = useAppSelector(state => state.wishList);
+  const {wishList} = useAppSelector(state => state.wishList);
 
   const removeItemFromWishList = async (id: any) => {
     if (loading) {

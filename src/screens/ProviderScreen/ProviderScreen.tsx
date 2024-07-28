@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {getMethodApi} from '../../common/getMethodApi';
 import {useAppContext} from '../../providers/context/context';
@@ -15,22 +15,31 @@ import {COLORS, height, SIZES, width} from '../../theme/theme';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {InfoNavigationProp} from '../../navigation/types';
 
 const ProviderScreen = () => {
   const [loading, setLoading] = useState(false);
   const [serviceProvider, setServiceProvider] = useState(null);
   const [services, setServices] = useState(null);
 
-  const route = useRoute();
+  interface ProviderScreenRouteParams {
+    id: string;
+  }
+
+  type ProviderScreenRouteProp = RouteProp<
+    {Provider: ProviderScreenRouteParams},
+    'Provider'
+  >;
+
+  const route = useRoute<ProviderScreenRouteProp>();
   const insets = useSafeAreaInsets();
   const {language} = useAppContext();
-  const navigation = useNavigation<NativeStackNavigationProp>();
+  const navigation = useNavigation<InfoNavigationProp>();
   const {id} = route.params;
 
   //service info
   const infoScreenNavigate = (id: string) => {
-    navigation.navigate('Info', {id});
+    navigation.navigate('Info', {id: +id});
   };
 
   //get service provider by id

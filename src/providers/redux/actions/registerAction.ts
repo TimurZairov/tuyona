@@ -8,11 +8,11 @@ import {User} from '../../../types/types';
 
 interface IRegisterAction {
   data: {
-    username: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    password2: string;
+    username: string | undefined;
+    password: string | undefined;
+    firstName: string | undefined;
+    lastName: string | undefined;
+    password2: string | undefined;
   };
   setAccessToken: Dispatch<SetStateAction<string | null>>;
 }

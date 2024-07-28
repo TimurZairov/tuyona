@@ -8,8 +8,8 @@ import {User} from '../../../types/types';
 
 export interface ILoginAction {
   data: {
-    username: string;
-    password: string;
+    username: string | undefined;
+    password: string | undefined;
   };
   setAccessToken: Dispatch<SetStateAction<string | null>>;
 }

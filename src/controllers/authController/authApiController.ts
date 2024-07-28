@@ -5,8 +5,8 @@ export const authApiController = async (
   endpoint: string,
   method: string,
   data: {
-    username: string;
-    password: string;
+    username: string | undefined;
+    password: string | undefined;
     lastName?: string;
     firsName?: string;
     password2?: string;
