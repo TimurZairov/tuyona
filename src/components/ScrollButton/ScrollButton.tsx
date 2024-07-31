@@ -3,54 +3,53 @@ import React, {useState} from 'react';
 import {COLORS} from '../../theme/theme';
 import {SvgUri} from 'react-native-svg';
 import {ICategory} from '../../types/types';
-import {BASE_URL} from '../../config/config';
 import {useAppContext} from '../../providers/context/context';
 import {useAppDispatch} from '../../providers/redux/type';
 import {useNavigation} from '@react-navigation/native';
-import {setFilteredItems} from '../../providers/redux/slices/serviceProviderSlice';
+
 import {ServiceListNavigationProp} from '../../navigation/types';
 
-const ScrollButton = ({category, food}: ICategory) => {
+const ScrollButton = ({category, food, filter}: ICategory) => {
   const {language} = useAppContext();
   const dispatch = useAppDispatch();
   const navigation = useNavigation<ServiceListNavigationProp>();
   const [categoryId, setCategoryId] = useState([]);
 
   //check later it doubled
-  const getFilteredList = async (id: any) => {
-    try {
-      const result = await fetch(
-        BASE_URL + '/service-categories/' + id + '/providers/',
+  // const getFilteredList = async (id: any) => {
+  //   try {
+  //     const result = await fetch(
+  //       BASE_URL + '/service-categories/' + id + '/providers/',
 
-        {
-          method: 'GET',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'Accept-language': language,
-          },
-        },
-      );
+  //       {
+  //         method: 'GET',
+  //         headers: {
+  //           Accept: 'application/json',
+  //           'Content-Type': 'application/json',
+  //           'Accept-language': language,
+  //         },
+  //       },
+  //     );
 
-      // console.log(JSON.stringify(result, null, 2));
-      const filteredList = await result.json();
+  //     // console.log(JSON.stringify(result, null, 2));
+  //     const filteredList = await result.json();
 
-      if (!filteredList) {
-        throw new Error('filtered action');
-      }
-      // console.log(JSON.stringify(filteredList, null, 2));
-      dispatch(setFilteredItems(filteredList));
-      navigation.navigate('ServiceList');
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     if (!filteredList) {
+  //       throw new Error('filtered action');
+  //     }
+  //     // console.log(JSON.stringify(filteredList, null, 2));
+  //     dispatch(setFilteredItems(filteredList));
+  //     navigation.navigate('ServiceList');
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <View style={[styles.btn, {marginRight: food ? 8 : 0}]}>
       <Pressable
         style={styles.imageWrapper}
-        onPress={() => getFilteredList(category.id)}>
+        onPress={() => filter(category.id)}>
         {/* <Image source={category.image} style={styles.image} /> */}
         {category && category.icon && (
           <SvgUri height={70} width={70} uri={category.icon} />

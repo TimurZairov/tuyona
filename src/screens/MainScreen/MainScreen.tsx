@@ -8,7 +8,7 @@ import {
   Pressable,
   Linking,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {COLORS, SIZES, height, width} from '../../theme/theme';
 import Carousel from 'react-native-reanimated-carousel';
 import Header from '../../components/Header/Header';
@@ -26,6 +26,9 @@ const MainScreen = () => {
   const {t} = useTranslation();
   const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
   const {language, categories} = useAppContext();
+  const [filterCategory, setFilterCategory] = useState<CategoryType[]>([]);
+  const [oldCategory, setOldCategory] = useState<CategoryType[]>([]);
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   //open URl
   const openLinkUrl = async (url: string) => {
@@ -34,6 +37,32 @@ const MainScreen = () => {
     }
     await Linking.openURL(url);
   };
+
+  const filter = (id: number) => {
+    setSelectedIds(prevIds => {
+      const updatedIds = prevIds.includes(id)
+        ? prevIds.filter(item => item !== id)
+        : [...prevIds, id];
+
+      // Update filterCategory based on selectedIds
+      const updatedFilterCategory =
+        updatedIds.length === 0
+          ? oldCategory
+          : oldCategory.filter(category => updatedIds.includes(category.id));
+
+      setFilterCategory(updatedFilterCategory);
+      console.log(updatedIds);
+
+      return updatedIds;
+    });
+  };
+
+  useEffect(() => {
+    if (categories) {
+      setFilterCategory([...categories]);
+      setOldCategory([...categories]);
+    }
+  }, []);
 
   return (
     <SafeAreaView style={styles.main}>
@@ -83,6 +112,7 @@ const MainScreen = () => {
                     key={`${category}-${index}`}
                     category={category}
                     food
+                    filter={filter}
                   />
                 );
               })}
@@ -94,8 +124,8 @@ const MainScreen = () => {
           <ScrollView
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{paddingHorizontal: 8, paddingTop: 16}}>
-            {categories &&
-              categories?.map((category, index) => {
+            {filterCategory &&
+              filterCategory?.map((category, index) => {
                 return (
                   <CategoryCard
                     key={`${category}-${index}`}
