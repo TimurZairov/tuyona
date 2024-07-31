@@ -79,3 +79,80 @@ export const RESTAURANTS = [
     location: '200',
   },
 ];
+
+export const providersDummy = [
+  {
+    id: 1,
+    name: 'Маруфжон Хужакулов',
+    short_description:
+      'Ўзининг жозибаси, профессионаллиги ва ҳар қандай тадбирда ўзига хос муҳит яратиш қобилияти билан танилган истеъдодли ўзбек бошловчиси.',
+    logo: 'http://212.193.54.105:7777/media/uploads/service-providers/logo/2024/07/09/164333918_477802903262078_8002537582701470494_n.jpg',
+    latitude: 39.660954,
+    longitude: 66.972558,
+    photos: [
+      {
+        id: 1,
+        photo:
+          'http://212.193.54.105:7777/media/uploads/service-providers/photos/2024/07/09/164333918_477802903262078_8002537582701470494_n.jpg',
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: 'Наргиза Абдуллаева',
+    short_description:
+      'Кучли ва ҳиссиётли овозга ега ўзбек хонандаси, унинг чиқишлари чуқур ҳиссиёт ва профессионаллик билан ажралиб туради.',
+    logo: 'http://212.193.54.105:7777/media/uploads/service-providers/logo/2024/07/09/nargiza-abdullaeva.medium.jpg',
+    latitude: 39.65916,
+    longitude: 66.979815,
+    photos: [
+      {
+        id: 2,
+        photo:
+          'http://212.193.54.105:7777/media/uploads/service-providers/photos/2024/07/09/nargiza-abdullaeva.medium.jpg',
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: 'Жахонгир Хужаев',
+    short_description:
+      'Ҳар қандай тадбирда ижобий муҳит яратишга қодир қувноқ ва зукко ўзбек бошловчиси.',
+    logo: 'http://212.193.54.105:7777/media/uploads/service-providers/logo/2024/07/09/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA.PNG',
+    latitude: 39.655541,
+    longitude: 66.981458,
+    photos: [
+      {
+        id: 3,
+        photo:
+          'http://212.193.54.105:7777/media/uploads/service-providers/photos/2024/07/09/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA.PNG',
+      },
+    ],
+  },
+  {
+    id: 4,
+    name: 'VIA Marokand',
+    short_description:
+      'Анъанавий ўзбек мусиқий елементларини замонавий услублар билан уйғунлаштирган, ўзига хос овоз яратадиган ўзбек мусиқий гуруҳи.',
+    logo: 'http://212.193.54.105:7777/media/uploads/service-providers/logo/2024/07/09/via-marokand-47785-jE4R1.jpeg',
+    latitude: 39.651529,
+    longitude: 66.978746,
+    photos: [
+      {
+        id: 4,
+        photo:
+          'http://212.193.54.105:7777/media/uploads/service-providers/photos/2024/07/09/via-marokand-47785-jE4R1.jpeg',
+      },
+      {
+        id: 9,
+        photo:
+          'http://212.193.54.105:7777/media/uploads/service-providers/photos/2024/07/18/863076e4-919b-475e-ab40-3352ba3d7dbc.jpg',
+      },
+      {
+        id: 12,
+        photo:
+          'http://212.193.54.105:7777/media/uploads/service-providers/photos/2024/07/18/f03ec286-e8b3-4ead-be21-64894f62cb3c.jpg',
+      },
+    ],
+  },
+];

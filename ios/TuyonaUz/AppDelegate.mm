@@ -15,7 +15,7 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
   [FIRApp configure];
-  [GMSServices provideAPIKey:@"AIzaSyCjbRfmfcMZL42A-d7SK0vVwEneduDZuCY"];
+  [GMSServices provideAPIKey:@"AIzaSyAQQEoXPmClZ_4SDySDbK9cXl5Gh-gz1qs"];
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
