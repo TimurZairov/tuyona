@@ -35,7 +35,7 @@ const MapScreen = () => {
       }
 
       const res = await response.json();
-      console.log(JSON.stringify(res.results, null, 2));
+      setProviders(res.results);
     } catch (error) {
       console.log('map screen', error);
     }
@@ -80,14 +80,14 @@ const MapScreen = () => {
           longitudeDelta: 0.0121,
         }}
         zoomControlEnabled>
-        {providersDummy && providersDummy.length > 0
-          ? providersDummy.map(item => {
+        {providers && providers.length > 0
+          ? providers.map(item => {
               return (
                 <Marker
                   key={item?.id}
                   coordinate={{
-                    latitude: item?.latitude || 0,
-                    longitude: item?.longitude || 0,
+                    latitude: Number(item?.latitude) || 0,
+                    longitude: Number(item?.longitude) || 0,
                   }}>
                   <View>
                     <CustomMarker name={item?.name} image={item.logo} />

@@ -30,6 +30,8 @@ const MainScreen = () => {
   const [oldCategory, setOldCategory] = useState<CategoryType[]>([]);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
+  console.log(categories);
+
   //open URl
   const openLinkUrl = async (url: string) => {
     if (!url) {
@@ -51,18 +53,15 @@ const MainScreen = () => {
           : oldCategory.filter(category => updatedIds.includes(category.id));
 
       setFilterCategory(updatedFilterCategory);
-      console.log(updatedIds);
 
       return updatedIds;
     });
   };
 
   useEffect(() => {
-    if (categories) {
-      setFilterCategory([...categories]);
-      setOldCategory([...categories]);
-    }
-  }, []);
+    setFilterCategory([...categories]);
+    setOldCategory([...categories]);
+  }, [categories]);
 
   return (
     <SafeAreaView style={styles.main}>
@@ -124,7 +123,7 @@ const MainScreen = () => {
           <ScrollView
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{paddingHorizontal: 8, paddingTop: 16}}>
-            {filterCategory &&
+            {filterCategory.length > 0 &&
               filterCategory?.map((category, index) => {
                 return (
                   <CategoryCard

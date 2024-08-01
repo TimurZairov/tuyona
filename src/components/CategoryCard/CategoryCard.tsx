@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
   },
 });
 
-//filter check change
 //fmc
 //screen invisible
 //favorite providers

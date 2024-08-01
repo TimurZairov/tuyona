@@ -16,6 +16,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {InfoNavigationProp} from '../../navigation/types';
+import ProviderCharacteristics from '../../components/ProviderCharacteristics/ProviderCharacteristics';
 
 const ProviderScreen = () => {
   const [loading, setLoading] = useState(false);
@@ -64,6 +65,8 @@ const ProviderScreen = () => {
     })();
   }, []);
 
+  console.log(JSON.stringify(serviceProvider, null, 2));
+
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {/* MAIN */}
@@ -84,6 +87,9 @@ const ProviderScreen = () => {
           <Text style={styles.ratingNum}>4.2</Text>
           <Text style={styles.review}>(20 отзывов)</Text>
           {/* ADD */}
+        </View>
+        {/* ICONS */}
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <View style={styles.icons}>
             <Ionicons
               name="bookmark-outline"
@@ -92,11 +98,70 @@ const ProviderScreen = () => {
             />
             <Text style={styles.add}>Добавить в избранное</Text>
           </View>
+
+          <View style={styles.icons}>
+            <Ionicons name="map-outline" color={COLORS.blueColor} size={16.7} />
+            <Text style={styles.add}>На карте</Text>
+          </View>
+
+          <View style={styles.icons}>
+            <Ionicons
+              name="share-social-outline"
+              color={COLORS.blueColor}
+              size={16.7}
+            />
+            <Text style={styles.add}>Поделиться</Text>
+          </View>
         </View>
+
         {/* Description */}
         <View style={styles.description}>
           <Text>{serviceProvider?.description}</Text>
         </View>
+
+        {/* ProviderCharacteristics */}
+
+        {serviceProvider?.provider_type === 'COMMON' ? (
+          <View style={{marginVertical: 14}}>
+            <View style={{flexDirection: 'row'}}>
+              <ProviderCharacteristics
+                mainText="Main Hall"
+                sunText="100 | 120 pcs"
+              />
+
+              <ProviderCharacteristics
+                mainText="Conference Hall"
+                sunText="100 | 120 pcs"
+              />
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <ProviderCharacteristics
+                mainText="Dining Area"
+                sunText="100 | 120 pcs"
+              />
+
+              <ProviderCharacteristics
+                mainText="Garden"
+                sunText="100 | 120 pcs"
+              />
+            </View>
+
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Text
+                style={{
+                  marginTop: 16,
+                  color: COLORS.blueColor,
+                }}>
+                See All
+              </Text>
+            </View>
+          </View>
+        ) : null}
+
         {/* CONTACTS */}
         <View>
           <Text style={styles.contactsTitle}>Контакты</Text>
@@ -215,9 +280,9 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
   },
   icons: {
-    marginLeft: 'auto',
     flexDirection: 'row',
     alignItems: 'center',
+    marginVertical: 20,
   },
   add: {
     marginLeft: 6,

@@ -17,6 +17,8 @@ const Card = memo(({item}: Card) => {
     navigation.navigate('Provider', {id: item.id});
   };
 
+  console.log(item);
+
   return (
     <TouchableOpacity style={styles.card} onPress={infoNavigationScreen}>
       <View style={styles.like}>
@@ -25,9 +27,9 @@ const Card = memo(({item}: Card) => {
       <Image source={{uri: item?.photos[0]?.photo}} style={styles.image} />
       <Text style={styles.name}>{item?.name}</Text>
       <Text style={styles.desc}>{item?.short_description}</Text>
-      {/* <View style={styles.btn}>
+      <View style={styles.btn}>
         <Text>{item?.price}</Text>
-      </View> */}
+      </View>
     </TouchableOpacity>
   );
 });

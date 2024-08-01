@@ -17,8 +17,6 @@ interface IRestaurantCard {
 }
 
 const RestaurantCard = ({restaurant}: IRestaurantCard) => {
-  console.log(restaurant);
-
   return (
     <Pressable style={styles.card}>
       {/* Main image */}
