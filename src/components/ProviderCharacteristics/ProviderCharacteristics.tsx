@@ -2,7 +2,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {COLORS, width} from '../../theme/theme';
 
-const ProviderCharacteristics = ({mainText, sunText}) => {
+const ProviderCharacteristics = ({mainText, sunText}: any) => {
   return (
     <View style={{width: width / 2, marginTop: 8}}>
       <Text style={{fontSize: 14, fontWeight: 600, color: COLORS.blackColor}}>

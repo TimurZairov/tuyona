@@ -30,8 +30,6 @@ const MainScreen = () => {
   const [oldCategory, setOldCategory] = useState<CategoryType[]>([]);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
-  console.log(categories);
-
   //open URl
   const openLinkUrl = async (url: string) => {
     if (!url) {

@@ -1,78 +1,43 @@
-import {
-  PermissionsAndroid,
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import {StyleSheet, View} from 'react-native';
+import React, {useEffect, useRef} from 'react';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import useUserLocation from '../../common/hooks/useUserLocation';
-import {BASE_URL} from '../../config/config';
-import {useAppContext} from '../../providers/context/context';
-import {providersDummy} from '../../data/slider';
 import CustomMarker from '../../components/CustomMarker/CustomMarker';
+import {requestLocationPermission} from '../../common/premissions/premissions';
+import {useAppSelector} from '../../providers/redux/type';
 
 const MapScreen = () => {
   const {getUserLocation, location} = useUserLocation();
-  const {language} = useAppContext();
-  const mapRef = useRef();
-
-  const [providers, setProviders] = useState([]);
-
-  const getAllProviders = async () => {
-    try {
-      const response = await fetch(BASE_URL + '/service-providers/', {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'Accept-language': language,
-        },
-      });
-      if (!response) {
-        return;
-      }
-
-      const res = await response.json();
-      setProviders(res.results);
-    } catch (error) {
-      console.log('map screen', error);
-    }
-  };
-
-  const requestLocationPermission = async () => {
-    if (Platform.OS === 'ios') {
-      return true; // iOS permissions are requested in Info.plist
-    }
-    try {
-      await getAllProviders();
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: 'Location Permission',
-          message: 'This app requires access to your location.',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
-      );
-      return granted === PermissionsAndroid.RESULTS.GRANTED;
-    } catch (err) {
-      console.warn(err);
-      return false;
-    }
-  };
+  const mapRef = useRef<MapView | null>(null);
+  const {serviceProvider} = useAppSelector(state => state.serviceProvider);
 
   useEffect(() => {
     getUserLocation(requestLocationPermission);
+    if (location) {
+      mapRef?.current?.animateToRegion(
+        {
+          latitude: location?.coords?.latitude,
+          longitude: location?.coords?.longitude,
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.005,
+        },
+        2000,
+      );
+    }
   }, []);
 
   return (
     <View style={styles.mapContainer}>
       <MapView
-        provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+        provider={PROVIDER_GOOGLE}
         style={styles.map}
+        zoomTapEnabled
+        zoomEnabled
+        cameraZoomRange={{
+          minCenterCoordinateDistance: 0,
+          maxCenterCoordinateDistance: 20,
+        }}
+        ref={mapRef}
         region={{
           latitude: location?.coords.latitude || 37.78825,
           longitude: location?.coords.longitude || -122.4324,
@@ -80,8 +45,8 @@ const MapScreen = () => {
           longitudeDelta: 0.0121,
         }}
         zoomControlEnabled>
-        {providers && providers.length > 0
-          ? providers.map(item => {
+        {serviceProvider && serviceProvider.length > 0
+          ? serviceProvider.map(item => {
               return (
                 <Marker
                   key={item?.id}

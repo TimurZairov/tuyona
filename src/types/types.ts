@@ -92,6 +92,36 @@ export type Service = {
   in_wishlist: boolean;
 };
 
+export type Providers = {
+  id: string;
+  name: string;
+  short_description: string;
+  logo: string;
+  provider_type: string;
+  latitude: string;
+  longitude: string;
+  photos: {
+    id: string;
+    photo: string;
+  }[];
+};
+
+// {
+//   "id": 1,
+//   "name": "Маруфжон Хужакулов",
+//   "short_description": "Талантливый узбекский ведущий, известный своим обаянием, профессионализмом и способностью создавать уникальную атмосферу на любом мероприятии.",
+//   "logo": "http://212.193.54.105:7777/media/uploads/service-providers/logo/2024/07/09/164333918_477802903262078_8002537582701470494_n.jpg",
+//   "provider_type": "COMMON",
+//   "latitude": "39.654000",
+//   "longitude": "66.975000",
+//   "photos": [
+//     {
+//       "id": 1,
+//       "photo": "http://212.193.54.105:7777/media/uploads/service-providers/photos/2024/07/09/164333918_477802903262078_8002537582701470494_n.jpg"
+//     }
+//   ]
+// }
+
 // {
 //   "id": 10,
 //   "user": 5,

@@ -1,9 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {Service} from '../../../types/types';
+import {Providers, Service} from '../../../types/types';
 import {getServices} from '../actions/servicesProvider';
 
 interface IInitialSate {
-  serviceProvider: Service[];
+  serviceProvider: Providers[];
   error: Error | unknown;
 }
 
@@ -24,6 +24,9 @@ const serviceProviderSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(getServices.fulfilled, (state, action) => {
       state.serviceProvider = action.payload.results;
+    });
+    builder.addCase(getServices.rejected, (state, action) => {
+      state.error = action.payload;
     });
   },
 });
