@@ -11,7 +11,10 @@ type TCard = {
 const MainCardList = () => {
   const {serviceProvider} = useAppSelector(state => state.serviceProvider);
 
-  const renderItem = useCallback(({item}: TCard) => <Card item={item} />, []);
+  const renderItem = useCallback(
+    ({item}: TCard) => <Card item={item} />,
+    [serviceProvider],
+  );
 
   return (
     <FlatList
