@@ -17,8 +17,6 @@ const Card = memo(({item}: Card) => {
     navigation.navigate('Provider', {id: item.id});
   };
 
-  console.log(item);
-
   return (
     <TouchableOpacity style={styles.card} onPress={infoNavigationScreen}>
       <View style={styles.like}>

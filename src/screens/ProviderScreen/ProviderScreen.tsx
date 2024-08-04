@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import RenderHtml from 'react-native-render-html';
 import React, {useEffect, useState} from 'react';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -65,7 +66,7 @@ const ProviderScreen = () => {
     })();
   }, []);
 
-  console.log(JSON.stringify(serviceProvider, null, 2));
+  // console.log(JSON.stringify(serviceProvider, null, 2));
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -116,7 +117,13 @@ const ProviderScreen = () => {
 
         {/* Description */}
         <View style={styles.description}>
-          <Text>{serviceProvider?.description}</Text>
+          {/* <Text>{serviceProvider?.description}</Text> */}
+          {serviceProvider && serviceProvider?.description && (
+            <RenderHtml
+              contentWidth={width - 16}
+              source={{html: `${serviceProvider?.description}`}}
+            />
+          )}
         </View>
 
         {/* ProviderCharacteristics */}
