@@ -16,7 +16,7 @@ import ScrollButton from '../../components/ScrollButton/ScrollButton';
 
 import {useTranslation} from 'react-i18next';
 import {useAppContext} from '../../providers/context/context';
-import {Banner} from '../../types/types';
+import {Banner, Category} from '../../types/types';
 import CategoryCard from '../../components/CategoryCard/CategoryCard';
 import {useAppSelector} from '../../providers/redux/type';
 
@@ -25,9 +25,9 @@ const MainScreen = () => {
 
   const {t} = useTranslation();
   const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
-  const {language, categories} = useAppContext();
-  const [filterCategory, setFilterCategory] = useState<CategoryType[]>([]);
-  const [oldCategory, setOldCategory] = useState<CategoryType[]>([]);
+  const {categories} = useAppContext();
+  const [filterCategory, setFilterCategory] = useState<Category[]>([]);
+  const [oldCategory, setOldCategory] = useState<Category[]>([]);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   //open URl
@@ -61,8 +61,8 @@ const MainScreen = () => {
   };
 
   useEffect(() => {
-    setFilterCategory([...categories]);
-    setOldCategory([...categories]);
+    setFilterCategory(categories);
+    setOldCategory(categories);
   }, [categories]);
 
   return (

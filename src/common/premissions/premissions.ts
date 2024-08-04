@@ -2,17 +2,24 @@ import {PermissionsAndroid, Platform} from 'react-native';
 
 //GALLERY PERMISSION
 export const galleryPermission = async () => {
+  let granted;
   try {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES,
-      {
-        title: 'Доступ к галереи',
-        message: 'Приложению требуется доступ к вашей галереии',
-        buttonNeutral: 'Не сейчас',
-        buttonNegative: 'Отмена',
-        buttonPositive: 'Ok',
-      },
-    );
+    if (Platform.OS === 'ios') {
+      granted = true; // iOS permissions are requested in Info.plist
+    } else {
+      await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES,
+        {
+          title: 'Доступ к галереи',
+          message: 'Приложению требуется доступ к вашей галереии',
+          buttonNeutral: 'Не сейчас',
+          buttonNegative: 'Отмена',
+          buttonPositive: 'Ok',
+        },
+      );
+      granted === PermissionsAndroid.RESULTS.GRANTED;
+    }
+
     return granted;
   } catch (err) {
     console.warn(err);

@@ -33,18 +33,18 @@ const FavoriteScreen = () => {
   const {wishList} = useAppSelector(state => state.wishList);
 
   const removeItemFromWishList = async (id: any) => {
-    if (loading) {
+    if (loading || !accessToken) {
       return;
     }
     setLoading(true);
     try {
       //remove action
       await dispatch(
-        removeFromWishList({id: id.toString(), token: accessToken!.toString()}),
+        removeFromWishList({id: id.toString(), token: accessToken.toString()}),
       );
       //refresh list get action
       await dispatch(
-        wishListAction({accessToken: accessToken!.toString(), language}),
+        wishListAction({accessToken: accessToken.toString(), language}),
       );
     } catch (error) {
       console.log('CartScreen', error);

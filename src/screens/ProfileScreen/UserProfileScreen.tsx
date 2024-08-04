@@ -47,6 +47,13 @@ const UserProfileScreen = () => {
       },
     },
     {
+      icon: <MaterialIcons name="language" size={26} />,
+      text: 'Изменить язык',
+      onPress: () => {
+        navigation.navigate('Language');
+      },
+    },
+    {
       icon: <Ionicons name="information-circle-outline" size={26} />,
       text: 'О программе',
     },
@@ -65,14 +72,11 @@ const UserProfileScreen = () => {
   ];
 
   const pickImage = async () => {
-    // let isGranted;
-    // if (Platform.OS === 'android') {
-    //   isGranted = await galleryPermission();
-    // }
-    // if (!isGranted) {
-    //   return;
-    // }
+    const isGranted = galleryPermission();
 
+    if (!isGranted) {
+      return;
+    }
     //IMAGE PICKER implementation
     try {
       const image = await ImagePicker.openPicker({

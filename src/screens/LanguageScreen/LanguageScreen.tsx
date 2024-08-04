@@ -3,6 +3,7 @@ import React from 'react';
 import {useAppContext} from '../../providers/context/context';
 import i18next from 'i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {COLORS} from '../../theme/theme';
 
 const LanguageScreen = () => {
   const {language, setLanguage} = useAppContext();
@@ -19,10 +20,22 @@ const LanguageScreen = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => changeLang('ru')}>
+      <TouchableOpacity
+        style={{
+          backgroundColor: language === 'ru' ? COLORS.blueColor : 'transparent',
+          padding: 10,
+          borderRadius: 4,
+        }}
+        onPress={() => changeLang('ru')}>
         <Text>Ru</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => changeLang('uz')}>
+      <TouchableOpacity
+        style={{
+          backgroundColor: language === 'uz' ? COLORS.blueColor : 'transparent',
+          padding: 10,
+          borderRadius: 4,
+        }}
+        onPress={() => changeLang('uz')}>
         <Text>Uz</Text>
       </TouchableOpacity>
     </View>
