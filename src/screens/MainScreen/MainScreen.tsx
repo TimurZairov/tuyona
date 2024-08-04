@@ -38,7 +38,11 @@ const MainScreen = () => {
     await Linking.openURL(url);
   };
 
-  const filter = (id: number) => {
+  const filter = (
+    id: number,
+    cb: React.Dispatch<React.SetStateAction<boolean>>,
+  ) => {
+    cb(prevState => !prevState);
     setSelectedIds(prevIds => {
       const updatedIds = prevIds.includes(id)
         ? prevIds.filter(item => item !== id)
