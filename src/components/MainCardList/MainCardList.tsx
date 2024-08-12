@@ -11,16 +11,12 @@ type TCard = {
 const MainCardList = () => {
   const {serviceProvider} = useAppSelector(state => state.serviceProvider);
 
-  const renderItem = useCallback(
-    ({item}: TCard) => <Card item={item} />,
-    [serviceProvider],
-  );
+  const renderItem = useCallback(({item}: TCard) => <Card item={item} />, []);
 
   return (
     <FlatList
       data={serviceProvider || []}
       showsHorizontalScrollIndicator={false}
-      removeClippedSubviews={true}
       keyExtractor={item => item.id.toString()}
       renderItem={renderItem}
     />

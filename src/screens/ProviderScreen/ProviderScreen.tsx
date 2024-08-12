@@ -17,7 +17,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {InfoNavigationProp} from '../../navigation/types';
-import ProviderCharacteristics from '../../components/ProviderCharacteristics/ProviderCharacteristics';
 
 const ProviderScreen = () => {
   const [loading, setLoading] = useState(false);
@@ -27,6 +26,8 @@ const ProviderScreen = () => {
   interface ProviderScreenRouteParams {
     id: string;
   }
+
+  // console.log((d = serviceProvider));
 
   type ProviderScreenRouteProp = RouteProp<
     {Provider: ProviderScreenRouteParams},
@@ -64,10 +65,11 @@ const ProviderScreen = () => {
       setServices(resultServices);
       setLoading(false);
     })();
-  }, []);
+  }, [id, language]);
 
   // console.log(JSON.stringify(serviceProvider, null, 2));
 
+  //TODO change library to react native htmlview
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {/* MAIN */}
@@ -118,56 +120,55 @@ const ProviderScreen = () => {
         {/* Description */}
         <View style={styles.description}>
           {/* <Text>{serviceProvider?.description}</Text> */}
-          {serviceProvider && serviceProvider?.description && (
+          {serviceProvider !== null && serviceProvider?.description ? (
             <RenderHtml
               contentWidth={width - 16}
               source={{html: `${serviceProvider?.description}`}}
             />
-          )}
+          ) : null}
         </View>
 
         {/* ProviderCharacteristics */}
 
-        {serviceProvider?.provider_type === 'COMMON' ? (
-          <View style={{marginVertical: 14}}>
-            <View style={{flexDirection: 'row'}}>
-              <ProviderCharacteristics
-                mainText="Main Hall"
-                sunText="100 | 120 pcs"
-              />
-
-              <ProviderCharacteristics
-                mainText="Conference Hall"
-                sunText="100 | 120 pcs"
-              />
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              <ProviderCharacteristics
-                mainText="Dining Area"
-                sunText="100 | 120 pcs"
-              />
-
-              <ProviderCharacteristics
-                mainText="Garden"
-                sunText="100 | 120 pcs"
-              />
-            </View>
-
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  marginTop: 16,
-                  color: COLORS.blueColor,
-                }}>
-                See All
-              </Text>
-            </View>
-          </View>
-        ) : null}
+        <View style={{marginVertical: 18}}>
+          {serviceProvider?.provider_type === 'RESTAURANT'
+            ? serviceProvider?.characteristics?.map((item, index) => {
+                console.log(serviceProvider?.characteristics?.length);
+                return (
+                  <>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                      }}>
+                      <View style={{flexDirection: 'row'}}>
+                        <Ionicons
+                          name="information-circle-outline"
+                          color={COLORS.blueColor}
+                          size={18}
+                          style={{marginRight: 10}}
+                        />
+                        <Text>{item?.title}</Text>
+                      </View>
+                      <Text>{item?.description}</Text>
+                    </View>
+                    {serviceProvider?.characteristics?.length - 1 ===
+                    index ? null : (
+                      <View
+                        style={{
+                          width: '100%',
+                          borderWidth: 0.5,
+                          marginVertical: 10,
+                          borderColor: COLORS.grayColor,
+                        }}
+                      />
+                    )}
+                  </>
+                );
+              })
+            : null}
+        </View>
 
         {/* CONTACTS */}
         <View>
@@ -302,3 +303,42 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 });
+
+// <View style={{marginVertical: 14}}>
+//             <View style={{flexDirection: 'row'}}>
+//               <ProviderCharacteristics
+//                 mainText="Main Hall"
+//                 sunText="100 | 120 pcs"
+//               />
+
+//               <ProviderCharacteristics
+//                 mainText="Conference Hall"
+//                 sunText="100 | 120 pcs"
+//               />
+//             </View>
+//             <View style={{flexDirection: 'row'}}>
+//               <ProviderCharacteristics
+//                 mainText="Dining Area"
+//                 sunText="100 | 120 pcs"
+//               />
+
+//               <ProviderCharacteristics
+//                 mainText="Garden"
+//                 sunText="100 | 120 pcs"
+//               />
+//             </View>
+
+//             <View
+//               style={{
+//                 flexDirection: 'row',
+//                 alignItems: 'center',
+//               }}>
+//               <Text
+//                 style={{
+//                   marginTop: 16,
+//                   color: COLORS.blueColor,
+//                 }}>
+//                 See All
+//               </Text>
+//             </View>
+//           </View>

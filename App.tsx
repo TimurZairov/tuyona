@@ -1,15 +1,15 @@
-import { StyleSheet, View } from "react-native";
-import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import Toast from "react-native-toast-message";
+import {StyleSheet, View} from 'react-native';
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import Toast from 'react-native-toast-message';
 
-import RootNavigation from "./src/navigation/RootNavigation";
+import RootNavigation from './src/navigation/RootNavigation';
 
-import { store } from "./src/providers/redux/store";
-import { AppContextProvider } from "./src/providers/context/context";
-import { Provider } from "react-redux";
+import {store} from './src/providers/redux/store';
+import {AppContextProvider} from './src/providers/context/context';
+import {Provider} from 'react-redux';
 
 const App = () => {
   return (

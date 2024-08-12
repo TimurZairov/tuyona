@@ -13,7 +13,13 @@ const ProfileStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Profile" component={ProfileScreen} />
-      <Stack.Screen name="Language" component={LanguageScreen} />
+      <Stack.Screen
+        name="Language"
+        component={LanguageScreen}
+        options={{
+          headerShown: true,
+        }}
+      />
       <Stack.Screen name="Settings" component={SettingsScreen} />
       <Stack.Screen
         name="Edit"
