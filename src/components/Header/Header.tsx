@@ -70,6 +70,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: SIZES.medium,
     columnGap: SIZES.xsmall,
     flex: 1,
+    borderWidth: 1,
+    borderColor: COLORS.borderColor,
   },
   input: {
     height: 40,
@@ -81,6 +83,14 @@ const styles = StyleSheet.create({
   },
   notification: {
     marginRight: 6,
+    backgroundColor: COLORS.mainColor,
+    paddingVertical: 6,
+    paddingHorizontal: SIZES.medium,
+    height: 52,
+    borderRadius: SIZES.small,
+    justifyContent: 'center',
+    borderColor: COLORS.borderColor,
+    borderWidth: 1,
   },
   notificationNum: {
     position: 'absolute',

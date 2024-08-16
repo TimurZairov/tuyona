@@ -25,8 +25,8 @@ const TabNavigation = () => {
       detachInactiveScreens={false}
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: COLORS.blueColor,
-        tabBarInactiveTintColor: COLORS.lightGray,
+        tabBarActiveTintColor: COLORS.redColor,
+        tabBarInactiveTintColor: COLORS.blueColor,
         tabBarStyle: {
           height: Platform.OS === 'android' ? 60 : 70,
           paddingBottom: Platform.OS === 'android' ? 10 : 20,

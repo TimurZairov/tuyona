@@ -14,7 +14,7 @@ const ScrollButton = ({category, food, filter}: ICategory & ICategoryProps) => {
   const [active, setActive] = useState(false);
 
   return (
-    <View style={[styles.btn, {marginRight: food ? 8 : 0}]}>
+    <View style={[styles.btn]}>
       <Pressable
         style={[
           styles.imageWrapper,
@@ -23,11 +23,15 @@ const ScrollButton = ({category, food, filter}: ICategory & ICategoryProps) => {
         onPress={() => filter(category.id, setActive)}>
         {/* <Image source={category.image} style={styles.image} /> */}
         {category && category.icon && (
-          <SvgUri height={70} width={70} uri={category.icon} />
+          <SvgUri
+            height={40}
+            width={40}
+            uri={category.icon}
+            style={{marginRight: 8}}
+          />
         )}
+        <Text style={styles.title}>{category.title}</Text>
       </Pressable>
-
-      <Text style={styles.title}>{category.title}</Text>
     </View>
   );
 };
@@ -36,19 +40,23 @@ export default ScrollButton;
 
 const styles = StyleSheet.create({
   btn: {
-    paddingHorizontal: 8,
-    width: 90,
+    marginRight: 6,
+    // width: 90,
     justifyContent: 'center',
     alignItems: 'center',
   },
   imageWrapper: {
-    padding: 8,
-    borderRadius: 100,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    flexDirection: 'row',
+    borderRadius: 14,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: COLORS.borderColor,
   },
   title: {
-    fontSize: 12,
-    fontWeight: '400',
-    marginTop: 10,
+    fontSize: 14,
+    fontWeight: '600',
   },
   image: {
     width: 60,

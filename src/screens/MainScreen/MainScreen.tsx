@@ -7,6 +7,7 @@ import {
   Dimensions,
   Pressable,
   Linking,
+  Platform,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {COLORS, SIZES, height, width} from '../../theme/theme';
@@ -80,7 +81,6 @@ const MainScreen = () => {
               loop
               width={screenWidth}
               height={screenHeight / 4}
-              mode="parallax"
               autoPlay={true}
               modeConfig={{
                 parallaxAdjacentItemScale: 0.75,
@@ -101,11 +101,8 @@ const MainScreen = () => {
         <Header />
 
         {/*  CATEGORY  */}
-        <View style={{marginTop: 12}}>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{paddingHorizontal: 8}}>
+        <View style={{marginTop: 12, paddingHorizontal: 8}}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {categories &&
               categories?.map((category, index) => {
                 return (
@@ -147,12 +144,15 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: COLORS.grayColor,
+    paddingTop: Platform.OS == 'android' ? 16 : 0,
   },
   mainScroll: {},
 
-  container: {width: width, height: height / 5},
+  container: {width: width, height: height / 5, marginBottom: 16},
   sliderCard: {
     width: width,
+
+    paddingHorizontal: 8,
   },
   image: {
     width: '100%',

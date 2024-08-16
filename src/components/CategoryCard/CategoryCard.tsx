@@ -45,13 +45,28 @@ const CategoryCard = ({category}: ICategory) => {
 
   return (
     <>
-      <MainTitle title={category?.title} />
+      {/* <MainTitle title={category?.title} /> */}
       <TouchableOpacity
         style={styles.card}
         onPress={() => getFilteredList(category.id)}>
         {category && category?.photo && (
           <Image style={styles.photo} source={{uri: category?.photo}} />
         )}
+        <View
+          style={{
+            position: 'absolute',
+            bottom: -1,
+            backgroundColor: 'orange',
+            paddingHorizontal: 20,
+            paddingVertical: 10,
+            borderBottomRightRadius: 4,
+            borderTopRightRadius: 4,
+          }}>
+          <Text
+            style={{color: COLORS.mainColor, fontSize: 14, fontWeight: '300'}}>
+            {category?.title}
+          </Text>
+        </View>
       </TouchableOpacity>
     </>
   );
@@ -66,6 +81,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.mainColor,
     overflow: 'hidden',
     borderRadius: 16,
+    marginBottom: 10,
   },
   photo: {
     width: '100%',
