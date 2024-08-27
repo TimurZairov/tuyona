@@ -1,53 +1,32 @@
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import React, {useState} from 'react';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
-import {COLORS, SIZES, height} from '../../theme/theme';
-import {useTranslation} from 'react-i18next';
+import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import React, {FC} from 'react';
 
-const Header = () => {
-  const {t} = useTranslation();
+import {COLORS} from '../../theme/theme';
+import {useTranslation} from 'react-i18next';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import MainLogo from '../../assets/icons/MainLogo';
+import Burger from '../../assets/icons/Burger';
+
+const Header: FC = () => {
+  const insets = useSafeAreaInsets();
 
   return (
-    <View style={styles.header}>
-      <View style={styles.searchContainer}>
-        <AntDesign
-          name="search1"
-          size={SIZES.medium}
-          color={COLORS.lightGray}
-        />
-        <TextInput placeholder={t('search').toString()} style={styles.input} />
+    <View
+      style={[
+        styles.container,
+        {marginTop: Platform.OS === 'ios' ? insets.top : 20},
+      ]}>
+      <View style={styles.logo}>
+        <MainLogo />
       </View>
-      {/* Notification */}
-      {/* <TouchableOpacity activeOpacity={0.7} style={styles.notification}>
-        <Ionicons
-          name="notifications"
-          color={COLORS.blackColor}
-          size={SIZES.h2.md}
-        />
-        <View style={styles.notificationNum}>
-          <Text style={styles.notificationText}>4</Text>
-        </View>
-      </TouchableOpacity> */}
 
-      {/* Filter */}
-      <TouchableOpacity activeOpacity={0.7} style={styles.notification}>
-        <FontAwesome6
-          name="sliders"
-          color={COLORS.blackColor}
-          size={SIZES.h2.md}
-        />
-        {/* <View style={styles.notificationNum}>
-          <Text style={styles.notificationText}>4</Text>
-        </View> */}
+      {/* Drawer btn */}
+      <TouchableOpacity style={styles.drawerBtn} activeOpacity={0.8}>
+        <Burger />
       </TouchableOpacity>
+      <View style={styles.headerProfile}>
+        <View style={styles.profile} />
+      </View>
     </View>
   );
 };
@@ -55,60 +34,45 @@ const Header = () => {
 export default Header;
 
 const styles = StyleSheet.create({
-  header: {
-    paddingHorizontal: 6,
+  container: {
+    paddingHorizontal: 8,
+    marginBottom: 16,
     flexDirection: 'row',
-    gap: 10,
-    alignItems: 'center',
+    justifyContent: 'space-between',
+    columnGap: 10,
+    position: 'relative',
   },
-  searchContainer: {
-    backgroundColor: COLORS.mainColor,
-    paddingVertical: 6,
-    borderRadius: SIZES.small,
-    flexDirection: 'row',
+  logo: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: SIZES.medium,
-    columnGap: SIZES.xsmall,
+    zIndex: 1,
+  },
+  drawerBtn: {
+    width: 56,
+    height: 56,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    borderBottomLeftRadius: 28,
+    backgroundColor: COLORS.redColor,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 2,
+  },
+  headerProfile: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: COLORS.borderColor,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    backgroundColor: COLORS.mainColor,
+    paddingHorizontal: 8,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    borderBottomRightRadius: 28,
   },
-  input: {
+  profile: {
+    width: 40,
     height: 40,
-    // backgroundColor: 'red',
-    fontSize: 14,
-    flex: 1,
-    color: COLORS.blackColor,
-    overflow: 'hidden',
-  },
-  notification: {
-    marginRight: 6,
-    backgroundColor: COLORS.mainColor,
-    paddingVertical: 6,
-    paddingHorizontal: SIZES.medium,
-    height: 52,
-    borderRadius: SIZES.small,
-    justifyContent: 'center',
-    borderColor: COLORS.borderColor,
-    borderWidth: 1,
-  },
-  notificationNum: {
-    position: 'absolute',
-    zIndex: 10,
-    backgroundColor: COLORS.blueColor,
-    width: 20,
-    aspectRatio: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    right: -6,
-    top: -6,
-    borderWidth: 0.5,
-    borderColor: COLORS.mainColor,
-  },
-  notificationText: {
-    color: COLORS.mainColor,
-    fontSize: 12,
-    fontWeight: '400',
+    backgroundColor: COLORS.redColor,
+    borderRadius: 20,
   },
 });

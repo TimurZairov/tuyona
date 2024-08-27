@@ -1,5 +1,5 @@
 import {StyleSheet, Pressable, TextInput, View, ViewStyle} from 'react-native';
-import React, {Dispatch, SetStateAction} from 'react';
+import React, {Dispatch, FC, SetStateAction} from 'react';
 import {COLORS, height} from '../../theme/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -11,13 +11,13 @@ interface IInput {
   inputStyle?: ViewStyle;
 }
 
-const Input = ({
+const Input: FC<IInput> = ({
   placeholder,
   isSecured,
   setValue,
   value,
   inputStyle,
-}: IInput) => {
+}) => {
   return (
     <View style={[styles.container, inputStyle]}>
       <TextInput

@@ -1,5 +1,4 @@
 import {
-  SafeAreaView,
   StyleSheet,
   Image,
   View,
@@ -9,7 +8,7 @@ import {
   Linking,
   Platform,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {COLORS, SIZES, height, width} from '../../theme/theme';
 import Carousel from 'react-native-reanimated-carousel';
 import Header from '../../components/Header/Header';
@@ -20,8 +19,9 @@ import {useAppContext} from '../../providers/context/context';
 import {Banner, Category} from '../../types/types';
 import CategoryCard from '../../components/CategoryCard/CategoryCard';
 import {useAppSelector} from '../../providers/redux/type';
+import Search from '../../components/Search/Search';
 
-const MainScreen = () => {
+const MainScreen: FC = () => {
   const {banners} = useAppSelector(state => state.banners);
 
   const {t} = useTranslation();
@@ -67,15 +67,22 @@ const MainScreen = () => {
   }, [categories]);
 
   return (
-    <SafeAreaView style={styles.main}>
+    <View style={[styles.main]}>
       {/* HEADER */}
-
+      <Image
+        style={styles.background}
+        source={require('../../assets/image/background.png')}
+      />
+      <Header />
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.mainScroll}>
-        {/* SLIDER */}
         <View style={styles.container}>
-          {/* TODO CHECK TYPES */}
+          {/* Search */}
+
+          <Search />
+
+          {/* SLIDER */}
           {banners && banners?.length > 0 && (
             <Carousel
               loop
@@ -98,7 +105,6 @@ const MainScreen = () => {
             />
           )}
         </View>
-        <Header />
 
         {/*  CATEGORY  */}
         <View style={{marginTop: 12, paddingHorizontal: 8}}>
@@ -134,7 +140,7 @@ const MainScreen = () => {
           </ScrollView>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -145,6 +151,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.grayColor,
     paddingTop: Platform.OS == 'android' ? 16 : 0,
+  },
+
+  background: {
+    position: 'absolute',
+    width: width + 10,
+    resizeMode: 'cover',
   },
   mainScroll: {},
 

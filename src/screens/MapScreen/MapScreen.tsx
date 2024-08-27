@@ -1,6 +1,11 @@
 import {Pressable, StyleSheet, View, Text, Image} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
-import MapView, {Marker, PROVIDER_GOOGLE, UrlTile} from 'react-native-maps';
+import MapView, {
+  Marker,
+  PROVIDER_GOOGLE,
+  UrlTile,
+  LocalTile,
+} from 'react-native-maps';
 import useUserLocation from '../../common/hooks/useUserLocation';
 import CustomMarker from '../../components/CustomMarker/CustomMarker';
 import {requestLocationPermission} from '../../common/premissions/premissions';
@@ -64,7 +69,13 @@ const MapScreen = () => {
         <UrlTile
           urlTemplate="https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
           maximumZ={19}
+          zIndex={9090}
         />
+        {/* <LocalTile
+          pathTemplate="https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          tileSize={512}
+          zIndex={999}
+        /> */}
         {serviceProvider && serviceProvider.length > 0
           ? serviceProvider.map(item => {
               return (
