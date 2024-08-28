@@ -12,7 +12,6 @@ import React, {FC, useEffect, useState} from 'react';
 import {COLORS, SIZES, height, width} from '../../theme/theme';
 import Carousel from 'react-native-reanimated-carousel';
 import Header from '../../components/Header/Header';
-import ScrollButton from '../../components/ScrollButton/ScrollButton';
 
 import {useTranslation} from 'react-i18next';
 import {useAppContext} from '../../providers/context/context';
@@ -20,6 +19,8 @@ import {Banner, Category} from '../../types/types';
 import CategoryCard from '../../components/CategoryCard/CategoryCard';
 import {useAppSelector} from '../../providers/redux/type';
 import Search from '../../components/Search/Search';
+import useServiceProvider from '../../common/hooks/useServiceProvider';
+import CategoryButton from '../../components/ScrollButton/CategoryButton';
 
 const MainScreen: FC = () => {
   const {banners} = useAppSelector(state => state.banners);
@@ -31,34 +32,14 @@ const MainScreen: FC = () => {
   const [oldCategory, setOldCategory] = useState<Category[]>([]);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
+  //
+  // const {isLoading} = useServiceProvider();
   //open URl
   const openLinkUrl = async (url: string) => {
     if (!url) {
       return;
     }
     await Linking.openURL(url);
-  };
-
-  const filter = (
-    id: number,
-    cb: React.Dispatch<React.SetStateAction<boolean>>,
-  ) => {
-    cb(prevState => !prevState);
-    setSelectedIds(prevIds => {
-      const updatedIds = prevIds.includes(id)
-        ? prevIds.filter(item => item !== id)
-        : [...prevIds, id];
-
-      // Update filterCategory based on selectedIds
-      const updatedFilterCategory =
-        updatedIds.length === 0
-          ? oldCategory
-          : oldCategory.filter(category => updatedIds.includes(category.id));
-
-      setFilterCategory(updatedFilterCategory);
-
-      return updatedIds;
-    });
   };
 
   useEffect(() => {
@@ -73,7 +54,9 @@ const MainScreen: FC = () => {
         style={styles.background}
         source={require('../../assets/image/background.png')}
       />
+
       <Header />
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.mainScroll}>
@@ -81,13 +64,28 @@ const MainScreen: FC = () => {
           {/* Search */}
 
           <Search />
+          {/*  CATEGORY  */}
+          <View style={{paddingHorizontal: 8}}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {categories &&
+                categories?.map((category, index) => {
+                  return (
+                    <CategoryButton
+                      key={`${category}-${index}`}
+                      category={category}
+                      index={index}
+                    />
+                  );
+                })}
+            </ScrollView>
+          </View>
 
           {/* SLIDER */}
-          {banners && banners?.length > 0 && (
+          {banners?.length > 0 && (
             <Carousel
               loop
               width={screenWidth}
-              height={screenHeight / 4}
+              height={screenHeight / 3.4}
               autoPlay={true}
               modeConfig={{
                 parallaxAdjacentItemScale: 0.75,
@@ -106,28 +104,13 @@ const MainScreen: FC = () => {
           )}
         </View>
 
-        {/*  CATEGORY  */}
-        <View style={{marginTop: 12, paddingHorizontal: 8}}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {categories &&
-              categories?.map((category, index) => {
-                return (
-                  <ScrollButton
-                    key={`${category}-${index}`}
-                    category={category}
-                    food
-                    filter={filter}
-                  />
-                );
-              })}
-          </ScrollView>
-        </View>
-
         <View>
           {/* Categories */}
           <ScrollView
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{paddingHorizontal: 8, paddingTop: 16}}>
+            contentContainerStyle={{
+              paddingHorizontal: 8,
+            }}>
             {filterCategory.length > 0 &&
               filterCategory?.map((category, index) => {
                 return (
@@ -160,15 +143,19 @@ const styles = StyleSheet.create({
   },
   mainScroll: {},
 
-  container: {width: width, height: height / 5, marginBottom: 16},
+  container: {
+    width: width,
+    marginBottom: 16,
+  },
   sliderCard: {
     width: width,
-
+    height: height / 3,
+    marginTop: 16,
     paddingHorizontal: 8,
   },
   image: {
     width: '100%',
-    height: height / 5,
+    height: height / 3.65,
     borderRadius: SIZES.small,
   },
   scrollContainer: {
