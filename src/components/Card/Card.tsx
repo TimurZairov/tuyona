@@ -25,6 +25,8 @@ type Card = {
 const Card: FC<Card> = memo(({item}) => {
   const navigation = useNavigation<ServiceProviderNavigationProp>();
 
+  console.log(JSON.stringify(item, null, 2));
+
   const infoNavigationScreen = () => {
     navigation.navigate('Provider', {id: item.id});
   };
@@ -58,7 +60,7 @@ const Card: FC<Card> = memo(({item}) => {
 
         {/* characteristics */}
         <View style={styles.characteristic}>
-          {item && item?.characteristics?.length
+          {item
             ? item?.characteristics.map((c: any, index: number) => (
                 <Charactiristick
                   key={c.id}
