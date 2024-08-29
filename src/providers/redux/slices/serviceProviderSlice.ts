@@ -3,7 +3,7 @@ import {Providers, Service} from '../../../types/types';
 import {getServices} from '../actions/servicesProvider';
 
 interface IInitialSate {
-  serviceProvider: Providers[];
+  serviceProvider: Service[];
   error: Error | unknown;
 }
 

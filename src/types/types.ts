@@ -1,3 +1,5 @@
+import {Float} from 'react-native/Libraries/Types/CodegenTypes';
+
 export type User = {
   id: number;
   username: string;
@@ -92,6 +94,7 @@ export type Service = {
   ];
   in_wishlist: boolean;
   characteristics: [];
+  avg_rating: Float;
 };
 
 export type Providers = {

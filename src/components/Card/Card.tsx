@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import React, {FC, memo} from 'react';
+import {Rating} from 'react-native-ratings';
 import {COLORS} from '../../theme/theme';
 import {useNavigation} from '@react-navigation/native';
 import {Service} from '../../types/types';
@@ -71,6 +72,15 @@ const Card: FC<Card> = memo(({item}) => {
               ))
             : null}
         </View>
+        <Rating
+          type="custom"
+          ratingCount={5}
+          imageSize={16}
+          startingValue={item?.avg_rating}
+          ratingColor="#1AA9B9"
+          readonly
+          style={{alignItems: 'flex-start'}}
+        />
       </Pressable>
     </View>
   );
