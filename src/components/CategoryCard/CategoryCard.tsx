@@ -17,7 +17,7 @@ const CategoryCard = ({category}: ICategory) => {
   const getFilteredList = async (id: any) => {
     try {
       const result = await fetch(
-        BASE_URL + '/service-categories/' + id + '/providers/',
+        BASE_URL + '/provider-categories/' + id + '/providers/',
 
         {
           method: 'GET',

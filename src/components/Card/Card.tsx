@@ -6,8 +6,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {memo} from 'react';
-import {COLORS, SIZES} from '../../theme/theme';
+import React, {FC, memo} from 'react';
+import {COLORS} from '../../theme/theme';
 import {useNavigation} from '@react-navigation/native';
 import {Service} from '../../types/types';
 import {ServiceProviderNavigationProp} from '../../navigation/types';
@@ -16,12 +16,13 @@ import InstagrammCardIcon from '../../assets/icons/InstagrammCardIcon';
 import FbCardIcon from '../../assets/icons/FbCardIcon';
 import TgCardIcon from '../../assets/icons/TgCardIcon';
 import PhoneCardIcon from '../../assets/icons/PhoneCardIcon';
+import Charactiristick from '../Charactiristick/Charactiristick';
 
 type Card = {
   item: Service;
 };
 
-const Card = memo(({item}: Card) => {
+const Card: FC<Card> = memo(({item}) => {
   const navigation = useNavigation<ServiceProviderNavigationProp>();
 
   const infoNavigationScreen = () => {
@@ -53,6 +54,20 @@ const Card = memo(({item}: Card) => {
           <FbCardIcon />
           <TgCardIcon />
           <PhoneCardIcon />
+        </View>
+
+        {/* characteristics */}
+        <View style={styles.characteristic}>
+          {item && item?.characteristics?.length
+            ? item?.characteristics.map((c: any, index: number) => (
+                <Charactiristick
+                  key={c.id}
+                  serviceProvider={c}
+                  index={index}
+                  length={item?.characteristics?.length}
+                />
+              ))
+            : null}
         </View>
       </Pressable>
     </View>
@@ -111,4 +126,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     columnGap: 6,
   },
+  characteristic: {marginVertical: 8},
 });

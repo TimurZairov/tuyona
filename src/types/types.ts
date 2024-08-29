@@ -91,6 +91,7 @@ export type Service = {
     },
   ];
   in_wishlist: boolean;
+  characteristics: [];
 };
 
 export type Providers = {

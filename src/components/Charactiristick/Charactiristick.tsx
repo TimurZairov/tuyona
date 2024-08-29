@@ -5,7 +5,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {SvgUri} from 'react-native-svg';
 
 const Charactiristick = ({serviceProvider, index, length}: any) => {
-  // console.log(JSON.stringify(serviceProvider, null, 2));
   return (
     <View>
       <View>
@@ -15,18 +14,32 @@ const Charactiristick = ({serviceProvider, index, length}: any) => {
             alignItems: 'center',
             justifyContent: 'space-between',
           }}>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <SvgUri
-              height={18}
-              width={18}
+              height={16}
+              width={16}
               uri={serviceProvider?.icon}
               color={COLORS.blueColor}
             />
 
-            <Text>{serviceProvider?.title}</Text>
+            <Text
+              style={{
+                fontSize: 12,
+                color: COLORS.blackColor,
+                fontWeight: '300',
+              }}>
+              {serviceProvider?.title}
+            </Text>
           </View>
           {serviceProvider?.characteristic_type === 'TEXT' && (
-            <Text>{serviceProvider?.description}</Text>
+            <Text
+              style={{
+                fontSize: 12,
+                color: COLORS.blackColor,
+                fontWeight: '300',
+              }}>
+              {serviceProvider?.description}
+            </Text>
           )}
           {serviceProvider?.characteristic_type === 'YES/NO' && (
             <View>
@@ -45,12 +58,12 @@ const Charactiristick = ({serviceProvider, index, length}: any) => {
             </View>
           )}
         </View>
-        {length - 1 === index ? null : (
+        {length && length - 1 === index ? null : (
           <View
             style={{
               width: '100%',
               borderWidth: 0.5,
-              marginVertical: 10,
+              marginVertical: 3,
               borderColor: COLORS.grayColor,
             }}
           />
