@@ -15,11 +15,11 @@ import Header from '../../components/Header/Header';
 
 import {useTranslation} from 'react-i18next';
 import {useAppContext} from '../../providers/context/context';
-import {Banner, Category} from '../../types/types';
+import {Banner} from '../../types/types';
 import CategoryCard from '../../components/CategoryCard/CategoryCard';
 import {useAppSelector} from '../../providers/redux/type';
 import Search from '../../components/Search/Search';
-import useServiceProvider from '../../common/hooks/useServiceProvider';
+
 import CategoryButton from '../../components/ScrollButton/CategoryButton';
 
 const MainScreen: FC = () => {
@@ -28,9 +28,6 @@ const MainScreen: FC = () => {
   const {t} = useTranslation();
   const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
   const {categories} = useAppContext();
-  const [filterCategory, setFilterCategory] = useState<Category[]>([]);
-  const [oldCategory, setOldCategory] = useState<Category[]>([]);
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   //
   // const {isLoading} = useServiceProvider();
@@ -42,19 +39,14 @@ const MainScreen: FC = () => {
     await Linking.openURL(url);
   };
 
-  useEffect(() => {
-    setFilterCategory(categories);
-    setOldCategory(categories);
-  }, [categories]);
-
   return (
     <View style={[styles.main]}>
-      {/* HEADER */}
+      {/* BACKGROUND */}
       <Image
         style={styles.background}
         source={require('../../assets/image/background.png')}
       />
-
+      {/* HEADER */}
       <Header />
 
       <ScrollView
@@ -111,8 +103,8 @@ const MainScreen: FC = () => {
             contentContainerStyle={{
               paddingHorizontal: 8,
             }}>
-            {filterCategory.length > 0 &&
-              filterCategory?.map((category, index) => {
+            {categories.length > 0 &&
+              categories?.map((category, index) => {
                 return (
                   <CategoryCard
                     key={`${category}-${index}`}

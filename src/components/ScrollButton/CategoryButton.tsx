@@ -1,16 +1,22 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import React, {Dispatch, FC, SetStateAction, useState} from 'react';
 import {COLORS} from '../../theme/theme';
 import {SvgUri} from 'react-native-svg';
-import {ICategory} from '../../types/types';
+import {Category, ICategory} from '../../types/types';
 import BackgroundBtn from '../../assets/icons/BackgroundBtn';
 import BackgroundBtnL from '../../assets/icons/BackgroundBtnL';
 
 interface ICategoryProps {
   index: number;
+  category: Category;
 }
 
-const CategoryButton: FC<ICategory & ICategoryProps> = ({category, index}) => {
+const CategoryButton: FC<ICategoryProps> = ({category, index}) => {
+  //go to category handler
+  const checkCategoryProvider = (id: number) => {
+    console.log(id);
+  };
+
   return (
     <View style={[styles.btn, (index + 1) % 2 === 0 && {marginRight: 4}]}>
       <Pressable
@@ -19,19 +25,35 @@ const CategoryButton: FC<ICategory & ICategoryProps> = ({category, index}) => {
           (index + 1) % 2 > 0
             ? {alignItems: 'flex-end'}
             : {alignItems: 'flex-start'},
-        ]}>
+        ]}
+        onPress={() => checkCategoryProvider(category.id)}>
         <View
           style={[
             styles.back,
             (index + 1) % 2 > 0 ? styles.leftRadius : styles.rightRadius,
           ]}>
-          {category && category.icon && (
-            <SvgUri
-              height={35}
-              width={35}
-              uri={category.icon}
-              style={{marginRight: 8}}
-            />
+          {category.photo && (
+            // <SvgUri
+            //   height={35}
+            //   width={35}
+            //   uri={category.icon}
+            //   style={{marginRight: 8}}
+            // />
+            <View
+              style={
+                (styles.image,
+                (index + 1) % 2 > 0
+                  ? {right: -3.5, bottom: -2}
+                  : {left: -3.5, bottom: -2})
+              }>
+              <Image
+                source={{uri: category?.photo}}
+                style={[
+                  {width: 60, height: 60},
+                  (index + 1) % 2 > 0 ? styles.leftRadius : styles.rightRadius,
+                ]}
+              />
+            </View>
           )}
         </View>
         {(index + 1) % 2 > 0 ? <BackgroundBtn /> : <BackgroundBtnL />}
@@ -80,6 +102,13 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 5,
     left: 3,
     bottom: 2,
+  },
+
+  image: {
+    ...StyleSheet.absoluteFillObject,
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

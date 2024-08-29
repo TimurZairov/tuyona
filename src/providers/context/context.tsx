@@ -54,7 +54,7 @@ export const AppContextProvider = ({children}: TAppContextProvider) => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await getMethodApi('/service-categories/', language);
+        const response = await getMethodApi('/provider-categories/', language);
         if (!response) {
           throw new Error('категории отсутствуют');
         }

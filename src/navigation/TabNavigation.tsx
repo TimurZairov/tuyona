@@ -8,10 +8,10 @@ import {COLORS} from '../theme/theme';
 import {TabNavigationStack} from './types';
 import {Platform} from 'react-native';
 import {useTranslation} from 'react-i18next';
-import CartScreen from '../screens/CartScreen/CartScreen';
+
 import {useAppSelector} from '../providers/redux/type';
 import ProfileStack from './ProfileStack';
-import ReminderScreen from '../screens/ReminderScreen/ReminderScreen';
+
 import MapScreen from '../screens/MapScreen/MapScreen';
 
 const Tab = createBottomTabNavigator<TabNavigationStack>();

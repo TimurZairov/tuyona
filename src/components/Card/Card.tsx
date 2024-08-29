@@ -1,10 +1,21 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {memo} from 'react';
 import {COLORS, SIZES} from '../../theme/theme';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 import {Service} from '../../types/types';
 import {ServiceProviderNavigationProp} from '../../navigation/types';
+import FavoriteCardIcon from '../../assets/icons/FavoriteCardIcon';
+import InstagrammCardIcon from '../../assets/icons/InstagrammCardIcon';
+import FbCardIcon from '../../assets/icons/FbCardIcon';
+import TgCardIcon from '../../assets/icons/TgCardIcon';
+import PhoneCardIcon from '../../assets/icons/PhoneCardIcon';
 
 type Card = {
   item: Service;
@@ -18,75 +29,86 @@ const Card = memo(({item}: Card) => {
   };
 
   return (
-    <TouchableOpacity style={styles.card} onPress={infoNavigationScreen}>
-      <View style={styles.like}>
-        <AntDesign name="hearto" color={COLORS.blueColor} size={SIZES.large} />
-      </View>
-      <Image source={{uri: item?.photos[0]?.photo}} style={styles.image} />
-      <Text style={styles.name}>{item?.name}</Text>
-      <Text style={styles.desc}>{item?.short_description}</Text>
-      <View style={styles.btn}>
-        <Text>{item?.price}</Text>
-      </View>
-    </TouchableOpacity>
+    <View style={styles.card}>
+      <TouchableOpacity style={styles.favorite}>
+        <FavoriteCardIcon />
+      </TouchableOpacity>
+      {/* IMAGES */}
+      <Pressable style={styles.wrapper} onPress={infoNavigationScreen}>
+        <View style={styles.label}>
+          <Image source={require('../../assets/image/carLabelIcon.png')} />
+        </View>
+        <View>
+          <Image source={{uri: item?.photos[0]?.photo}} style={styles.image} />
+          <View style={styles.icons}>
+            <Image source={require('../../assets/image/burn.png')} />
+            <Image source={require('../../assets/image/topIcon.png')} />
+          </View>
+        </View>
+
+        {/* INFO */}
+        <Text style={styles.name}>{item.name}</Text>
+        <View style={styles.social}>
+          <InstagrammCardIcon />
+          <FbCardIcon />
+          <TgCardIcon />
+          <PhoneCardIcon />
+        </View>
+      </Pressable>
+    </View>
   );
 });
 
 export default Card;
 
 const styles = StyleSheet.create({
-  like: {
+  card: {
+    width: '50%',
+    padding: 6,
+    borderRadius: 10,
+  },
+  favorite: {
     position: 'absolute',
-    right: 16,
-    top: 16,
-    zIndex: 10,
+    right: 6,
+    top: 6,
+    zIndex: 2,
+  },
+  wrapper: {
     backgroundColor: COLORS.mainColor,
     padding: 6,
-    borderRadius: 100,
+    borderTopRightRadius: 90,
+    borderTopLeftRadius: 18,
+    borderBottomLeftRadius: 18,
   },
-  card: {
-    padding: 8,
-    backgroundColor: COLORS.mainColor,
-    marginBottom: 10,
-    borderRadius: 10,
+  label: {
+    position: 'absolute',
+    zIndex: 1,
   },
   image: {
     width: '100%',
-    height: 200,
+    height: 140,
     resizeMode: 'cover',
-    borderRadius: 10,
+    borderTopRightRadius: 90,
+    borderTopLeftRadius: 18,
+    borderBottomLeftRadius: 18,
   },
-  name: {
-    fontSize: SIZES.h5.lg,
-    fontWeight: '800',
-    marginTop: 10,
-    color: COLORS.blackColor,
-  },
-  desc: {
-    fontSize: SIZES.h5.sm,
-    fontWeight: '600',
-    marginTop: 10,
-    color: COLORS.blackColor,
-  },
-  services: {
-    paddingHorizontal: 6,
-    backgroundColor: COLORS.grayColor,
-    marginTop: 8,
-    paddingVertical: 4,
-    borderRadius: 4,
-  },
-  text: {
-    color: COLORS.blackColor,
-    fontSize: SIZES.small,
-    fontWeight: '300',
-  },
-  btn: {
-    flex: 1,
-    backgroundColor: COLORS.grayColor,
-    marginTop: 14,
-    padding: 10,
-    justifyContent: 'center',
+  icons: {
+    position: 'absolute',
+    bottom: -6,
+    right: 6,
+    flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 6,
+    columnGap: 4,
+  },
+
+  name: {
+    fontSize: 14,
+    color: COLORS.blackColor,
+    marginVertical: 10,
+    fontWeight: '400',
+  },
+  social: {
+    flexDirection: 'row',
+    columnGap: 6,
   },
 });

@@ -39,9 +39,9 @@ export type WishList = {
   created_at: Date;
 };
 export type Category = {
-  icon: string | null;
+  icon: string;
   id: number;
-  photo: string | null;
+  photo: string;
   title: string;
 };
 
@@ -67,6 +67,7 @@ export type Cart = {
 
 export type Service = {
   id: number;
+  name: string;
   service_provider: number;
   title: string;
   short_description: string;

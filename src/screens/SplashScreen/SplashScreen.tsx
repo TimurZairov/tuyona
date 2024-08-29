@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React, {useEffect} from 'react';
 import useRefreshAccessToken from '../../common/hooks/useRefreshAccessToken';
 import '../../common/services/i18next';
