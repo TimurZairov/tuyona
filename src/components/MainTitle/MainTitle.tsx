@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
   title: {
-    fontSize: SIZES.h4.md,
-    fontWeight: '700',
+    fontSize: SIZES.h4.lg,
+    fontWeight: '400',
     color: COLORS.blackColor,
   },
 });

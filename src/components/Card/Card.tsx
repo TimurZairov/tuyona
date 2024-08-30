@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React, {FC, memo} from 'react';
 import {Rating} from 'react-native-ratings';
-import {COLORS} from '../../theme/theme';
+import {COLORS, width} from '../../theme/theme';
 import {useNavigation} from '@react-navigation/native';
 import {Service} from '../../types/types';
 import {ServiceProviderNavigationProp} from '../../navigation/types';
@@ -25,8 +25,6 @@ type Card = {
 
 const Card: FC<Card> = memo(({item}) => {
   const navigation = useNavigation<ServiceProviderNavigationProp>();
-
-  console.log(JSON.stringify(item, null, 2));
 
   const infoNavigationScreen = () => {
     navigation.navigate('Provider', {id: item.id});
@@ -90,7 +88,7 @@ export default Card;
 
 const styles = StyleSheet.create({
   card: {
-    width: '50%',
+    width: width / 2 - 8,
     padding: 6,
     borderRadius: 10,
   },

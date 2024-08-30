@@ -1,10 +1,15 @@
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
-import React, {Dispatch, FC, SetStateAction, useState} from 'react';
+import React, {FC} from 'react';
 import {COLORS} from '../../theme/theme';
-import {SvgUri} from 'react-native-svg';
-import {Category, ICategory} from '../../types/types';
+
+import {Category} from '../../types/types';
 import BackgroundBtn from '../../assets/icons/BackgroundBtn';
 import BackgroundBtnL from '../../assets/icons/BackgroundBtnL';
+import {setFilteredItems} from '../../providers/redux/slices/serviceProviderSlice';
+import {BASE_URL} from '../../config/config';
+import {useAppContext} from '../../providers/context/context';
+import {useNavigation} from '@react-navigation/native';
+import {useAppDispatch} from '../../providers/redux/type';
 
 interface ICategoryProps {
   index: number;
@@ -13,8 +18,38 @@ interface ICategoryProps {
 
 const CategoryButton: FC<ICategoryProps> = ({category, index}) => {
   //go to category handler
-  const checkCategoryProvider = (id: number) => {
-    console.log(id);
+
+  const {language} = useAppContext();
+  const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+  //separate actions
+  const checkCategoryProvider = async (id: any) => {
+    try {
+      const result = await fetch(
+        BASE_URL + '/provider-categories/' + id + '/providers/',
+
+        {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Accept-language': language,
+          },
+        },
+      );
+
+      // console.log(JSON.stringify(result, null, 2));
+      const filteredList = await result.json();
+
+      if (!filteredList) {
+        throw new Error('filtered action');
+      }
+      // console.log(JSON.stringify(filteredList, null, 2));
+      dispatch(setFilteredItems(filteredList));
+      navigation.navigate('ServiceList');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -112,6 +147,9 @@ const styles = StyleSheet.create({
   },
 });
 
+function dispatch(arg0: any) {
+  throw new Error('Function not implemented.');
+}
 //FILTER
 // const filter = (
 //   id: number,

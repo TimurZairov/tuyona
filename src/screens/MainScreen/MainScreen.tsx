@@ -7,8 +7,9 @@ import {
   Pressable,
   Linking,
   Platform,
+  FlatList,
 } from 'react-native';
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect} from 'react';
 import {COLORS, SIZES, height, width} from '../../theme/theme';
 import Carousel from 'react-native-reanimated-carousel';
 import Header from '../../components/Header/Header';
@@ -17,17 +18,20 @@ import {useTranslation} from 'react-i18next';
 import {useAppContext} from '../../providers/context/context';
 import {Banner} from '../../types/types';
 import CategoryCard from '../../components/CategoryCard/CategoryCard';
-import {useAppSelector} from '../../providers/redux/type';
+import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
 import Search from '../../components/Search/Search';
 
 import CategoryButton from '../../components/ScrollButton/CategoryButton';
+import {homeDataAction} from '../../providers/redux/actions/homeDataAction';
 
 const MainScreen: FC = () => {
   const {banners} = useAppSelector(state => state.banners);
+  const {homeData} = useAppSelector(state => state.homeData);
 
   const {t} = useTranslation();
   const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
-  const {categories} = useAppContext();
+  const {categories, language} = useAppContext();
+  const dispatch = useAppDispatch();
 
   //
   // const {isLoading} = useServiceProvider();
@@ -38,6 +42,10 @@ const MainScreen: FC = () => {
     }
     await Linking.openURL(url);
   };
+
+  useEffect(() => {
+    dispatch(homeDataAction({endpoint: '/homepage/', language}));
+  }, []);
 
   return (
     <View style={[styles.main]}>
@@ -98,21 +106,13 @@ const MainScreen: FC = () => {
 
         <View>
           {/* Categories */}
-          <ScrollView
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              paddingHorizontal: 8,
-            }}>
-            {categories.length > 0 &&
-              categories?.map((category, index) => {
-                return (
-                  <CategoryCard
-                    key={`${category}-${index}`}
-                    category={category}
-                  />
-                );
-              })}
-          </ScrollView>
+
+          <FlatList
+            data={homeData || []}
+            renderItem={({item, index}) => {
+              return <CategoryCard category={item} />;
+            }}
+          />
         </View>
       </ScrollView>
     </View>
@@ -165,3 +165,21 @@ const styles = StyleSheet.create({
     padding: 8,
   },
 });
+
+{
+  /* <ScrollView
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingHorizontal: 8,
+            }}>
+            {categories.length > 0 &&
+              categories?.map((category, index) => {
+                return (
+                  <CategoryCard
+                    key={`${category}-${index}`}
+                    category={category}
+                  />
+                );
+              })}
+          </ScrollView> */
+}
