@@ -90,7 +90,7 @@ export default Card;
 
 const styles = StyleSheet.create({
   card: {
-    width: width / 2 - 8,
+    width: width / 2,
 
     padding: 6,
     borderRadius: 10,

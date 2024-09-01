@@ -10,7 +10,7 @@ import {
   FlatList,
   Text,
 } from 'react-native';
-import React, {FC, useEffect, useRef, useState} from 'react';
+import React, {FC, memo, useCallback, useEffect, useRef, useState} from 'react';
 import {COLORS, SIZES, height, width} from '../../theme/theme';
 import Carousel from 'react-native-reanimated-carousel';
 import Header from '../../components/Header/Header';
@@ -36,7 +36,7 @@ const MainScreen: FC = () => {
   const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
   const {categories, language} = useAppContext();
   const dispatch = useAppDispatch();
-  const carouselRef = useRef(null);
+  // const carouselRef = useRef(null);
 
   //
   // const {isLoading} = useServiceProvider();
@@ -47,6 +47,10 @@ const MainScreen: FC = () => {
     }
     await Linking.openURL(url);
   };
+
+  const setActive = useCallback((index: number) => {
+    setActiveSlideIndex(index);
+  }, []);
 
   useEffect(() => {
     dispatch(homeDataAction({endpoint: '/homepage/', language}));
@@ -97,10 +101,10 @@ const MainScreen: FC = () => {
                 parallaxAdjacentItemScale: 0.75,
                 parallaxScrollingOffset: 77,
               }}
-              ref={carouselRef}
+              // ref={carouselRef}
               data={banners}
               scrollAnimationDuration={2000}
-              onSnapToItem={index => setActiveSlideIndex(index)}
+              onSnapToItem={index => setActive(index)}
               renderItem={({item}: {item: Banner}) => (
                 // console.log(index);
                 // console.log(carouselRef?.current);

@@ -18,7 +18,6 @@ interface ICategoryProps {
 
 const CategoryButton: FC<ICategoryProps> = ({category, index}) => {
   //go to category handler
-
   const {language} = useAppContext();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
@@ -38,15 +37,15 @@ const CategoryButton: FC<ICategoryProps> = ({category, index}) => {
         },
       );
 
-      // console.log(JSON.stringify(result, null, 2));
       const filteredList = await result.json();
 
       if (!filteredList) {
         throw new Error('filtered action');
       }
-      // console.log(JSON.stringify(filteredList, null, 2));
+
       dispatch(setFilteredItems(filteredList));
-      navigation.navigate('ServiceList');
+
+      navigation.navigate('ServiceList', {title: category.title});
     } catch (error) {
       console.log(error);
     }
@@ -68,12 +67,6 @@ const CategoryButton: FC<ICategoryProps> = ({category, index}) => {
             (index + 1) % 2 > 0 ? styles.leftRadius : styles.rightRadius,
           ]}>
           {category.photo && (
-            // <SvgUri
-            //   height={35}
-            //   width={35}
-            //   uri={category.icon}
-            //   style={{marginRight: 8}}
-            // />
             <View
               style={
                 (styles.image,

@@ -1,17 +1,18 @@
 import {FlatList, Image, Platform, StyleSheet, View} from 'react-native';
-import React, {useCallback} from 'react';
+import React, {FC, useCallback} from 'react';
 import Card from '../Card/Card';
 import {useAppSelector} from '../../providers/redux/type';
 import {Service} from '../../types/types';
 import {COLORS, height, width} from '../../theme/theme';
 import Header from '../Header/Header';
 import Search from '../Search/Search';
+import Filter from '../Filter/Filter';
 
-type TCard = {
+interface TCard {
   item: Service;
-};
+}
 
-const MainCardList = () => {
+const MainCardList: FC<{title: string}> = ({title}) => {
   const {serviceProvider} = useAppSelector(state => state.serviceProvider);
 
   const renderItem = useCallback(
@@ -35,7 +36,12 @@ const MainCardList = () => {
         removeClippedSubviews={true}
         keyExtractor={item => item.id.toString()}
         renderItem={renderItem}
-        ListHeaderComponent={<Search />}
+        ListHeaderComponent={
+          <>
+            <Search />
+            <Filter title={title} />
+          </>
+        }
         numColumns={2}
         ListFooterComponent={<View style={{marginBottom: height / 10}} />}
       />

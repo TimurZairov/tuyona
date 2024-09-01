@@ -1,13 +1,16 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import MainCardList from '../../components/MainCardList/MainCardList';
-import {height} from '../../theme/theme';
+import {useRoute} from '@react-navigation/native';
 
 const ServiceListScreen = () => {
+  const route = useRoute();
+  const {title} = route.params;
+
   return (
     <View style={styles.container}>
       <View style={styles.scrollWrapper}>
-        <MainCardList />
+        <MainCardList title={title} />
       </View>
     </View>
   );
@@ -21,7 +24,6 @@ const styles = StyleSheet.create({
   },
 
   scrollWrapper: {
-    paddingHorizontal: 8,
     marginTop: 16,
     flex: 1,
   },
