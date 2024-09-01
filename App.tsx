@@ -11,6 +11,7 @@ import {store} from './src/providers/redux/store';
 import {AppContextProvider} from './src/providers/context/context';
 import {Provider} from 'react-redux';
 import DrawerNavigation from './src/navigation/DrawerNavigation';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 
 const App = () => {
   return (
@@ -18,12 +19,14 @@ const App = () => {
       <AppContextProvider>
         <NavigationContainer>
           <GestureHandlerRootView style={styles.gesture}>
-            <SafeAreaProvider>
-              <View style={styles.app}>
-                <DrawerNavigation />
-                <Toast />
-              </View>
-            </SafeAreaProvider>
+            <BottomSheetModalProvider>
+              <SafeAreaProvider>
+                <View style={styles.app}>
+                  <DrawerNavigation />
+                  <Toast />
+                </View>
+              </SafeAreaProvider>
+            </BottomSheetModalProvider>
           </GestureHandlerRootView>
         </NavigationContainer>
       </AppContextProvider>

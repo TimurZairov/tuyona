@@ -1,5 +1,6 @@
-import {FlatList, Image, Platform, StyleSheet, View} from 'react-native';
-import React, {FC, useCallback} from 'react';
+import {FlatList, Image, Platform, StyleSheet, Text, View} from 'react-native';
+import React, {FC, useCallback, useMemo, useRef} from 'react';
+
 import Card from '../Card/Card';
 import {useAppSelector} from '../../providers/redux/type';
 import {Service} from '../../types/types';
@@ -7,6 +8,7 @@ import {COLORS, height, width} from '../../theme/theme';
 import Header from '../Header/Header';
 import Search from '../Search/Search';
 import Filter from '../Filter/Filter';
+import {BottomSheetModal, BottomSheetView} from '@gorhom/bottom-sheet';
 
 interface TCard {
   item: Service;
@@ -15,10 +17,17 @@ interface TCard {
 const MainCardList: FC<{title: string}> = ({title}) => {
   const {serviceProvider} = useAppSelector(state => state.serviceProvider);
 
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const snapPoints = useMemo(() => ['25%', '50%'], []);
+
   const renderItem = useCallback(
     ({item}: TCard) => <Card item={item} />,
     [serviceProvider],
   );
+
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
 
   return (
     <View style={[styles.main]}>
@@ -39,12 +48,21 @@ const MainCardList: FC<{title: string}> = ({title}) => {
         ListHeaderComponent={
           <>
             <Search />
-            <Filter title={title} />
+            <Filter title={title} onPress={handlePresentModalPress} />
           </>
         }
         numColumns={2}
         ListFooterComponent={<View style={{marginBottom: height / 10}} />}
       />
+
+      <BottomSheetModal
+        ref={bottomSheetModalRef}
+        index={1}
+        snapPoints={snapPoints}>
+        <BottomSheetView style={styles.contentContainer}>
+          <Text>Awesome 🎉</Text>
+        </BottomSheetView>
+      </BottomSheetModal>
     </View>
   );
 };
@@ -61,5 +79,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: width + 10,
     resizeMode: 'cover',
+  },
+
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
   },
 });

@@ -160,6 +160,8 @@ const styles = StyleSheet.create({
     width: width / 1.7,
     marginTop: 50,
     borderRadius: 8,
+    borderWidth: 0,
+    backgroundColor: COLORS.blueColor,
   },
   textBtn: {
     color: COLORS.mainColor,

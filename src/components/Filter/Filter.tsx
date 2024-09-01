@@ -1,17 +1,20 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React, {FC} from 'react';
 import {COLORS, height, SIZES} from '../../theme/theme';
 import FilterIcon from '../../assets/icons/FilterIcon';
 
-const Filter: FC<{title: string}> = ({title}) => {
+const Filter: FC<{title: string; onPress?: () => void}> = ({
+  title,
+  onPress,
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.filter}>
         <Text style={styles.title}>{title}</Text>
       </View>
-      <View style={styles.btn}>
+      <Pressable style={styles.btn} onPress={onPress}>
         <FilterIcon />
-      </View>
+      </Pressable>
     </View>
   );
 };
