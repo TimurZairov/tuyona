@@ -1,13 +1,12 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {COLORS, height, SIZES, width} from '../../theme/theme';
 
 const ServiceCard = ({service}: any) => {
   // console.log(JSON.stringify(service, null, 2));
 
   return (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card} activeOpacity={0.8}>
       {/* Top */}
       <View style={styles.images}>
         <View>
@@ -37,7 +36,7 @@ const ServiceCard = ({service}: any) => {
           {Number(service.price).toFixed(0)} сум
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

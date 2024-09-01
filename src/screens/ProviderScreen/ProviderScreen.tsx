@@ -1,19 +1,11 @@
-import {
-  Image,
-  ImageBackground,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+
 import {getMethodApi} from '../../common/getMethodApi';
 import {useAppContext} from '../../providers/context/context';
-import {COLORS, height, SIZES, width} from '../../theme/theme';
+import {COLORS, height, width} from '../../theme/theme';
 
 import {InfoNavigationProp} from '../../navigation/types';
 import Charactiristick from '../../components/Charactiristick/Charactiristick';
@@ -28,7 +20,7 @@ import {Rating} from 'react-native-ratings';
 import {Providers, Service} from '../../types/types';
 import ServiceCard from '../../components/ServiceCard/ServiceCard';
 
-const ProviderScreen = () => {
+const ProviderScreen: FC = () => {
   const [loading, setLoading] = useState(false);
   const [serviceProvider, setServiceProvider] = useState<Providers | null>(
     null,

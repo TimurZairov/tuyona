@@ -54,17 +54,6 @@ const TabNavigation = () => {
           title: 'Карта',
         }}
       />
-
-      {/* <Tab.Screen
-        name="Reminder"
-        component={ReminderScreen}
-        options={{
-          tabBarIcon: color => {
-            return <Ionicons name="time" size={20} color={color.color} />;
-          },
-          title: `${t('reminder')}`,
-        }}
-      /> */}
       <Tab.Screen
         name="Favorite"
         component={FavoriteScreen}
@@ -75,17 +64,6 @@ const TabNavigation = () => {
           title: `${t('favorite')}`,
         }}
       />
-      {/* <Tab.Screen
-        name="Cart"
-        component={CartScreen}
-        options={{
-          tabBarIcon: color => {
-            return <Ionicons name="cart" size={18} color={color.color} />;
-          },
-          title: `${t('cart')}`,
-          tabBarBadge: cart.length === 0 ? undefined : cart.length,
-        }}
-      /> */}
       <Tab.Screen
         name="ProfileStack"
         component={ProfileStack}

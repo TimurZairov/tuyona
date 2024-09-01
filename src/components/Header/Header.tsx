@@ -6,9 +6,16 @@ import {useTranslation} from 'react-i18next';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MainLogo from '../../assets/icons/MainLogo';
 import Burger from '../../assets/icons/Burger';
+import {useNavigation} from '@react-navigation/native';
+import {DrawerNavigationHelpers} from '@react-navigation/drawer/lib/typescript/src/types';
 
 const Header: FC = () => {
   const insets = useSafeAreaInsets();
+  const navigation = useNavigation<DrawerNavigationHelpers>();
+
+  const openDrawer = () => {
+    navigation.openDrawer();
+  };
 
   return (
     <View
@@ -21,7 +28,10 @@ const Header: FC = () => {
       </View>
 
       {/* Drawer btn */}
-      <TouchableOpacity style={styles.drawerBtn} activeOpacity={0.8}>
+      <TouchableOpacity
+        style={styles.drawerBtn}
+        activeOpacity={0.8}
+        onPress={openDrawer}>
         <Burger />
       </TouchableOpacity>
       <View style={styles.headerProfile}>
