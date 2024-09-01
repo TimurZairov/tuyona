@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React, {FC, memo} from 'react';
 import {Rating} from 'react-native-ratings';
-import {COLORS, width} from '../../theme/theme';
+import {COLORS, height, width} from '../../theme/theme';
 import {useNavigation} from '@react-navigation/native';
 import {Service} from '../../types/types';
 import {ServiceProviderNavigationProp} from '../../navigation/types';
@@ -60,14 +60,16 @@ const Card: FC<Card> = memo(({item}) => {
         {/* characteristics */}
         <View style={styles.characteristic}>
           {item
-            ? item?.characteristics.map((c: any, index: number) => (
-                <Charactiristick
-                  key={c.id}
-                  serviceProvider={c}
-                  index={index}
-                  length={item?.characteristics?.length}
-                />
-              ))
+            ? item?.characteristics
+                .map((c: any, index: number) => (
+                  <Charactiristick
+                    key={c.id}
+                    serviceProvider={c}
+                    index={index}
+                    length={item?.characteristics?.length}
+                  />
+                ))
+                .slice(0, 3)
             : null}
         </View>
         <Rating
@@ -89,6 +91,7 @@ export default Card;
 const styles = StyleSheet.create({
   card: {
     width: width / 2 - 8,
+
     padding: 6,
     borderRadius: 10,
   },
@@ -104,6 +107,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 90,
     borderTopLeftRadius: 18,
     borderBottomLeftRadius: 18,
+    minHeight: height / 2.75,
   },
   label: {
     position: 'absolute',

@@ -3,7 +3,7 @@ import React, {useCallback} from 'react';
 import Card from '../Card/Card';
 import {useAppSelector} from '../../providers/redux/type';
 import {Service} from '../../types/types';
-import {COLORS, width} from '../../theme/theme';
+import {COLORS, height, width} from '../../theme/theme';
 import Header from '../Header/Header';
 import Search from '../Search/Search';
 
@@ -28,6 +28,7 @@ const MainCardList = () => {
       />
       {/* HEADER */}
       <Header />
+
       <FlatList
         data={serviceProvider || []}
         showsHorizontalScrollIndicator={false}
@@ -36,6 +37,7 @@ const MainCardList = () => {
         renderItem={renderItem}
         ListHeaderComponent={<Search />}
         numColumns={2}
+        ListFooterComponent={<View style={{marginBottom: height / 10}} />}
       />
     </View>
   );

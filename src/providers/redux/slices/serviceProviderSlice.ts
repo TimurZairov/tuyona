@@ -1,9 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {Providers, Service} from '../../../types/types';
+import {Service} from '../../../types/types';
 import {getServices} from '../actions/servicesProvider';
 
 interface IInitialSate {
-  serviceProvider: Providers[];
+  serviceProvider: Service[];
   error: Error | unknown;
 }
 

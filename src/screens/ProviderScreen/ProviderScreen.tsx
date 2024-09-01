@@ -167,10 +167,11 @@ const ProviderScreen: FC = () => {
           serviceProvider?.characteristics.map((item, index) => {
             return (
               <Charactiristick
-                key={item.id}
+                key={index}
                 index={index}
                 serviceProvider={item}
                 length={serviceProvider?.characteristics?.length}
+                provider
               />
             );
           })}
@@ -282,5 +283,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 8,
     flexWrap: 'wrap',
+    marginBottom: height / 10,
   },
 });

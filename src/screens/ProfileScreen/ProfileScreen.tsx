@@ -118,6 +118,9 @@ const styles = StyleSheet.create({
   btnCustom: {
     marginTop: 'auto',
     borderRadius: 10,
+    borderWidth: 0,
+    backgroundColor: COLORS.blueColor,
+    width: '100%',
   },
   textBtn: {
     color: COLORS.mainColor,

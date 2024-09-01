@@ -16,6 +16,7 @@ import {setFilteredItems} from '../../providers/redux/slices/serviceProviderSlic
 import {useAppDispatch} from '../../providers/redux/type';
 import {useAppContext} from '../../providers/context/context';
 import Card from '../Card/Card';
+import ScrollBar from '../ScrollBar/ScrollBar';
 
 const CategoryCard = ({category}: ICategory) => {
   const navigation = useNavigation();
@@ -32,6 +33,7 @@ const CategoryCard = ({category}: ICategory) => {
             <Card key={item.id} item={item} />
           ))}
       </ScrollView>
+      <ScrollBar />
     </>
   );
 };

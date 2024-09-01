@@ -4,7 +4,7 @@ import {DrawerContentComponentProps} from '@react-navigation/drawer';
 
 const DrawerScreen: FC<DrawerContentComponentProps> = props => {
   return (
-    <View>
+    <View style={styles.drawer}>
       <Text>DrawerScreen</Text>
     </View>
   );
@@ -12,4 +12,10 @@ const DrawerScreen: FC<DrawerContentComponentProps> = props => {
 
 export default DrawerScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  drawer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

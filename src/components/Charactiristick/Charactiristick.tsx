@@ -8,7 +8,8 @@ const Charactiristick: FC<{
   serviceProvider: any;
   index: number;
   length: number;
-}> = ({serviceProvider, index, length}: any) => {
+  provider?: boolean;
+}> = ({serviceProvider, index, length, provider}: any) => {
   // console.log(JSON.stringify(serviceProvider, null, 2));
 
   return (
@@ -23,7 +24,9 @@ const Charactiristick: FC<{
           />
 
           <Text style={[styles.text, {marginLeft: 5}]}>
-            {serviceProvider?.title}
+            {serviceProvider?.title.length > 15 && !provider
+              ? serviceProvider?.title.slice(0, 15) + '...'
+              : serviceProvider?.title}
           </Text>
         </View>
         {serviceProvider?.characteristic_type === 'TEXT' && (

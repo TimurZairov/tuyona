@@ -23,6 +23,7 @@ import Search from '../../components/Search/Search';
 
 import CategoryButton from '../../components/ScrollButton/CategoryButton';
 import {homeDataAction} from '../../providers/redux/actions/homeDataAction';
+import ScrollBar from '../../components/ScrollBar/ScrollBar';
 
 const MainScreen: FC = () => {
   const {banners} = useAppSelector(state => state.banners);
@@ -78,6 +79,7 @@ const MainScreen: FC = () => {
                   );
                 })}
             </ScrollView>
+            <ScrollBar />
           </View>
 
           {/* SLIDER */}
@@ -112,6 +114,7 @@ const MainScreen: FC = () => {
             renderItem={({item, index}) => {
               return <CategoryCard category={item} />;
             }}
+            contentContainerStyle={{marginBottom: height / 10}}
           />
         </View>
       </ScrollView>
@@ -124,7 +127,7 @@ export default MainScreen;
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    backgroundColor: COLORS.grayColor,
+    backgroundColor: COLORS.backGroundWhite,
     paddingTop: Platform.OS == 'android' ? 16 : 0,
   },
 

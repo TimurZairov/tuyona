@@ -1,6 +1,7 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import MainCardList from '../../components/MainCardList/MainCardList';
+import {height} from '../../theme/theme';
 
 const ServiceListScreen = () => {
   return (
@@ -19,5 +20,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  scrollWrapper: {paddingHorizontal: 8, marginTop: 16, flex: 1},
+  scrollWrapper: {
+    paddingHorizontal: 8,
+    marginTop: 16,
+    flex: 1,
+  },
 });
