@@ -24,6 +24,7 @@ export interface ICategory {
     id: number;
   };
   food?: boolean;
+  index: number;
 }
 
 export type WishList = {

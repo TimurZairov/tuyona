@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import {COLORS, width} from '../../theme/theme';
 
@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
     width: width - 16,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 16,
+    marginTop: 12,
+    marginBottom: 8,
   },
   scroll: {
     width: width / 1.7,

@@ -116,20 +116,21 @@ const MainScreen: FC = () => {
 
         {/* Slide pagination */}
         <View style={styles.slidePagination}>
-          {[...Array(3)].map((_, index) => (
-            <View
-              key={index}
-              style={[
-                styles.dots,
-                {
-                  backgroundColor:
-                    index === activeSlideIndex
-                      ? COLORS.blueColor
-                      : COLORS.lightGray,
-                },
-              ]}
-            />
-          ))}
+          {banners?.length > 0 &&
+            banners?.map((_, index) => (
+              <View
+                key={index}
+                style={[
+                  styles.dots,
+                  {
+                    backgroundColor:
+                      index === activeSlideIndex
+                        ? COLORS.blueColor
+                        : COLORS.lightGray,
+                  },
+                ]}
+              />
+            ))}
         </View>
 
         <View>
@@ -138,7 +139,7 @@ const MainScreen: FC = () => {
           <FlatList
             data={homeData || []}
             renderItem={({item, index}) => {
-              return <CategoryCard category={item} />;
+              return <CategoryCard category={item} index={index} />;
             }}
             contentContainerStyle={{marginBottom: height / 10}}
           />

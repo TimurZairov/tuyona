@@ -1,24 +1,16 @@
-import {
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
-import React from 'react';
-import {COLORS, height, width} from '../../theme/theme';
+import {Image, StyleSheet, Text, View, ScrollView} from 'react-native';
+import React, {FC} from 'react';
+import {COLORS, SIZES, width} from '../../theme/theme';
 import MainTitle from '../MainTitle/MainTitle';
 import {ICategory} from '../../types/types';
 import {useNavigation} from '@react-navigation/native';
 
-import {setFilteredItems} from '../../providers/redux/slices/serviceProviderSlice';
 import {useAppDispatch} from '../../providers/redux/type';
 import {useAppContext} from '../../providers/context/context';
 import Card from '../Card/Card';
 import ScrollBar from '../ScrollBar/ScrollBar';
 
-const CategoryCard = ({category}: ICategory) => {
+const CategoryCard: FC<ICategory> = ({category, index}) => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const {language} = useAppContext();
@@ -29,18 +21,58 @@ const CategoryCard = ({category}: ICategory) => {
       <ScrollView horizontal>
         {category &&
           category.service_providers.length &&
-          category.service_providers.map((item, index) => (
+          category.service_providers.map(item => (
             <Card key={item.id} item={item} />
           ))}
       </ScrollView>
+      {/* ScrollBar */}
       <ScrollBar />
+      {/* ADV */}
+      {index === 0 ? (
+        <View style={styles.adv}>
+          <Image source={require('../../assets/image/ADVimage.png')} />
+          <View style={styles.advTextContainer}>
+            <Text style={styles.advTitle}>Special Offers 😱</Text>
+            <Text style={styles.advDesc}>
+              We make sure you get the offer you need at best prices
+            </Text>
+          </View>
+        </View>
+      ) : null}
     </>
   );
 };
 
 export default CategoryCard;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  adv: {
+    width: width - 16,
+    padding: 8,
+    backgroundColor: COLORS.mainColor,
+    paddingVertical: 12,
+    paddingHorizontal: 8,
+    borderRadius: 10,
+    marginTop: 10,
+    marginHorizontal: 8,
+    flexDirection: 'row',
+    columnGap: 16,
+  },
+  advTextContainer: {
+    width: width / 1.5,
+  },
+  advTitle: {
+    fontSize: SIZES.large,
+    fontWeight: '400',
+    color: COLORS.blackColor,
+  },
+  advDesc: {
+    fontSize: SIZES.small,
+    fontWeight: '200',
+    color: COLORS.blackColor,
+    marginTop: 6,
+  },
+});
 
 //fmc
 //screen invisible
