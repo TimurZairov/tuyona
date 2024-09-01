@@ -2,7 +2,6 @@ import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React, {FC} from 'react';
 
 import {COLORS} from '../../theme/theme';
-import {useTranslation} from 'react-i18next';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MainLogo from '../../assets/icons/MainLogo';
 import Burger from '../../assets/icons/Burger';

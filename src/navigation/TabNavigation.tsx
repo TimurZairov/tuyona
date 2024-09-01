@@ -1,18 +1,26 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
+
 import MainNavigation from './MainNavigation';
 import FavoriteScreen from '../screens/FavoriteScreen/FavoriteScreen';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import {COLORS} from '../theme/theme';
 import {TabNavigationStack} from './types';
-import {Platform} from 'react-native';
+
 import {useTranslation} from 'react-i18next';
 
 import {useAppSelector} from '../providers/redux/type';
 import ProfileStack from './ProfileStack';
 
 import MapScreen from '../screens/MapScreen/MapScreen';
+import CustomTabBar from '../components/CustomTabBar/CustomTabBar';
+import {View} from 'react-native';
+import HomeIcon from '../assets/icons/HomeIcon';
+import InActiveHomeIcon from '../assets/icons/InActiveHomeIcon';
+import FavoriteTabIcon from '../assets/icons/FavoriteTabIcon';
+import InActiveFavoriteTabIcon from '../assets/icons/InActiveFavoriteTabIcon';
+import SettingTabIcon from '../assets/icons/SettingTabIcon';
+import InActiveSettingsTabIcon from '../assets/icons/InActiveSettingsTabIcon';
+import SearchTabIcon from '../assets/icons/SearchTabIcon';
+import InActiveSearchTabIcon from '../assets/icons/InActiveSearchTabIcon';
 
 const Tab = createBottomTabNavigator<TabNavigationStack>();
 
@@ -25,22 +33,17 @@ const TabNavigation = () => {
       detachInactiveScreens={false}
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: COLORS.redColor,
-        tabBarInactiveTintColor: COLORS.blueColor,
-        tabBarStyle: {
-          height: Platform.OS === 'android' ? 60 : 70,
-          paddingBottom: Platform.OS === 'android' ? 10 : 20,
-        },
       }}
+      tabBar={props => <CustomTabBar {...props} />}
       initialRouteName="MainNav">
       <Tab.Screen
         name="MainNav"
         component={MainNavigation}
         options={{
-          tabBarIcon: color => {
-            return <Ionicons name="home-sharp" size={20} color={color.color} />;
-          },
           title: `${t('mainScreen')}`,
+          tabBarIcon: focused => {
+            return <View>{focused ? <HomeIcon /> : <InActiveHomeIcon />}</View>;
+          },
         }}
       />
 
@@ -48,30 +51,42 @@ const TabNavigation = () => {
         name="Map"
         component={MapScreen}
         options={{
-          tabBarIcon: color => {
-            return <Ionicons name="map" size={20} color={color.color} />;
-          },
           title: 'Карта',
+          tabBarIcon: focused => {
+            return (
+              <View>
+                {focused ? <SearchTabIcon /> : <InActiveSearchTabIcon />}
+              </View>
+            );
+          },
         }}
       />
       <Tab.Screen
         name="Favorite"
         component={FavoriteScreen}
         options={{
-          tabBarIcon: color => {
-            return <Ionicons name="heart" size={18} color={color.color} />;
-          },
           title: `${t('favorite')}`,
+          tabBarIcon: focused => {
+            return (
+              <View>
+                {focused ? <FavoriteTabIcon /> : <InActiveFavoriteTabIcon />}
+              </View>
+            );
+          },
         }}
       />
       <Tab.Screen
         name="ProfileStack"
         component={ProfileStack}
         options={{
-          tabBarIcon: color => {
-            return <Ionicons name="person" size={18} color={color.color} />;
-          },
           title: `${t('profile')}`,
+          tabBarIcon: focused => {
+            return (
+              <View>
+                {focused ? <SettingTabIcon /> : <InActiveSettingsTabIcon />}
+              </View>
+            );
+          },
         }}
       />
     </Tab.Navigator>
