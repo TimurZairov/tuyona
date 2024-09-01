@@ -25,11 +25,15 @@ import PhoneInfoIcon from '../../assets/icons/PhoneInfoIcon';
 import MainTitle from '../../components/MainTitle/MainTitle';
 import Button from '../../components/Button/Button';
 import {Rating} from 'react-native-ratings';
+import {Providers, Service} from '../../types/types';
+import ServiceCard from '../../components/ServiceCard/ServiceCard';
 
 const ProviderScreen = () => {
   const [loading, setLoading] = useState(false);
-  const [serviceProvider, setServiceProvider] = useState({});
-  const [services, setServices] = useState(null);
+  const [serviceProvider, setServiceProvider] = useState<Providers | null>(
+    null,
+  );
+  const [services, setServices] = useState<Service[] | null>(null);
 
   interface ProviderScreenRouteParams {
     id: string;
@@ -72,7 +76,7 @@ const ProviderScreen = () => {
     })();
   }, [id, language]);
 
-  // console.log(JSON.stringify(serviceProvider, null, 2));
+  // console.log(JSON.stringify(services, null, 2));s
 
   //TODO change library to react native htmlview
   return (
@@ -171,6 +175,7 @@ const ProviderScreen = () => {
           serviceProvider?.characteristics.map((item, index) => {
             return (
               <Charactiristick
+                key={item.id}
                 index={index}
                 serviceProvider={item}
                 length={serviceProvider?.characteristics?.length}
@@ -191,6 +196,12 @@ const ProviderScreen = () => {
 
       {/* SERVICE */}
       <MainTitle title="Услуги" />
+      <View style={styles.cardContainer}>
+        {services &&
+          services.map((serviceItem, index) => {
+            return <ServiceCard key={index} service={serviceItem} />;
+          })}
+      </View>
     </ScrollView>
   );
 };
@@ -200,7 +211,7 @@ export default ProviderScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.mainColor,
+    backgroundColor: '#FDFDFD',
   },
   sliderImage: {
     width: width,
@@ -273,5 +284,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '300',
     color: COLORS.blackColor,
+  },
+  cardContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 8,
+    flexWrap: 'wrap',
   },
 });

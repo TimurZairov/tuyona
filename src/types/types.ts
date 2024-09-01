@@ -101,6 +101,7 @@ export type Providers = {
   id: string;
   name: string;
   short_description: string;
+  description: string;
   logo: string;
   provider_type: string;
   latitude: string;
@@ -109,6 +110,9 @@ export type Providers = {
     id: string;
     photo: string;
   }[];
+  characteristics: [];
+  total_reviews: number;
+  avg_rating: Float;
 };
 
 // {

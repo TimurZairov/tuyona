@@ -1,24 +1,41 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {COLORS, SIZES, width} from '../../theme/theme';
+import {COLORS, height, SIZES, width} from '../../theme/theme';
 
-const ServiceCard = ({description, price}: any) => {
+const ServiceCard = ({service}: any) => {
+  // console.log(JSON.stringify(service, null, 2));
+
   return (
     <View style={styles.card}>
-      <View style={styles.cardHeader}>
-        <Text style={styles.headerText}>Поздравления</Text>
-        <Ionicons name="chevron-forward" size={SIZES.large} />
+      {/* Top */}
+      <View style={styles.images}>
+        <View>
+          <Image
+            source={{uri: service?.photos[0]?.photo}}
+            style={styles.image}
+          />
+          <Image
+            source={require('../../assets/image/carLabelIcon.png')}
+            style={styles.label}
+          />
+          <Image
+            source={require('../../assets/image/fireIcon.png')}
+            style={styles.icon}
+          />
+        </View>
       </View>
-      <Text>
-        {/* It is a long established fact that a reader will be distracted by the
-        readable content of a page when looking at its layout. The point of
-        using Lorem Ipsum is that it has a more-or-less normal distribution of
-        letters, as opposed to using */}
-        {description}
-      </Text>
-      <View style={styles.btn}>
-        <Text>{price}$</Text>
+
+      {/* description */}
+      <View style={styles.descContainer}>
+        <Text style={styles.title}>{service.title}</Text>
+        <Text style={styles.descriptionText}>{service.short_description}</Text>
+      </View>
+      {/* PRICE */}
+      <View style={styles.priceContainer}>
+        <Text style={styles.priceNum}>
+          {Number(service.price).toFixed(0)} сум
+        </Text>
       </View>
     </View>
   );
@@ -28,27 +45,60 @@ export default ServiceCard;
 
 const styles = StyleSheet.create({
   card: {
-    padding: 10,
+    width: width / 2 - 10,
+    minHeight: height / 4,
+    padding: 6,
+    borderRadius: 20,
+    borderBottomLeftRadius: 0,
     backgroundColor: COLORS.mainColor,
-    marginVertical: 6,
-  },
-  cardHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  headerText: {
-    fontSize: SIZES.medium,
-    fontWeight: '600',
-    color: COLORS.blackColor,
     marginBottom: 10,
   },
-  btn: {
+  images: {
     width: '100%',
-    height: width / 10,
-    backgroundColor: COLORS.grayColor,
-    marginTop: 10,
+    height: 120,
+  },
+  label: {
+    position: 'absolute',
+    left: -1,
+    top: -1,
+  },
+  icon: {
+    position: 'absolute',
+    bottom: -8,
+    right: 6,
+    width: 18,
+    height: 20,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    borderRadius: 20,
+    borderBottomRightRadius: 0,
+  },
+  descContainer: {
+    marginTop: 6,
+  },
+
+  title: {
+    fontSize: SIZES.small,
+    fontWeight: '400',
+    color: COLORS.blackColor,
+  },
+  descriptionText: {
+    fontSize: SIZES.small,
+    fontWeight: '200',
+    marginVertical: 6,
+    color: COLORS.blackColor,
+  },
+  priceContainer: {
+    marginVertical: 6,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 6,
+  },
+  priceNum: {
+    color: COLORS.redColor,
+    fontSize: SIZES.medium,
+    fontWeight: '300',
   },
 });
