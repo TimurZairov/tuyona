@@ -8,8 +8,9 @@ import {
   Linking,
   Platform,
   FlatList,
+  Text,
 } from 'react-native';
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useRef, useState} from 'react';
 import {COLORS, SIZES, height, width} from '../../theme/theme';
 import Carousel from 'react-native-reanimated-carousel';
 import Header from '../../components/Header/Header';
@@ -29,10 +30,13 @@ const MainScreen: FC = () => {
   const {banners} = useAppSelector(state => state.banners);
   const {homeData} = useAppSelector(state => state.homeData);
 
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+
   const {t} = useTranslation();
   const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
   const {categories, language} = useAppContext();
   const dispatch = useAppDispatch();
+  const carouselRef = useRef(null);
 
   //
   // const {isLoading} = useServiceProvider();
@@ -93,9 +97,13 @@ const MainScreen: FC = () => {
                 parallaxAdjacentItemScale: 0.75,
                 parallaxScrollingOffset: 77,
               }}
+              ref={carouselRef}
               data={banners}
               scrollAnimationDuration={2000}
+              onSnapToItem={index => setActiveSlideIndex(index)}
               renderItem={({item}: {item: Banner}) => (
+                // console.log(index);
+                // console.log(carouselRef?.current);
                 <Pressable
                   style={styles.sliderCard}
                   onPress={() => openLinkUrl(item.target_url)}>
@@ -104,6 +112,24 @@ const MainScreen: FC = () => {
               )}
             />
           )}
+        </View>
+
+        {/* Slide pagination */}
+        <View style={styles.slidePagination}>
+          {[...Array(3)].map((_, index) => (
+            <View
+              key={index}
+              style={[
+                styles.dots,
+                {
+                  backgroundColor:
+                    index === activeSlideIndex
+                      ? COLORS.blueColor
+                      : COLORS.lightGray,
+                },
+              ]}
+            />
+          ))}
         </View>
 
         <View>
@@ -147,6 +173,18 @@ const styles = StyleSheet.create({
     height: height / 3,
     marginTop: 16,
     paddingHorizontal: 8,
+  },
+  slidePagination: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    columnGap: 6,
+  },
+  dots: {
+    width: 10,
+    aspectRatio: 1,
+    backgroundColor: COLORS.lightGray,
+    borderRadius: 5,
   },
   image: {
     width: '100%',
