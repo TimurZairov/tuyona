@@ -1,5 +1,13 @@
-import {FlatList, Image, Platform, StyleSheet, Text, View} from 'react-native';
-import React, {FC, useCallback, useMemo, useRef} from 'react';
+import {
+  FlatList,
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, {FC, useCallback, useMemo, useRef, useState} from 'react';
 
 import Card from '../Card/Card';
 import {useAppSelector} from '../../providers/redux/type';
@@ -8,7 +16,13 @@ import {COLORS, height, width} from '../../theme/theme';
 import Header from '../Header/Header';
 import Search from '../Search/Search';
 import Filter from '../Filter/Filter';
-import {BottomSheetModal, BottomSheetView} from '@gorhom/bottom-sheet';
+import {
+  BottomSheetModal,
+  BottomSheetView,
+  useBottomSheetModal,
+  useGestureEventsHandlersDefault,
+} from '@gorhom/bottom-sheet';
+import BottomSheetFilter from '../BotttomSheetFilter/BottomSheetFilter';
 
 interface TCard {
   item: Service;
@@ -16,9 +30,10 @@ interface TCard {
 
 const MainCardList: FC<{title: string}> = ({title}) => {
   const {serviceProvider} = useAppSelector(state => state.serviceProvider);
+  const [isModalOpened, setIsModalOpened] = useState(false);
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  const snapPoints = useMemo(() => ['25%', '50%'], []);
+  const snapPoints = useMemo(() => ['50%', '50%'], []);
 
   const renderItem = useCallback(
     ({item}: TCard) => <Card item={item} />,
@@ -27,6 +42,12 @@ const MainCardList: FC<{title: string}> = ({title}) => {
 
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
+    setIsModalOpened(true);
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    bottomSheetModalRef.current?.close();
+    setIsModalOpened(false);
   }, []);
 
   return (
@@ -38,7 +59,7 @@ const MainCardList: FC<{title: string}> = ({title}) => {
       />
       {/* HEADER */}
       <Header />
-
+      {/* Card render */}
       <FlatList
         data={serviceProvider || []}
         showsHorizontalScrollIndicator={false}
@@ -54,13 +75,20 @@ const MainCardList: FC<{title: string}> = ({title}) => {
         numColumns={2}
         ListFooterComponent={<View style={{marginBottom: height / 10}} />}
       />
-
+      {/* Bottom sheet */}
+      {isModalOpened && (
+        <TouchableOpacity
+          style={styles.backgroundSheet}
+          onPress={handleCloseModal}
+        />
+      )}
       <BottomSheetModal
         ref={bottomSheetModalRef}
         index={1}
-        snapPoints={snapPoints}>
+        snapPoints={snapPoints}
+        enablePanDownToClose={false}>
         <BottomSheetView style={styles.contentContainer}>
-          <Text>Awesome 🎉</Text>
+          <BottomSheetFilter />
         </BottomSheetView>
       </BottomSheetModal>
     </View>
@@ -80,9 +108,13 @@ const styles = StyleSheet.create({
     width: width + 10,
     resizeMode: 'cover',
   },
-
   contentContainer: {
     flex: 1,
-    alignItems: 'center',
+    paddingHorizontal: 16,
+  },
+  backgroundSheet: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    top: -20,
   },
 });

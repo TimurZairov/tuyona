@@ -156,3 +156,5 @@ export const providersDummy = [
     ],
   },
 ];
+
+export const filterData = ['Регион', 'Язык', 'Опыт', 'Пол'];

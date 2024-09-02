@@ -1,16 +1,16 @@
 import {StyleSheet, View} from 'react-native';
-import React from 'react';
+import React, {FC} from 'react';
 import MainCardList from '../../components/MainCardList/MainCardList';
 import {useRoute} from '@react-navigation/native';
 
-const ServiceListScreen = () => {
+const ServiceListScreen: FC = () => {
   const route = useRoute();
-  const {title} = route.params;
+  const {title} = route.params as {title: string | undefined};
 
   return (
     <View style={styles.container}>
       <View style={styles.scrollWrapper}>
-        <MainCardList title={title} />
+        {title && <MainCardList title={title} />}
       </View>
     </View>
   );
