@@ -33,8 +33,13 @@ const BottomSheetFilter: FC<IBottomSheetFilter> = ({}) => {
   const renderThumb = useCallback(() => <Thumb />, []);
   const renderRail = useCallback(() => <Rail />, []);
   const renderRailSelected = useCallback(() => <RailSelected />, []);
-  const renderLabel = useCallback(
-    (value: number) => <Label text={value} />,
+  const renderLabelPrice = useCallback(
+    (value: number) => <Label value={value} text={'сум'} />,
+    [],
+  );
+
+  const renderLabelExp = useCallback(
+    (value: number) => <Label value={value} text={'лет'} />,
     [],
   );
 
@@ -70,7 +75,7 @@ const BottomSheetFilter: FC<IBottomSheetFilter> = ({}) => {
           renderThumb={renderThumb}
           renderRail={renderRail}
           renderRailSelected={renderRailSelected}
-          renderLabel={renderLabel}
+          renderLabel={renderLabelPrice}
           minRange={0}
         />
       </View>
@@ -88,18 +93,32 @@ const BottomSheetFilter: FC<IBottomSheetFilter> = ({}) => {
         </View>
       )}
       {/* Experience */}
+      <Text style={styles.text}>Опыт</Text>
       <View style={styles.filterContainer}>
-        <Text style={styles.text}>Опыт</Text>
-        <View style={styles.filterContainer}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            position: 'absolute',
+            top: 0,
+            width: '100%',
+          }}>
+          <Text style={styles.textAnchor}>0</Text>
+          <Text style={styles.textAnchor}>99 лет</Text>
+        </View>
+        <View style={[{flexDirection: 'row'}]}>
+          <View style={styles.thumb} />
+          <View style={[styles.thumb, {right: 0}]} />
           <Slider
-            min={1}
+            min={0}
             max={99}
             step={1}
             renderThumb={renderThumb}
             renderRail={renderRail}
             renderRailSelected={renderRailSelected}
-            renderLabel={renderLabel}
+            renderLabel={renderLabelExp}
             minRange={0}
+            style={{flex: 1}}
           />
         </View>
       </View>
@@ -119,6 +138,7 @@ const styles = StyleSheet.create({
     color: COLORS.blackColor,
     fontWeight: '300',
     fontSize: SIZES.medium,
+    marginTop: 10,
   },
   scrollBtn: {
     marginVertical: 10,
@@ -141,5 +161,20 @@ const styles = StyleSheet.create({
   },
   filterContainer: {
     marginTop: 10,
+  },
+  thumb: {
+    width: 24,
+    aspectRatio: 1,
+    borderRadius: 20,
+    borderWidth: 3,
+    borderColor: COLORS.grayColor,
+    position: 'absolute',
+    bottom: 0,
+    backgroundColor: COLORS.grayColor,
+  },
+  textAnchor: {
+    fontSize: SIZES.xsmall,
+    fontWeight: '200',
+    color: COLORS.blackColor,
   },
 });
