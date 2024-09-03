@@ -1,5 +1,5 @@
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {FC, useEffect, useState} from 'react';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {COLORS, SIZES, width} from '../../theme/theme';
 import Button from '../../components/Button/Button';
@@ -14,7 +14,7 @@ import {useAppContext} from '../../providers/context/context';
 import {RegisterNavigationProp} from '../../navigation/types';
 import Toast from 'react-native-toast-message';
 
-const RegisterScreen = () => {
+const RegisterScreen: FC = () => {
   const [firstName, setFirstName] = useState<string | undefined>('');
   const [lastName, setLastName] = useState<string | undefined>('');
   const [username, setUsername] = useState<string | undefined>('');

@@ -1,16 +1,34 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import React, {useCallback} from 'react';
+import {
+  LayoutChangeEvent,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useCallback,
+  useLayoutEffect,
+  useState,
+} from 'react';
 import MainTitle from '../MainTitle/MainTitle';
 import {COLORS, SIZES} from '../../theme/theme';
 import FilterBtn from '../Filter/FilterBtn';
-import {filterData} from '../../data/slider';
+import {filterData, filterGender, filterSort} from '../../data/slider';
 import Slider from 'rn-range-slider';
 import Thumb from '../Filter/slider/Thumb';
 import Rail from '../Filter/slider/Rail';
 import RailSelected from '../Filter/slider/RailSelected';
 import Label from '../Filter/slider/Label';
+import FilterScroll from '../FilterScroll/FilterScroll';
 
-const BottomSheetFilter = () => {
+interface IBottomSheetFilter {}
+
+const BottomSheetFilter: FC<IBottomSheetFilter> = ({}) => {
+  const [genderFilterVisible, setGenderFilterVisible] = useState(false);
+
   //slider configuration
   const renderThumb = useCallback(() => <Thumb />, []);
   const renderRail = useCallback(() => <Rail />, []);
@@ -19,6 +37,10 @@ const BottomSheetFilter = () => {
     (value: number) => <Label text={value} />,
     [],
   );
+
+  const genderFilterBlock = () => {
+    setGenderFilterVisible(prev => !prev);
+  };
 
   return (
     <View style={styles.container}>
@@ -33,17 +55,17 @@ const BottomSheetFilter = () => {
           showsHorizontalScrollIndicator={false}
           style={styles.scrollBtn}>
           {filterData.map((title, index) => (
-            <FilterBtn key={index} title={title} />
+            <FilterBtn key={index} title={title} onPress={genderFilterBlock} />
           ))}
         </ScrollView>
       </View>
 
       {/* Filter input slider */}
       <Text style={styles.text}>Цены</Text>
-      <View style={{marginVertical: 10}}>
+      <View style={styles.filterContainer}>
         <Slider
-          min={1}
-          max={99}
+          min={0}
+          max={999}
           step={1}
           renderThumb={renderThumb}
           renderRail={renderRail}
@@ -54,7 +76,33 @@ const BottomSheetFilter = () => {
       </View>
 
       {/* SORT */}
-      <Text style={styles.text}>Сортировка</Text>
+      <View style={styles.filterContainer}>
+        <Text style={styles.text}>Сортировка</Text>
+        <FilterScroll arr={filterSort} />
+      </View>
+      {/* GENDER */}
+      {genderFilterVisible && (
+        <View style={styles.filterContainer}>
+          <Text style={styles.text}>Пол</Text>
+          <FilterScroll arr={filterGender} />
+        </View>
+      )}
+      {/* Experience */}
+      <View style={styles.filterContainer}>
+        <Text style={styles.text}>Опыт</Text>
+        <View style={styles.filterContainer}>
+          <Slider
+            min={1}
+            max={99}
+            step={1}
+            renderThumb={renderThumb}
+            renderRail={renderRail}
+            renderRailSelected={renderRailSelected}
+            renderLabel={renderLabel}
+            minRange={0}
+          />
+        </View>
+      </View>
     </View>
   );
 };
@@ -63,7 +111,7 @@ export default BottomSheetFilter;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     // backgroundColor: 'red',
   },
   text: {
@@ -90,5 +138,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'red',
     backgroundColor: COLORS.mainColor,
+  },
+  filterContainer: {
+    marginTop: 10,
   },
 });

@@ -1,14 +1,14 @@
 import {
   FlatList,
   Image,
+  LayoutChangeEvent,
   Platform,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {FC, useCallback, useMemo, useRef, useState} from 'react';
-
+import {FC, useCallback, useMemo, useRef, useState} from 'react';
+import {BottomSheetModal, BottomSheetView} from '@gorhom/bottom-sheet';
 import Card from '../Card/Card';
 import {useAppSelector} from '../../providers/redux/type';
 import {Service} from '../../types/types';
@@ -16,13 +16,8 @@ import {COLORS, height, width} from '../../theme/theme';
 import Header from '../Header/Header';
 import Search from '../Search/Search';
 import Filter from '../Filter/Filter';
-import {
-  BottomSheetModal,
-  BottomSheetView,
-  useBottomSheetModal,
-  useGestureEventsHandlersDefault,
-} from '@gorhom/bottom-sheet';
 import BottomSheetFilter from '../BotttomSheetFilter/BottomSheetFilter';
+import {useMainCardList} from '../../common/hooks/useMainCardList';
 
 interface TCard {
   item: Service;
@@ -30,24 +25,25 @@ interface TCard {
 
 const MainCardList: FC<{title: string}> = ({title}) => {
   const {serviceProvider} = useAppSelector(state => state.serviceProvider);
-  const [isModalOpened, setIsModalOpened] = useState(false);
-
+  const [contentHight, setContentHeight] = useState([height, height]);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  const snapPoints = useMemo(() => ['50%', '50%'], []);
-
+  const snapPoints = useMemo(() => contentHight, [contentHight]);
+  //hook
+  const {handleCloseModal, handlePresentModalPress, isModalOpened} =
+    useMainCardList();
+  //CARD
   const renderItem = useCallback(
     ({item}: TCard) => <Card item={item} />,
     [serviceProvider],
   );
-
-  const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
-    setIsModalOpened(true);
-  }, []);
-
-  const handleCloseModal = useCallback(() => {
-    bottomSheetModalRef.current?.close();
-    setIsModalOpened(false);
+  //get layout
+  const handleContentLayout = useCallback((event: LayoutChangeEvent) => {
+    const {height: layoutHeight} = event.nativeEvent.layout;
+    console.log(layoutHeight);
+    setContentHeight([
+      Math.min(layoutHeight + height / 10),
+      Math.min(layoutHeight + height / 10),
+    ]);
   }, []);
 
   return (
@@ -69,7 +65,10 @@ const MainCardList: FC<{title: string}> = ({title}) => {
         ListHeaderComponent={
           <>
             <Search />
-            <Filter title={title} onPress={handlePresentModalPress} />
+            <Filter
+              title={title}
+              onPress={() => handlePresentModalPress(bottomSheetModalRef)}
+            />
           </>
         }
         numColumns={2}
@@ -79,16 +78,17 @@ const MainCardList: FC<{title: string}> = ({title}) => {
       {isModalOpened && (
         <TouchableOpacity
           style={styles.backgroundSheet}
-          onPress={handleCloseModal}
+          onPress={() => handleCloseModal(bottomSheetModalRef)}
         />
       )}
       <BottomSheetModal
         ref={bottomSheetModalRef}
         index={1}
-        snapPoints={snapPoints}
-        enablePanDownToClose={false}>
+        snapPoints={snapPoints}>
         <BottomSheetView style={styles.contentContainer}>
-          <BottomSheetFilter />
+          <View onLayout={handleContentLayout}>
+            <BottomSheetFilter />
+          </View>
         </BottomSheetView>
       </BottomSheetModal>
     </View>

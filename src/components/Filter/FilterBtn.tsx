@@ -1,15 +1,18 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React, {FC} from 'react';
 import {COLORS, SIZES} from '../../theme/theme';
 
-const FilterBtn: FC<{title: string}> = ({title}) => {
+const FilterBtn: FC<{title: string; onPress: () => void}> = ({
+  title,
+  onPress,
+}) => {
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={onPress}>
       <View style={styles.filterBtn}>
         <Text>1</Text>
       </View>
       <Text style={styles.title}>{title}</Text>
-    </View>
+    </Pressable>
   );
 };
 
