@@ -29,8 +29,12 @@ const MainCardList: FC<{title: string}> = ({title}) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const snapPoints = useMemo(() => contentHight, [contentHight]);
   //hook
-  const {handleCloseModal, handlePresentModalPress, isModalOpened} =
-    useMainCardList();
+  const {
+    handleCloseModal,
+    handlePresentModalPress,
+    isModalOpened,
+    handleBottomSheetEvents,
+  } = useMainCardList();
   //CARD
   const renderItem = useCallback(
     ({item}: TCard) => <Card item={item} />,
@@ -39,7 +43,6 @@ const MainCardList: FC<{title: string}> = ({title}) => {
   //get layout
   const handleContentLayout = useCallback((event: LayoutChangeEvent) => {
     const {height: layoutHeight} = event.nativeEvent.layout;
-    console.log(layoutHeight);
     setContentHeight([
       Math.min(layoutHeight + height / 10),
       Math.min(layoutHeight + height / 10),
@@ -84,7 +87,8 @@ const MainCardList: FC<{title: string}> = ({title}) => {
       <BottomSheetModal
         ref={bottomSheetModalRef}
         index={1}
-        snapPoints={snapPoints}>
+        snapPoints={snapPoints}
+        onChange={handleBottomSheetEvents}>
         <BottomSheetView style={styles.contentContainer}>
           <View onLayout={handleContentLayout}>
             <BottomSheetFilter />

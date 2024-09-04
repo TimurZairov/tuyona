@@ -25,6 +25,7 @@ import Search from '../../components/Search/Search';
 import CategoryButton from '../../components/ScrollButton/CategoryButton';
 import {homeDataAction} from '../../providers/redux/actions/homeDataAction';
 import ScrollBar from '../../components/ScrollBar/ScrollBar';
+import useScrollProgress from '../../common/hooks/useScrollProgress';
 
 const MainScreen: FC = () => {
   const {banners} = useAppSelector(state => state.banners);
@@ -36,6 +37,8 @@ const MainScreen: FC = () => {
   const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
   const {categories, language} = useAppContext();
   const dispatch = useAppDispatch();
+  const scrollCategoryRef = useRef(null);
+  const {handleScrollEvents, scrollLength} = useScrollProgress();
   // const carouselRef = useRef(null);
 
   //
@@ -68,6 +71,7 @@ const MainScreen: FC = () => {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
+        scrollEventThrottle={16}
         style={styles.mainScroll}>
         <View style={styles.container}>
           {/* Search */}
@@ -75,7 +79,12 @@ const MainScreen: FC = () => {
           <Search />
           {/*  CATEGORY  */}
           <View style={{paddingHorizontal: 8}}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <ScrollView
+              ref={scrollCategoryRef}
+              horizontal
+              bounces={false}
+              onScroll={handleScrollEvents}
+              showsHorizontalScrollIndicator={false}>
               {categories &&
                 categories?.map((category, index) => {
                   return (
@@ -87,7 +96,7 @@ const MainScreen: FC = () => {
                   );
                 })}
             </ScrollView>
-            <ScrollBar />
+            <ScrollBar scrollLength={scrollLength} />
           </View>
 
           {/* SLIDER */}

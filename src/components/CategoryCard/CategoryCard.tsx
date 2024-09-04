@@ -1,24 +1,32 @@
-import {Image, StyleSheet, Text, View, ScrollView} from 'react-native';
-import React, {FC} from 'react';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+} from 'react-native';
+import React, {FC, useCallback, useState} from 'react';
 import {COLORS, SIZES, width} from '../../theme/theme';
 import MainTitle from '../MainTitle/MainTitle';
 import {ICategory} from '../../types/types';
-import {useNavigation} from '@react-navigation/native';
 
-import {useAppDispatch} from '../../providers/redux/type';
-import {useAppContext} from '../../providers/context/context';
 import Card from '../Card/Card';
 import ScrollBar from '../ScrollBar/ScrollBar';
+import useScrollProgress from '../../common/hooks/useScrollProgress';
 
 const CategoryCard: FC<ICategory> = ({category, index}) => {
-  const navigation = useNavigation();
-  const dispatch = useAppDispatch();
-  const {language} = useAppContext();
+  const {scrollLength, handleScrollEvents} = useScrollProgress();
 
   return (
     <>
       <MainTitle title={category?.title} />
-      <ScrollView horizontal>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        bounces={false}
+        onScroll={handleScrollEvents}>
         {category &&
           category.service_providers.length &&
           category.service_providers.map(item => (
@@ -26,7 +34,7 @@ const CategoryCard: FC<ICategory> = ({category, index}) => {
           ))}
       </ScrollView>
       {/* ScrollBar */}
-      <ScrollBar />
+      <ScrollBar scrollLength={scrollLength} />
       {/* ADV */}
       {index === 0 ? (
         <View style={styles.adv}>

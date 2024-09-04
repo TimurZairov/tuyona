@@ -68,16 +68,32 @@ const BottomSheetFilter: FC<IBottomSheetFilter> = ({}) => {
       {/* Filter input slider */}
       <Text style={styles.text}>Цены</Text>
       <View style={styles.filterContainer}>
-        <Slider
-          min={0}
-          max={999}
-          step={1}
-          renderThumb={renderThumb}
-          renderRail={renderRail}
-          renderRailSelected={renderRailSelected}
-          renderLabel={renderLabelPrice}
-          minRange={0}
-        />
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            position: 'absolute',
+            top: 0,
+            width: '100%',
+          }}>
+          <Text style={styles.textAnchor}>0</Text>
+          <Text style={styles.textAnchor}>999 сум</Text>
+        </View>
+        <View style={[{flexDirection: 'row'}]}>
+          <View style={styles.thumb} />
+          <View style={[styles.thumb, {right: 0}]} />
+          <Slider
+            min={0}
+            max={999}
+            step={1}
+            renderThumb={renderThumb}
+            renderRail={renderRail}
+            renderRailSelected={renderRailSelected}
+            renderLabel={renderLabelPrice}
+            minRange={0}
+            style={{flex: 1}}
+          />
+        </View>
       </View>
 
       {/* SORT */}

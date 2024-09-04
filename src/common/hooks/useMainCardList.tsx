@@ -19,6 +19,18 @@ export const useMainCardList = () => {
     },
     [],
   );
+  //get event on presenting bottom sheet
+  const handleBottomSheetEvents = (index: number) => {
+    if (index === -1) {
+      setIsModalOpened(false);
+    }
+    return;
+  };
 
-  return {handlePresentModalPress, handleCloseModal, isModalOpened};
+  return {
+    handlePresentModalPress,
+    handleCloseModal,
+    isModalOpened,
+    handleBottomSheetEvents,
+  };
 };

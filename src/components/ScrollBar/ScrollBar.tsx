@@ -1,12 +1,14 @@
 import {StyleSheet, View} from 'react-native';
-import React from 'react';
+import React, {FC} from 'react';
 import {COLORS, width} from '../../theme/theme';
 
-const ScrollBar = () => {
+const ScrollBar: FC<{scrollLength: number}> = ({scrollLength}) => {
   return (
     <View style={styles.container}>
       <View style={styles.scroll}>
-        <View style={styles.progress} />
+        <View
+          style={[styles.progress, {width: scrollLength ? scrollLength : 0}]}
+        />
       </View>
     </View>
   );
@@ -32,7 +34,7 @@ const styles = StyleSheet.create({
   progress: {
     ...StyleSheet.absoluteFillObject,
     height: '100%',
-    width: width / 3,
+    width: 0,
     backgroundColor: COLORS.blueColor,
     borderRadius: 100,
   },
