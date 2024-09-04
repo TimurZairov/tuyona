@@ -1,10 +1,8 @@
 import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC} from 'react';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 
-import {getMethodApi} from '../../common/getMethodApi';
-import {useAppContext} from '../../providers/context/context';
 import {COLORS, height, width} from '../../theme/theme';
 
 import {InfoNavigationProp} from '../../navigation/types';
@@ -17,16 +15,13 @@ import PhoneInfoIcon from '../../assets/icons/PhoneInfoIcon';
 import MainTitle from '../../components/MainTitle/MainTitle';
 import Button from '../../components/Button/Button';
 import {Rating} from 'react-native-ratings';
-import {Providers, Service} from '../../types/types';
+
 import ServiceCard from '../../components/ServiceCard/ServiceCard';
 
-const ProviderScreen: FC = () => {
-  const [loading, setLoading] = useState(false);
-  const [serviceProvider, setServiceProvider] = useState<Providers | null>(
-    null,
-  );
-  const [services, setServices] = useState<Service[] | null>(null);
+import useProviderInfo from '../../common/hooks/useProviderInfo';
+import ProviderSkeletonLoader from '../../components/Skeletons/ProviderSkeletonLoader/ProviderSkeletonLoader';
 
+const ProviderScreen: FC = () => {
   interface ProviderScreenRouteParams {
     id: string;
   }
@@ -37,40 +32,20 @@ const ProviderScreen: FC = () => {
   >;
 
   const route = useRoute<ProviderScreenRouteProp>();
-  const {language} = useAppContext();
+
   const navigation = useNavigation<InfoNavigationProp>();
   const {id} = route.params;
-
+  const {loading, serviceProvider, services} = useProviderInfo(id);
   //service info
   const infoScreenNavigate = (id: string) => {
     navigation.navigate('Info', {id: +id});
   };
 
   //get service provider by id
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const resultInfo = await getMethodApi(
-        '/service-providers/' + id,
-        language,
-      );
-      const resultServices = await getMethodApi(
-        '/service-providers/' + id + '/services',
-        language,
-      );
+  if (loading) {
+    return <ProviderSkeletonLoader />;
+  }
 
-      if (!resultInfo || !resultServices) {
-        throw new Error('Ошибка');
-      }
-      setServiceProvider(resultInfo);
-      setServices(resultServices);
-      setLoading(false);
-    })();
-  }, [id, language]);
-
-  // console.log(JSON.stringify(services, null, 2));s
-
-  //TODO change library to react native htmlview
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {/* MAIN */}

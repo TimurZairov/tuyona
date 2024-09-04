@@ -5,42 +5,41 @@ import {
   ScrollView,
   Platform,
   FlatList,
+  Text,
 } from 'react-native';
-import {FC, useCallback, useEffect, useRef, useState} from 'react';
+import {FC, useRef, useState} from 'react';
 import {COLORS, height, width} from '../../theme/theme';
 import Header from '../../components/Header/Header';
 
 import {useTranslation} from 'react-i18next';
 import {useAppContext} from '../../providers/context/context';
 import CategoryCard from '../../components/CategoryCard/CategoryCard';
-import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
 import Search from '../../components/Search/Search';
-
 import CategoryButton from '../../components/ScrollButton/CategoryButton';
-import {homeDataAction} from '../../providers/redux/actions/homeDataAction';
 import ScrollBar from '../../components/ScrollBar/ScrollBar';
 import useScrollProgress from '../../common/hooks/useScrollProgress';
 import BannerCarousel from '../../components/BannerCarousel/BannerCarousel';
 import SlideDots from '../../components/SlideDots/SlideDots';
+import useMainScreenRequests from '../../common/hooks/useMainScreenReauests';
+import {useAppSelector} from '../../providers/redux/type';
+import MainSkeletonLoader from '../../components/Skeletons/MainSkeletonLoader/MainSkeletonLoader';
 
 const MainScreen: FC = () => {
   const {banners} = useAppSelector(state => state.banners);
   const {homeData} = useAppSelector(state => state.homeData);
-
+  const {categories} = useAppContext();
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const {mainLoading} = useMainScreenRequests();
 
   const {t} = useTranslation();
 
-  const {categories, language} = useAppContext();
-  const dispatch = useAppDispatch();
   const scrollCategoryRef = useRef(null);
   const {handleScrollEvents, scrollLength} = useScrollProgress();
 
-  //active slider
-
-  useEffect(() => {
-    dispatch(homeDataAction({endpoint: '/homepage/', language}));
-  }, []);
+  //loader
+  if (mainLoading) {
+    return <MainSkeletonLoader />;
+  }
 
   return (
     <View style={[styles.main]}>

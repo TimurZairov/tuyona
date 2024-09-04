@@ -1,4 +1,10 @@
-import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Image,
+} from 'react-native';
 import React, {FC} from 'react';
 
 import {COLORS} from '../../theme/theme';
@@ -7,10 +13,13 @@ import MainLogo from '../../assets/icons/MainLogo';
 import Burger from '../../assets/icons/Burger';
 import {useNavigation} from '@react-navigation/native';
 import {DrawerNavigationHelpers} from '@react-navigation/drawer/lib/typescript/src/types';
+import {useAppSelector} from '../../providers/redux/type';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const Header: FC = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<DrawerNavigationHelpers>();
+  const {user} = useAppSelector(state => state.user);
 
   const openDrawer = () => {
     navigation.openDrawer();
@@ -34,7 +43,13 @@ const Header: FC = () => {
         <Burger />
       </TouchableOpacity>
       <View style={styles.headerProfile}>
-        <View style={styles.profile} />
+        <View style={styles.profile}>
+          {user && user?.avatar ? (
+            <Image source={{uri: user?.avatar}} style={styles.avatar} />
+          ) : (
+            <AntDesign name="user" color={COLORS.mainColor} size={20} />
+          )}
+        </View>
       </View>
     </View>
   );
@@ -82,6 +97,15 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     backgroundColor: COLORS.redColor,
+    borderRadius: 20,
+    padding: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  avatar: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
     borderRadius: 20,
   },
 });
