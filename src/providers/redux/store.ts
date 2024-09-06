@@ -6,6 +6,7 @@ import cartSlice from './slices/cartSlice';
 import bannerSlice from './slices/bannersSlice';
 import serviceProviderSlice from './slices/serviceProviderSlice';
 import homeScreenDataSlice from './slices/homeScreenDataSlice';
+import categoryLIstSlice from './slices/categoryLIstSlice';
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     serviceProvider: serviceProviderSlice,
     banners: bannerSlice,
     homeData: homeScreenDataSlice,
+    categoryListItems: categoryLIstSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

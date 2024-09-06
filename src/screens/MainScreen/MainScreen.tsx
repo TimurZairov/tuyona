@@ -23,6 +23,7 @@ import SlideDots from '../../components/SlideDots/SlideDots';
 import useMainScreenRequests from '../../common/hooks/useMainScreenReauests';
 import {useAppSelector} from '../../providers/redux/type';
 import MainSkeletonLoader from '../../components/Skeletons/MainSkeletonLoader/MainSkeletonLoader';
+import React from 'react';
 
 const MainScreen: FC = () => {
   const {banners} = useAppSelector(state => state.banners);
@@ -34,7 +35,7 @@ const MainScreen: FC = () => {
   const {t} = useTranslation();
 
   const scrollCategoryRef = useRef(null);
-  const {handleScrollEvents, scrollLength} = useScrollProgress();
+  const {handleScrollEvents, scrollLength, layoutWidth} = useScrollProgress();
 
   //loader
   if (mainLoading) {
@@ -76,7 +77,9 @@ const MainScreen: FC = () => {
                   );
                 })}
             </ScrollView>
-            <ScrollBar scrollLength={scrollLength} />
+            <ScrollBar
+              scrollLength={layoutWidth > width ? scrollLength : width / 1.7}
+            />
           </View>
           {/* SLIDER */}
           <BannerCarousel
@@ -101,7 +104,7 @@ const MainScreen: FC = () => {
   );
 };
 
-export default MainScreen;
+export default React.memo(MainScreen);
 
 const styles = StyleSheet.create({
   main: {

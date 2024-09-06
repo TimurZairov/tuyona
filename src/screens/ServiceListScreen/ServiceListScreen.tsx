@@ -10,7 +10,7 @@ const ServiceListScreen: FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.scrollWrapper}>
-        {title && <MainCardList title={title} />}
+        <MainCardList title={title!} />
       </View>
     </View>
   );

@@ -1,13 +1,5 @@
-import {
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-} from 'react-native';
-import React, {FC, useCallback, useState} from 'react';
+import {Image, StyleSheet, Text, View, ScrollView} from 'react-native';
+import React, {FC} from 'react';
 import {COLORS, SIZES, width} from '../../theme/theme';
 import MainTitle from '../MainTitle/MainTitle';
 import {ICategory} from '../../types/types';
@@ -17,7 +9,7 @@ import ScrollBar from '../ScrollBar/ScrollBar';
 import useScrollProgress from '../../common/hooks/useScrollProgress';
 
 const CategoryCard: FC<ICategory> = ({category, index}) => {
-  const {scrollLength, handleScrollEvents} = useScrollProgress();
+  const {scrollLength, handleScrollEvents, layoutWidth} = useScrollProgress();
 
   return (
     <>
@@ -34,7 +26,9 @@ const CategoryCard: FC<ICategory> = ({category, index}) => {
           ))}
       </ScrollView>
       {/* ScrollBar */}
-      <ScrollBar scrollLength={scrollLength} />
+      <ScrollBar
+        scrollLength={layoutWidth > width ? scrollLength : width / 1.7}
+      />
       {/* ADV */}
       {index === 0 ? (
         <View style={styles.adv}>

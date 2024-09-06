@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {FC, useCallback, useMemo, useRef, useState} from 'react';
+import {FC, RefObject, useCallback, useMemo, useRef, useState} from 'react';
 import {BottomSheetModal, BottomSheetView} from '@gorhom/bottom-sheet';
 import Card from '../Card/Card';
 import {useAppSelector} from '../../providers/redux/type';
@@ -18,27 +18,29 @@ import Search from '../Search/Search';
 import Filter from '../Filter/Filter';
 import BottomSheetFilter from '../BotttomSheetFilter/BottomSheetFilter';
 import {useMainCardList} from '../../common/hooks/useMainCardList';
+import {BottomSheetModalMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
+import bottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet';
 
 interface TCard {
   item: Service;
 }
 
 const MainCardList: FC<{title: string}> = ({title}) => {
-  const {serviceProvider} = useAppSelector(state => state.serviceProvider);
+  const {categoryListItems} = useAppSelector(state => state.categoryListItems);
   const [contentHight, setContentHeight] = useState([height, height]);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const snapPoints = useMemo(() => contentHight, [contentHight]);
   //hook
   const {
     handleCloseModal,
-    handlePresentModalPress,
     isModalOpened,
     handleBottomSheetEvents,
+    handlePresentModalPress,
   } = useMainCardList();
   //CARD
   const renderItem = useCallback(
     ({item}: TCard) => <Card item={item} />,
-    [serviceProvider],
+    [categoryListItems],
   );
   //get layout
   const handleContentLayout = useCallback((event: LayoutChangeEvent) => {
@@ -50,7 +52,7 @@ const MainCardList: FC<{title: string}> = ({title}) => {
   }, []);
 
   return (
-    <View style={[styles.main]}>
+    <View style={styles.main}>
       {/* BACKGROUND */}
       <Image
         style={styles.background}
@@ -60,7 +62,7 @@ const MainCardList: FC<{title: string}> = ({title}) => {
       <Header />
       {/* Card render */}
       <FlatList
-        data={serviceProvider || []}
+        data={categoryListItems || []}
         showsHorizontalScrollIndicator={false}
         removeClippedSubviews={true}
         keyExtractor={item => item.id.toString()}
@@ -104,7 +106,7 @@ export default MainCardList;
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    backgroundColor: COLORS.grayColor,
+    backgroundColor: COLORS.backGroundWhite,
     paddingTop: Platform.OS == 'android' ? 16 : 0,
   },
   background: {

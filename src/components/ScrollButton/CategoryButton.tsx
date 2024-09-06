@@ -5,11 +5,7 @@ import {COLORS} from '../../theme/theme';
 import {Category} from '../../types/types';
 import BackgroundBtn from '../../assets/icons/BackgroundBtn';
 import BackgroundBtnL from '../../assets/icons/BackgroundBtnL';
-import {setFilteredItems} from '../../providers/redux/slices/serviceProviderSlice';
-import {BASE_URL} from '../../config/config';
-import {useAppContext} from '../../providers/context/context';
-import {useNavigation} from '@react-navigation/native';
-import {useAppDispatch} from '../../providers/redux/type';
+import useCategoryListItems from '../../common/hooks/useCategoryListItems';
 
 interface ICategoryProps {
   index: number;
@@ -17,39 +13,7 @@ interface ICategoryProps {
 }
 
 const CategoryButton: FC<ICategoryProps> = ({category, index}) => {
-  //go to category handler
-  const {language} = useAppContext();
-  const navigation = useNavigation();
-  const dispatch = useAppDispatch();
-  //separate actions
-  const checkCategoryProvider = async (id: any) => {
-    try {
-      const result = await fetch(
-        BASE_URL + '/provider-categories/' + id + '/providers/',
-
-        {
-          method: 'GET',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'Accept-language': language,
-          },
-        },
-      );
-
-      const filteredList = await result.json();
-
-      if (!filteredList) {
-        throw new Error('filtered action');
-      }
-
-      dispatch(setFilteredItems(filteredList));
-
-      navigation.navigate('ServiceList', {title: category.title});
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const {getCategoryProvider} = useCategoryListItems();
 
   return (
     <View style={[styles.btn, (index + 1) % 2 === 0 && {marginRight: 4}]}>
@@ -60,7 +24,7 @@ const CategoryButton: FC<ICategoryProps> = ({category, index}) => {
             ? {alignItems: 'flex-end'}
             : {alignItems: 'flex-start'},
         ]}
-        onPress={() => checkCategoryProvider(category.id)}>
+        onPress={() => getCategoryProvider(category.id, category.title)}>
         <View
           style={[
             styles.back,
@@ -140,9 +104,6 @@ const styles = StyleSheet.create({
   },
 });
 
-function dispatch(arg0: any) {
-  throw new Error('Function not implemented.');
-}
 //FILTER
 // const filter = (
 //   id: number,

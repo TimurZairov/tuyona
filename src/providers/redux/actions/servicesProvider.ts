@@ -4,6 +4,7 @@ import {getMethodApi} from '../../../common/getMethodApi';
 export const getServices = createAsyncThunk(
   'get/serviceProvider',
   async ({language = 'ru'}: {language: string}) => {
+    //MAP request
     try {
       const result = await getMethodApi('/service-providers/', language);
       if (!result) {
