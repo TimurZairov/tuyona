@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import React, {FC, useEffect, useState} from 'react';
+
 import {COLORS, SIZES, width} from '../../theme/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useAppContext} from '../../providers/context/context';
@@ -21,9 +21,13 @@ import Button from '../../components/Button/Button';
 import {useNavigation} from '@react-navigation/native';
 import {InfoNavigationProp} from '../../navigation/types';
 import Header from '../../components/Header/Header';
+import Layout from '../../components/Layout/Layout';
+import useFavorite from '../../common/hooks/useFavorite';
 
-const FavoriteScreen = () => {
+const FavoriteScreen: FC = () => {
   const [loading, setLoading] = useState(false);
+
+  const {handleAuth} = useFavorite();
 
   const dispatch = useAppDispatch();
   const navigation = useNavigation<InfoNavigationProp>();
@@ -69,19 +73,10 @@ const FavoriteScreen = () => {
     }
   }, [accessToken]);
 
+  //not authorized
   if (!user) {
     return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: COLORS.backGroundWhite,
-          paddingTop: Platform.OS == 'android' ? 16 : 0,
-        }}>
-        <Image
-          style={styles.background}
-          source={require('../../assets/image/background.png')}
-        />
-        <Header />
+      <Layout>
         <View style={styles.body}>
           <View style={styles.iconWrapper}>
             <Ionicons name="heart" size={35} color={COLORS.mainColor} />
@@ -89,20 +84,17 @@ const FavoriteScreen = () => {
           <Text style={styles.title}>Вы не авторизированы</Text>
           <Button
             style={{backgroundColor: COLORS.redColor}}
-            textStyle={{color: COLORS.mainColor}}>
+            textStyle={{color: COLORS.mainColor}}
+            onPress={handleAuth}>
             Авторизация
           </Button>
         </View>
-      </View>
+      </Layout>
     );
   }
-
+  //TODO add to favorites
   return (
-    <View style={styles.favorite}>
-      {/* Header */}
-      <Header />
-      {/* BODY */}
-
+    <Layout>
       {wishList && wishList.length > 0 ? (
         <FlatList
           data={wishList || []}
@@ -148,7 +140,7 @@ const FavoriteScreen = () => {
           </Button>
         </View>
       )}
-    </View>
+    </Layout>
   );
 };
 

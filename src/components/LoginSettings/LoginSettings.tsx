@@ -26,7 +26,7 @@ const LoginSettings = ({item, index, length}: ILoginSettings) => {
         <Ionicons
           name="chevron-forward-outline"
           size={20}
-          color={COLORS.lightGray}
+          color={COLORS.blueColor}
           style={styles.iconSet}
         />
       </TouchableOpacity>

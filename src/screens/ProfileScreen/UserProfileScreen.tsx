@@ -19,6 +19,7 @@ import {galleryPermission} from '../../common/premissions/premissions';
 import {useAppContext} from '../../providers/context/context';
 import {userEdit} from '../../providers/redux/actions/userAction';
 import {EditNavigationProp} from '../../navigation/types';
+import Layout from '../../components/Layout/Layout';
 
 const UserProfileScreen = () => {
   const [base64Url, setBase64Url] = useState<string | null>(null);
@@ -32,41 +33,57 @@ const UserProfileScreen = () => {
 
   const profileSettings = [
     {
-      icon: <MaterialIcons name="settings" size={26} />,
+      icon: (
+        <MaterialIcons name="settings" size={26} color={COLORS.blueColor} />
+      ),
       text: 'Настройки',
     },
     {
-      icon: <MaterialIcons name="support-agent" size={26} />,
+      icon: (
+        <MaterialIcons
+          name="support-agent"
+          size={26}
+          color={COLORS.blueColor}
+        />
+      ),
       text: 'Сервис поддрежки',
     },
     {
-      icon: <Ionicons name="person" size={26} />,
+      icon: <Ionicons name="person" size={26} color={COLORS.blueColor} />,
       text: 'Персональные данные',
       onPress: () => {
         navigation.navigate('Edit');
       },
     },
     {
-      icon: <MaterialIcons name="language" size={26} />,
+      icon: (
+        <MaterialIcons name="language" size={26} color={COLORS.blueColor} />
+      ),
       text: 'Изменить язык',
       onPress: () => {
         navigation.navigate('Language');
       },
     },
     {
-      icon: <Ionicons name="information-circle-outline" size={26} />,
+      icon: (
+        <Ionicons
+          name="information-circle-outline"
+          size={26}
+          color={COLORS.blueColor}
+        />
+      ),
       text: 'О программе',
     },
   ];
 
   const profileFooter = [
     {
-      icon: <Ionicons name="briefcase" size={26} />,
+      icon: <Ionicons name="briefcase" size={26} color={COLORS.blueColor} />,
       text: 'Создать бизнес-профиль',
     },
 
     {
-      icon: <Ionicons name="exit-outline" size={26} />,
+      icon: <Ionicons name="exit-outline" size={26} color={COLORS.blueColor} />,
       text: 'Выйти из приложения',
     },
   ];
@@ -112,29 +129,25 @@ const UserProfileScreen = () => {
   };
 
   return (
-    <View>
-      {/* Header */}
-      <View style={styles.header}>
-        <View
-          style={[
-            styles.headerContainer,
-            {paddingTop: Platform.OS === 'ios' ? insets.top : 18},
-          ]}>
-          <TouchableOpacity style={styles.wrapper} onPress={pickImage}>
-            {user?.avatar || base64Url !== null ? (
-              <Image
-                source={{uri: user?.avatar || base64Url!}}
-                style={styles.image}
-              />
-            ) : (
-              <>
-                <Ionicons name="person" size={50} color={COLORS.lightGray} />
-                <View style={styles.plus}>
-                  <Text style={styles.plusText}>+</Text>
-                </View>
-              </>
-            )}
-          </TouchableOpacity>
+    <Layout>
+      {/* INFO */}
+      <View style={[styles.headerContainer]}>
+        <TouchableOpacity style={styles.wrapper} onPress={pickImage}>
+          {user?.avatar || base64Url !== null ? (
+            <Image
+              source={{uri: user?.avatar || base64Url!}}
+              style={styles.image}
+            />
+          ) : (
+            <>
+              <Ionicons name="person" size={50} color={COLORS.lightGray} />
+              <View style={styles.plus}>
+                <Text style={styles.plusText}>+</Text>
+              </View>
+            </>
+          )}
+        </TouchableOpacity>
+        <View style={styles.userInfo}>
           <Text style={styles.name}>{user?.username}</Text>
           <Text style={styles.name}>{user?.first_name}</Text>
         </View>
@@ -165,38 +178,37 @@ const UserProfileScreen = () => {
           );
         })}
       </View>
-    </View>
+    </Layout>
   );
 };
 
 export default UserProfileScreen;
 
 const styles = StyleSheet.create({
-  header: {
-    height: height / 3.5,
-    backgroundColor: COLORS.mainColor,
-    borderBottomRightRadius: 16,
-    borderBottomLeftRadius: 16,
-  },
   headerContainer: {
     paddingHorizontal: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
-    height: '100%',
   },
   wrapper: {
-    width: width / 3,
+    width: width / 6,
     aspectRatio: 1,
     backgroundColor: COLORS.grayColor,
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
+    borderWidth: 2,
+    borderColor: COLORS.redColor,
   },
+  userInfo: {
+    flexDirection: 'row',
+    columnGap: 10,
+  },
+
   name: {
-    fontSize: SIZES.h5.lg,
-    fontWeight: '800',
+    fontSize: SIZES.medium,
+    fontWeight: '400',
     marginTop: 10,
     color: COLORS.blackColor,
   },
