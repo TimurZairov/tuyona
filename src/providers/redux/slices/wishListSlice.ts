@@ -4,10 +4,10 @@ import {
   removeFromWishList,
   wishListAction,
 } from '../actions/wishListAction';
-import {WishList} from '../../../types/types';
+import {Service} from '../../../types/types';
 
 interface IInitialState {
-  wishList: WishList[];
+  wishList: Service[];
   error: Error | unknown;
 }
 

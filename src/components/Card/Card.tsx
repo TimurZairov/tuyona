@@ -18,7 +18,6 @@ import FbCardIcon from '../../assets/icons/FbCardIcon';
 import TgCardIcon from '../../assets/icons/TgCardIcon';
 import PhoneCardIcon from '../../assets/icons/PhoneCardIcon';
 import Charactiristick from '../Charactiristick/Charactiristick';
-import {addToWishListItems} from '../../common/addToWishListItems';
 import useCard from '../../common/hooks/useCard';
 
 type Card = {
@@ -38,7 +37,7 @@ const Card: FC<Card> = memo(({item}) => {
     <View style={styles.card}>
       <TouchableOpacity
         style={styles.favorite}
-        onPress={() => addToWishListItems(item.id)}>
+        onPress={() => addToWishListItems(item.id.toString())}>
         <FavoriteCardIcon />
       </TouchableOpacity>
       {/* IMAGES */}

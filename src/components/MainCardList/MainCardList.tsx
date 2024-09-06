@@ -61,7 +61,6 @@ const MainCardList: FC<{title: string}> = ({title}) => {
       {/* Card render */}
       <FlatList
         data={categoryListItems || []}
-        showsHorizontalScrollIndicator={false}
         removeClippedSubviews={true}
         keyExtractor={item => item.id.toString()}
         renderItem={renderItem}

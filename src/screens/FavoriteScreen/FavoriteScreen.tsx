@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React, {FC, useEffect, useState} from 'react';
 
-import {COLORS, SIZES, width} from '../../theme/theme';
+import {COLORS, height, SIZES, width} from '../../theme/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useAppContext} from '../../providers/context/context';
 import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
@@ -20,9 +20,10 @@ import {
 import Button from '../../components/Button/Button';
 import {useNavigation} from '@react-navigation/native';
 import {InfoNavigationProp} from '../../navigation/types';
-import Header from '../../components/Header/Header';
+
 import Layout from '../../components/Layout/Layout';
 import useFavorite from '../../common/hooks/useFavorite';
+import Card from '../../components/Card/Card';
 
 const FavoriteScreen: FC = () => {
   const [loading, setLoading] = useState(false);
@@ -66,6 +67,8 @@ const FavoriteScreen: FC = () => {
     }
   };
 
+  console.log(wishList);
+
   //GET WISHLIST
   useEffect(() => {
     if (accessToken) {
@@ -98,33 +101,11 @@ const FavoriteScreen: FC = () => {
       {wishList && wishList.length > 0 ? (
         <FlatList
           data={wishList || []}
-          contentContainerStyle={{padding: 8}}
           renderItem={({item}) => {
-            return (
-              // MAKE COMPONENT
-              <TouchableOpacity
-                style={styles.card}
-                onPress={() => navigateToInfo(item?.service?.id.toString())}>
-                <View style={{width: '100%'}}>
-                  <Image
-                    // CHECK TYPES
-                    source={{uri: item?.service?.photos[0]?.photo}}
-                    style={styles.image}
-                  />
-                  <Text style={styles.name}>
-                    {item.service.service_provider.name}
-                  </Text>
-                  <Text style={styles.title}>{item.service.title}</Text>
-                  <Text style={styles.description}>
-                    {item.service.service_provider.short_description}
-                  </Text>
-                </View>
-                <Button onPress={() => removeItemFromWishList(item.id)}>
-                  удалить
-                </Button>
-              </TouchableOpacity>
-            );
+            return <Card item={item.service_provider} />;
           }}
+          numColumns={2}
+          ListFooterComponent={<View style={{marginBottom: height / 10}} />}
         />
       ) : (
         // EMPTY CART
