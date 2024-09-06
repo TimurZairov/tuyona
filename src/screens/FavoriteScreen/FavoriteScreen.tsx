@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {COLORS, SIZES} from '../../theme/theme';
+import {COLORS, SIZES, width} from '../../theme/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useAppContext} from '../../providers/context/context';
 import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
@@ -20,17 +20,18 @@ import {
 import Button from '../../components/Button/Button';
 import {useNavigation} from '@react-navigation/native';
 import {InfoNavigationProp} from '../../navigation/types';
+import Header from '../../components/Header/Header';
 
 const FavoriteScreen = () => {
   const [loading, setLoading] = useState(false);
 
-  const insets = useSafeAreaInsets();
   const dispatch = useAppDispatch();
   const navigation = useNavigation<InfoNavigationProp>();
 
   const {accessToken, language} = useAppContext();
-  //state
+  //stated
   const {wishList} = useAppSelector(state => state.wishList);
+  const {user} = useAppSelector(state => state.user);
 
   const removeItemFromWishList = async (id: any) => {
     if (loading || !accessToken) {
@@ -68,16 +69,38 @@ const FavoriteScreen = () => {
     }
   }, [accessToken]);
 
+  if (!user) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: COLORS.backGroundWhite,
+          paddingTop: Platform.OS == 'android' ? 16 : 0,
+        }}>
+        <Image
+          style={styles.background}
+          source={require('../../assets/image/background.png')}
+        />
+        <Header />
+        <View style={styles.body}>
+          <View style={styles.iconWrapper}>
+            <Ionicons name="heart" size={35} color={COLORS.mainColor} />
+          </View>
+          <Text style={styles.title}>Вы не авторизированы</Text>
+          <Button
+            style={{backgroundColor: COLORS.redColor}}
+            textStyle={{color: COLORS.mainColor}}>
+            Авторизация
+          </Button>
+        </View>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.favorite}>
       {/* Header */}
-      <View
-        style={[
-          styles.header,
-          {paddingTop: Platform.OS === 'ios' ? insets.top : 16},
-        ]}>
-        <Text style={styles.title}>Избранное</Text>
-      </View>
+      <Header />
       {/* BODY */}
 
       {wishList && wishList.length > 0 ? (
@@ -117,8 +140,12 @@ const FavoriteScreen = () => {
           <View style={styles.iconWrapper}>
             <Ionicons name="heart" size={60} color={COLORS.mainColor} />
           </View>
-          <Text style={styles.title}>Список избранных пуст</Text>
-          <Text style={styles.subTitle}>У вас еще нет новых напоминаний</Text>
+          <Text style={styles.title}>Вы не авторизированы</Text>
+          <Button
+            style={{backgroundColor: COLORS.redColor}}
+            textStyle={{color: COLORS.mainColor}}>
+            Авторизация
+          </Button>
         </View>
       )}
     </View>
@@ -129,8 +156,9 @@ export default FavoriteScreen;
 
 const styles = StyleSheet.create({
   favorite: {
-    backgroundColor: COLORS.mainColor,
     flex: 1,
+    backgroundColor: COLORS.backGroundWhite,
+    paddingTop: Platform.OS == 'android' ? 16 : 0,
   },
   header: {
     padding: 10,
@@ -149,8 +177,8 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   title: {
-    fontSize: SIZES.h4.md,
-    fontWeight: '700',
+    fontSize: SIZES.small,
+    fontWeight: '400',
     marginBottom: 10,
     color: COLORS.blackColor,
   },
@@ -161,7 +189,7 @@ const styles = StyleSheet.create({
   },
   iconWrapper: {
     padding: 10,
-    backgroundColor: COLORS.blueColor,
+    backgroundColor: COLORS.redColor,
     borderRadius: 200,
     justifyContent: 'center',
     alignItems: 'center',
@@ -171,6 +199,12 @@ const styles = StyleSheet.create({
     fontSize: SIZES.medium,
     color: COLORS.blackColor,
     fontWeight: '300',
+  },
+
+  background: {
+    position: 'absolute',
+    width: width + 10,
+    resizeMode: 'cover',
   },
 
   //

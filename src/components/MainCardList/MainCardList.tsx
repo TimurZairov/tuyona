@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {FC, RefObject, useCallback, useMemo, useRef, useState} from 'react';
+import {FC, useCallback, useMemo, useRef, useState} from 'react';
 import {BottomSheetModal, BottomSheetView} from '@gorhom/bottom-sheet';
 import Card from '../Card/Card';
 import {useAppSelector} from '../../providers/redux/type';
@@ -18,8 +18,6 @@ import Search from '../Search/Search';
 import Filter from '../Filter/Filter';
 import BottomSheetFilter from '../BotttomSheetFilter/BottomSheetFilter';
 import {useMainCardList} from '../../common/hooks/useMainCardList';
-import {BottomSheetModalMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
-import bottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet';
 
 interface TCard {
   item: Service;
