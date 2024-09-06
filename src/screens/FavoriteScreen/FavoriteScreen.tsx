@@ -24,6 +24,7 @@ import {InfoNavigationProp} from '../../navigation/types';
 import Layout from '../../components/Layout/Layout';
 import useFavorite from '../../common/hooks/useFavorite';
 import Card from '../../components/Card/Card';
+import useCard from '../../common/hooks/useCard';
 
 const FavoriteScreen: FC = () => {
   const [loading, setLoading] = useState(false);
@@ -37,37 +38,13 @@ const FavoriteScreen: FC = () => {
   //stated
   const {wishList} = useAppSelector(state => state.wishList);
   const {user} = useAppSelector(state => state.user);
+  const {removeItemsFromWishList} = useCard();
 
-  const removeItemFromWishList = async (id: any) => {
-    if (loading || !accessToken) {
-      return;
-    }
-    setLoading(true);
-    try {
-      //remove action
-      await dispatch(
-        removeFromWishList({id: id.toString(), token: accessToken.toString()}),
-      );
-      //refresh list get action
-      await dispatch(
-        wishListAction({accessToken: accessToken.toString(), language}),
-      );
-    } catch (error) {
-      console.log('CartScreen', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  //
-
-  const navigateToInfo = (id: string) => {
-    if (id) {
-      navigation.navigate('Info', {id: +id});
-    }
-  };
-
-  console.log(wishList);
+  // const navigateToInfo = (id: string) => {
+  //   if (id) {
+  //     navigation.navigate('Info', {id: +id});
+  //   }
+  // };
 
   //GET WISHLIST
   useEffect(() => {
@@ -102,7 +79,12 @@ const FavoriteScreen: FC = () => {
         <FlatList
           data={wishList || []}
           renderItem={({item}) => {
-            return <Card item={item.service_provider} />;
+            return (
+              <Card
+                item={item.service_provider}
+                onPress={removeItemsFromWishList}
+              />
+            );
           }}
           numColumns={2}
           ListFooterComponent={<View style={{marginBottom: height / 10}} />}

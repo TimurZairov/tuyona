@@ -40,6 +40,7 @@ export const removeFromWishList = createAsyncThunk(
     if (!response) {
       throw new Error('Что то пошло не так...');
     }
+
     return response;
   },
 );

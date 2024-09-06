@@ -3,14 +3,14 @@ import React, {FC} from 'react';
 import {COLORS, SIZES, width} from '../../theme/theme';
 import MainTitle from '../MainTitle/MainTitle';
 import {ICategory} from '../../types/types';
-
 import Card from '../Card/Card';
 import ScrollBar from '../ScrollBar/ScrollBar';
 import useScrollProgress from '../../common/hooks/useScrollProgress';
+import useCard from '../../common/hooks/useCard';
 
 const CategoryCard: FC<ICategory> = ({category, index}) => {
   const {scrollLength, handleScrollEvents, layoutWidth} = useScrollProgress();
-
+  const {addToWishListItems} = useCard();
   return (
     <>
       <MainTitle title={category?.title} />
@@ -22,7 +22,7 @@ const CategoryCard: FC<ICategory> = ({category, index}) => {
         {category &&
           category.service_providers.length &&
           category.service_providers.map(item => (
-            <Card key={item.id} item={item} />
+            <Card key={item.id} item={item} onPress={addToWishListItems} />
           ))}
       </ScrollView>
       {/* ScrollBar */}

@@ -18,6 +18,7 @@ import Search from '../Search/Search';
 import Filter from '../Filter/Filter';
 import BottomSheetFilter from '../BotttomSheetFilter/BottomSheetFilter';
 import {useMainCardList} from '../../common/hooks/useMainCardList';
+import useCard from '../../common/hooks/useCard';
 
 interface TCard {
   item: Service;
@@ -35,9 +36,11 @@ const MainCardList: FC<{title: string}> = ({title}) => {
     handleBottomSheetEvents,
     handlePresentModalPress,
   } = useMainCardList();
+
+  const {addToWishListItems} = useCard();
   //CARD
   const renderItem = useCallback(
-    ({item}: TCard) => <Card item={item} />,
+    ({item}: TCard) => <Card item={item} onPress={addToWishListItems} />,
     [categoryListItems],
   );
   //get layout

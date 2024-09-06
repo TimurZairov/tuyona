@@ -11,9 +11,15 @@ interface ILoginSettings {
   };
   index: number;
   length?: number;
+  isIcon?: boolean;
 }
 
-const LoginSettings = ({item, index, length}: ILoginSettings) => {
+const LoginSettings = ({
+  item,
+  index,
+  length,
+  isIcon = true,
+}: ILoginSettings) => {
   const {icon, text, onPress} = item;
 
   return (
@@ -23,12 +29,14 @@ const LoginSettings = ({item, index, length}: ILoginSettings) => {
         onPress={onPress ? () => onPress() : () => {}}>
         <View style={styles.icon}>{icon}</View>
         <Text>{text}</Text>
-        <Ionicons
-          name="chevron-forward-outline"
-          size={20}
-          color={COLORS.blueColor}
-          style={styles.iconSet}
-        />
+        {isIcon && (
+          <Ionicons
+            name="chevron-forward-outline"
+            size={20}
+            color={COLORS.blueColor}
+            style={styles.iconSet}
+          />
+        )}
       </TouchableOpacity>
       {index + 1 === length ? null : <View style={styles.divider} />}
     </>

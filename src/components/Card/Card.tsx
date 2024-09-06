@@ -22,12 +22,12 @@ import useCard from '../../common/hooks/useCard';
 
 type Card = {
   item: Service;
+  onPress: (id: string) => void;
+  isFavorite: boolean;
 };
 
-const Card: FC<Card> = memo(({item}) => {
+const Card: FC<Card> = memo(({item, onPress = () => {}, isFavorite}) => {
   const navigation = useNavigation<ServiceProviderNavigationProp>();
-
-  const {addToWishListItems} = useCard();
 
   const infoNavigationScreen = () => {
     navigation.navigate('Provider', {id: item.id});
@@ -37,7 +37,7 @@ const Card: FC<Card> = memo(({item}) => {
     <View style={styles.card}>
       <TouchableOpacity
         style={styles.favorite}
-        onPress={() => addToWishListItems(item.id.toString())}>
+        onPress={() => onPress(item.id.toString())}>
         <FavoriteCardIcon />
       </TouchableOpacity>
       {/* IMAGES */}

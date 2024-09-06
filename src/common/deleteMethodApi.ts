@@ -1,5 +1,3 @@
-import {BASE_URL} from '../config/config';
-
 export const deleteMethod = async (
   endpoint: string,
   token?: string | undefined,

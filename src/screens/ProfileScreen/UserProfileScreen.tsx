@@ -6,30 +6,25 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
-import ImagePicker from 'react-native-image-crop-picker';
+import React, {FC} from 'react';
+
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {COLORS, SIZES, height, width} from '../../theme/theme';
+import {COLORS, SIZES, width} from '../../theme/theme';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LoginSettings from '../../components/LoginSettings/LoginSettings';
 import {useNavigation} from '@react-navigation/native';
-import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
-import {galleryPermission} from '../../common/premissions/premissions';
-import {useAppContext} from '../../providers/context/context';
-import {userEdit} from '../../providers/redux/actions/userAction';
+import {useAppSelector} from '../../providers/redux/type';
+
 import {EditNavigationProp} from '../../navigation/types';
 import Layout from '../../components/Layout/Layout';
+import useUserProfileScreen from '../../common/hooks/useUserProfileScreen';
 
-const UserProfileScreen = () => {
-  const [base64Url, setBase64Url] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-
+const UserProfileScreen: FC = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<EditNavigationProp>();
   const {user} = useAppSelector(state => state.user);
-  const {accessToken} = useAppContext();
-  const dispatch = useAppDispatch();
+  const {base64Url, loading, pickImage, logout} = useUserProfileScreen();
 
   const profileSettings = [
     {
@@ -85,48 +80,12 @@ const UserProfileScreen = () => {
     {
       icon: <Ionicons name="exit-outline" size={26} color={COLORS.blueColor} />,
       text: 'Выйти из приложения',
+      isIcon: false,
+      onPress: logout,
     },
   ];
 
-  const pickImage = async () => {
-    const isGranted = galleryPermission();
-
-    if (!isGranted) {
-      return;
-    }
-    //IMAGE PICKER implementation
-    try {
-      const image = await ImagePicker.openPicker({
-        multiple: false,
-        cropping: true,
-        mediaType: 'photo',
-        includeBase64: true,
-      });
-      const base64String = `data:${image.mime};base64,${image.data}`;
-      if (!image) {
-        return;
-      }
-      setBase64Url(base64String);
-      updateUserData(base64String);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   //update avatar
-  const updateUserData = async (url: string) => {
-    if (loading) {
-      return;
-    }
-    setLoading(true);
-    const usersData = {
-      ...user,
-      avatar: url,
-    };
-
-    await dispatch(userEdit({data: usersData, token: accessToken!.toString()}));
-    setLoading(false);
-  };
 
   return (
     <Layout>
@@ -174,6 +133,7 @@ const UserProfileScreen = () => {
               item={item}
               index={index}
               length={profileFooter.length}
+              isIcon={item.isIcon}
             />
           );
         })}
