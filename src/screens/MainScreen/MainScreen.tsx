@@ -77,9 +77,7 @@ const MainScreen: FC = () => {
                   );
                 })}
             </ScrollView>
-            <ScrollBar
-              scrollLength={layoutWidth > width ? scrollLength : width / 1.7}
-            />
+            <ScrollBar scrollLength={scrollLength} />
           </View>
           {/* SLIDER */}
           <BannerCarousel

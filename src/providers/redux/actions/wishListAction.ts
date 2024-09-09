@@ -36,7 +36,7 @@ export const addToWishList = createAsyncThunk(
 export const removeFromWishList = createAsyncThunk(
   'removeItem/wishList',
   async ({id, token}: {id: string; token: string}) => {
-    const response = await deleteMethod(`${BASE_URL}/wishlist/${id}/`, token);
+    const response = await postMethodApi(`/wishlist/`, id, token);
     if (!response) {
       throw new Error('Что то пошло не так...');
     }

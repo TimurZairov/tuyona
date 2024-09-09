@@ -14,7 +14,7 @@ export const postMethodApi = async (
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({service_provider: data}),
     });
     return await response.json();
   } catch (error) {

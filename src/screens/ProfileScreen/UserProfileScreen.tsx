@@ -1,11 +1,4 @@
-import {
-  Image,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {FC} from 'react';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';

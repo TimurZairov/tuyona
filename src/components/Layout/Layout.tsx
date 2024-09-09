@@ -5,9 +5,10 @@ import Header from '../Header/Header';
 
 interface ILayout {
   children: ReactNode;
+  isHeader?: boolean;
 }
 
-const Layout: FC<ILayout> = ({children}) => {
+const Layout: FC<ILayout> = ({children, isHeader = true}) => {
   return (
     <View
       style={{
@@ -19,7 +20,8 @@ const Layout: FC<ILayout> = ({children}) => {
         style={styles.background}
         source={require('../../assets/image/background.png')}
       />
-      <Header />
+      {isHeader && <Header />}
+
       {children}
     </View>
   );
