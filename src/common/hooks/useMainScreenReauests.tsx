@@ -11,7 +11,11 @@ const useMainScreenRequests = () => {
     try {
       (async () => {
         setMainLoading(true);
-        dispatch(homeDataAction({endpoint: '/homepage/', language}));
+        const res = await dispatch(
+          homeDataAction({endpoint: '/homepage/', language}),
+        );
+
+        console.log(res);
       })();
     } catch (error) {
       console.log(error);

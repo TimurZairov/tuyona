@@ -18,7 +18,6 @@ import FbCardIcon from '../../assets/icons/FbCardIcon';
 import TgCardIcon from '../../assets/icons/TgCardIcon';
 import PhoneCardIcon from '../../assets/icons/PhoneCardIcon';
 import Charactiristick from '../Charactiristick/Charactiristick';
-import useCard from '../../common/hooks/useCard';
 
 type Card = {
   item: Service;

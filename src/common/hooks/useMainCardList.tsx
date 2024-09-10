@@ -1,8 +1,11 @@
 import {BottomSheetModalMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
+import {getMethodApi} from '../getMethodApi';
+import {useAppContext} from '../../providers/context/context';
 
 export const useMainCardList = () => {
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const {language} = useAppContext();
   //open Bottom Sheet
   const handlePresentModalPress = useCallback(
     (bottomRef: React.RefObject<BottomSheetModalMethods>) => {
@@ -26,6 +29,16 @@ export const useMainCardList = () => {
     }
     return;
   };
+  ///////
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetch(
+          `api/crm/provider-categories/1/characteristics`,
+        );
+      } catch (error) {}
+    })();
+  }, []);
 
   return {
     handlePresentModalPress,

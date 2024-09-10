@@ -4,6 +4,7 @@ import {useAppContext} from '../../providers/context/context';
 import i18next from 'i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {COLORS} from '../../theme/theme';
+import Layout from '../../components/Layout/Layout';
 
 const LanguageScreen = () => {
   const {language, setLanguage} = useAppContext();
@@ -19,26 +20,40 @@ const LanguageScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={{
-          backgroundColor: language === 'ru' ? COLORS.blueColor : 'transparent',
-          padding: 10,
-          borderRadius: 4,
-        }}
-        onPress={() => changeLang('ru')}>
-        <Text>Ru</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={{
-          backgroundColor: language === 'uz' ? COLORS.blueColor : 'transparent',
-          padding: 10,
-          borderRadius: 4,
-        }}
-        onPress={() => changeLang('uz')}>
-        <Text>Uz</Text>
-      </TouchableOpacity>
-    </View>
+    <Layout isHeader={false}>
+      <View style={styles.container}>
+        <TouchableOpacity
+          style={{
+            backgroundColor:
+              language === 'ru' ? COLORS.blueColor : 'transparent',
+            padding: 10,
+            borderRadius: 4,
+          }}
+          onPress={() => changeLang('ru')}>
+          <Text
+            style={{
+              color: language === 'ru' ? COLORS.mainColor : COLORS.blackColor,
+            }}>
+            Ru
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            backgroundColor:
+              language === 'uz' ? COLORS.redColor : 'transparent',
+            padding: 10,
+            borderRadius: 4,
+          }}
+          onPress={() => changeLang('uz')}>
+          <Text
+            style={{
+              color: language === 'uz' ? COLORS.mainColor : COLORS.blackColor,
+            }}>
+            Uz
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </Layout>
   );
 };
 
@@ -51,5 +66,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     columnGap: 20,
+  },
+  text: {
+    color: COLORS.mainColor,
   },
 });

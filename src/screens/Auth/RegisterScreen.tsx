@@ -13,6 +13,7 @@ import {registerAction} from '../../providers/redux/actions/registerAction';
 import {useAppContext} from '../../providers/context/context';
 import {RegisterNavigationProp} from '../../navigation/types';
 import Toast from 'react-native-toast-message';
+import Layout from '../../components/Layout/Layout';
 
 const RegisterScreen: FC = () => {
   const [firstName, setFirstName] = useState<string | undefined>('');
@@ -66,55 +67,60 @@ const RegisterScreen: FC = () => {
   }, [accessToken]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* Go Back */}
-      <View
-        style={[styles.goBack, {top: Platform.OS === 'ios' ? insets.top : 16}]}>
-        <GoBack onPress={loginScreenNavigationHandler} />
-      </View>
+    <Layout isHeader={false}>
+      <SafeAreaView style={styles.container}>
+        {/* Go Back */}
+        <View
+          style={[
+            styles.goBack,
+            {top: Platform.OS === 'ios' ? insets.top : 16},
+          ]}>
+          <GoBack onPress={loginScreenNavigationHandler} />
+        </View>
 
-      <Text style={styles.name}>Регистрация</Text>
-      {/* INPUTS */}
-      <View style={styles.wrapper}>
-        <Input placeholder={'first_name'} setValue={setFirstName} />
-      </View>
+        <Text style={styles.name}>Регистрация</Text>
+        {/* INPUTS */}
+        <View style={styles.wrapper}>
+          <Input placeholder={'first_name'} setValue={setFirstName} />
+        </View>
 
-      <View style={styles.wrapper}>
-        <Input placeholder={'last_name'} setValue={setLastName} />
-      </View>
+        <View style={styles.wrapper}>
+          <Input placeholder={'last_name'} setValue={setLastName} />
+        </View>
 
-      <View style={styles.wrapper}>
-        <Input placeholder={'username'} setValue={setUsername} />
-      </View>
+        <View style={styles.wrapper}>
+          <Input placeholder={'username'} setValue={setUsername} />
+        </View>
 
-      <View style={styles.wrapper}>
-        <Input placeholder={'password'} setValue={setPassword} isSecured />
-      </View>
+        <View style={styles.wrapper}>
+          <Input placeholder={'password'} setValue={setPassword} isSecured />
+        </View>
 
-      <View style={styles.wrapper}>
-        <Input placeholder={'confirm'} setValue={setPassword2} isSecured />
-      </View>
-      {/* Login Option */}
-      <View style={[styles.wrapper]}>
-        <Text style={styles.account}>
-          У вас нет акаунта?
-          <Text style={styles.registration}> Регистрация</Text>
-        </Text>
-        <Text style={[styles.account, styles.or]}>или</Text>
-      </View>
-      {/* Social */}
-      <Social />
+        <View style={styles.wrapper}>
+          <Input placeholder={'confirm'} setValue={setPassword2} isSecured />
+        </View>
+        {/* Login Option */}
+        <View style={[styles.wrapper]}>
+          <Text style={styles.account}>
+            У вас нет акаунта?
+            <Text style={styles.registration}> Регистрация</Text>
+          </Text>
+          <Text style={[styles.account, styles.or]}>или</Text>
+        </View>
+        {/* Social */}
+        <Social />
 
-      {/* Button */}
+        {/* Button */}
 
-      <Button
-        textStyle={styles.textBtn}
-        style={styles.btn}
-        onPress={registerHandler}
-        loading={loading}>
-        Регистрация
-      </Button>
-    </SafeAreaView>
+        <Button
+          textStyle={styles.textBtn}
+          style={styles.btn}
+          onPress={registerHandler}
+          loading={loading}>
+          Регистрация
+        </Button>
+      </SafeAreaView>
+    </Layout>
   );
 };
 
@@ -127,7 +133,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: COLORS.mainColor,
     justifyContent: 'center',
   },
   name: {

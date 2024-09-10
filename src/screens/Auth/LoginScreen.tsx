@@ -13,6 +13,7 @@ import {useAppDispatch} from '../../providers/redux/type';
 import {loginAction} from '../../providers/redux/actions/loginAction';
 import {ProfileNavigationProp} from '../../navigation/types';
 import {useAppContext} from '../../providers/context/context';
+import Layout from '../../components/Layout/Layout';
 
 const LoginScreen = () => {
   const [username, setUsername] = useState<string | undefined>('');
@@ -63,46 +64,51 @@ const LoginScreen = () => {
   }, [accessToken]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* GO BACK */}
-      <View
-        style={[styles.goBack, {top: Platform.OS === 'ios' ? insets.top : 16}]}>
-        <GoBack onPress={goBackHandler} />
-      </View>
-      {/* INPUTS */}
-      <Text style={styles.name}>Войдите</Text>
-      <View style={styles.wrapper}>
-        <Input placeholder={'User name'} setValue={setUsername} />
-      </View>
+    <Layout isHeader={false}>
+      <SafeAreaView style={styles.container}>
+        {/* GO BACK */}
+        <View
+          style={[
+            styles.goBack,
+            {top: Platform.OS === 'ios' ? insets.top : 16},
+          ]}>
+          <GoBack onPress={goBackHandler} />
+        </View>
+        {/* INPUTS */}
+        <Text style={styles.name}>Войдите</Text>
+        <View style={styles.wrapper}>
+          <Input placeholder={'User name'} setValue={setUsername} />
+        </View>
 
-      <View style={styles.wrapper}>
-        <Input placeholder={'Password'} isSecured setValue={setPassword} />
-      </View>
+        <View style={styles.wrapper}>
+          <Input placeholder={'Password'} isSecured setValue={setPassword} />
+        </View>
 
-      <View style={[styles.wrapper]}>
-        <Text style={styles.account}>
-          У вас нет акаунта?
-          <Text
-            style={styles.registration}
-            onPress={registerScreenNavigationHandler}>
-            {' '}
-            Регистрация
+        <View style={[styles.wrapper]}>
+          <Text style={styles.account}>
+            У вас нет акаунта?
+            <Text
+              style={styles.registration}
+              onPress={registerScreenNavigationHandler}>
+              {' '}
+              Регистрация
+            </Text>
           </Text>
-        </Text>
-        <Text style={[styles.account, styles.or]}>или</Text>
-      </View>
+          <Text style={[styles.account, styles.or]}>или</Text>
+        </View>
 
-      {/* SOCIAL */}
-      <Social />
-      {/* Button */}
-      <Button
-        textStyle={styles.textBtn}
-        style={styles.btn}
-        onPress={userLoginHandler}
-        loading={loading}>
-        Войти
-      </Button>
-    </SafeAreaView>
+        {/* SOCIAL */}
+        <Social />
+        {/* Button */}
+        <Button
+          textStyle={styles.textBtn}
+          style={styles.btn}
+          onPress={userLoginHandler}
+          loading={loading}>
+          Войти
+        </Button>
+      </SafeAreaView>
+    </Layout>
   );
 };
 
@@ -111,7 +117,7 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.mainColor,
+
     justifyContent: 'center',
   },
   name: {

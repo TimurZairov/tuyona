@@ -23,7 +23,7 @@ export const wishListAction = createAsyncThunk(
 //add to wishList
 export const addToWishList = createAsyncThunk(
   'addToWishList/user',
-  async ({data, token}: {data: Object; token: string}) => {
+  async ({data, token}: {data: string; token: string}) => {
     const wishList = await postMethodApi('/wishlist/', data, token);
     if (!wishList) {
       throw new Error('Что то пошло не так...');

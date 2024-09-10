@@ -2,7 +2,7 @@ import {BASE_URL} from '../config/config';
 
 export const postMethodApi = async (
   endpoint: string,
-  data: Object,
+  data: string,
   token: string,
 ) => {
   console.log(endpoint, token);

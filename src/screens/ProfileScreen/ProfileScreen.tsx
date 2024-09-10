@@ -11,6 +11,7 @@ import {useAppSelector} from '../../providers/redux/type';
 import {useAppContext} from '../../providers/context/context';
 import UserProfileScreen from './UserProfileScreen';
 import {SettingsNavigationProp} from '../../navigation/types';
+import Layout from '../../components/Layout/Layout';
 
 const ProfileScreen = () => {
   const insets = useSafeAreaInsets();
@@ -21,18 +22,32 @@ const ProfileScreen = () => {
   //CHECK NAVIGATION TYPES
   const loginSettings = [
     {
-      icon: <MaterialIcons name="language" size={26} />,
+      icon: (
+        <MaterialIcons name="language" size={26} color={COLORS.blueColor} />
+      ),
       text: 'Изменить язык',
       onPress: () => {
         navigation.navigate('Language');
       },
     },
     {
-      icon: <MaterialIcons name="support-agent" size={26} />,
+      icon: (
+        <MaterialIcons
+          name="support-agent"
+          size={26}
+          color={COLORS.blueColor}
+        />
+      ),
       text: 'Сервис поддрежки',
     },
     {
-      icon: <Ionicons name="information-circle-outline" size={26} />,
+      icon: (
+        <Ionicons
+          name="information-circle-outline"
+          size={26}
+          color={COLORS.blueColor}
+        />
+      ),
       text: 'О программе',
     },
   ];
@@ -50,7 +65,7 @@ const ProfileScreen = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <Layout>
       {/* header */}
       <View
         style={[
@@ -84,7 +99,7 @@ const ProfileScreen = () => {
           })}
         </View>
       </View>
-    </View>
+    </Layout>
   );
 };
 

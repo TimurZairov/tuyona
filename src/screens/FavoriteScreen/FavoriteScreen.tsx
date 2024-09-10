@@ -95,12 +95,7 @@ const FavoriteScreen: FC = () => {
           <View style={styles.iconWrapper}>
             <Ionicons name="heart" size={60} color={COLORS.mainColor} />
           </View>
-          <Text style={styles.title}>Вы не авторизированы</Text>
-          <Button
-            style={{backgroundColor: COLORS.redColor}}
-            textStyle={{color: COLORS.mainColor}}>
-            Авторизация
-          </Button>
+          <Text style={styles.title}>Список пуст</Text>
         </View>
       )}
     </Layout>

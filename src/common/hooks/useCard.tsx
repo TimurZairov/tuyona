@@ -12,6 +12,7 @@ const useCard = () => {
   const {accessToken, language} = useAppContext();
 
   const addToWishListItems = async (id: string) => {
+    console.log(id);
     if (!accessToken) {
       Toast.show({
         type: 'info',
@@ -20,7 +21,7 @@ const useCard = () => {
       return;
     }
     const response = await dispatch(
-      addToWishList({data: {service_provider: id}, token: accessToken}),
+      addToWishList({data: id, token: accessToken}),
     );
 
     if (!response) {
