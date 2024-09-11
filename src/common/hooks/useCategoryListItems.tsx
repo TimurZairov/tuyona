@@ -15,6 +15,7 @@ const useCategoryListItems = () => {
     if (loading) {
       return;
     }
+
     setLoading(true);
     try {
       const result = await getMethodApi(
@@ -30,7 +31,7 @@ const useCategoryListItems = () => {
 
       dispatch(setCategoryListItems(categoryListItems?.results));
 
-      navigation.navigate('ServiceList', {title});
+      navigation.navigate('ServiceList', {title, filterId: id});
     } catch (error) {
       console.log(error);
     } finally {

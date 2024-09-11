@@ -1,17 +1,27 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React, {FC} from 'react';
 import {COLORS, SIZES} from '../../theme/theme';
+import CheckedFilterIcon from '../../assets/icons/CheckedFilterIcon';
 
-const FilterBtn: FC<{title: string; onPress: () => void}> = ({
-  title,
-  onPress,
-}) => {
+const FilterBtn: FC<{
+  filterItem: string;
+  onPress: () => void;
+  isActive: string[];
+}> = ({filterItem, onPress, isActive}) => {
   return (
     <Pressable style={styles.container} onPress={onPress}>
       <View style={styles.filterBtn}>
         <Text>1</Text>
       </View>
-      <Text style={styles.title}>{title}</Text>
+      <View style={{position: 'absolute', bottom: 20, right: 10}}>
+        {isActive.map(
+          active =>
+            active === filterItem.title_ru && (
+              <CheckedFilterIcon key={active} />
+            ),
+        )}
+      </View>
+      <Text style={styles.title}>{filterItem?.title_ru}</Text>
     </Pressable>
   );
 };

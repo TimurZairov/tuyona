@@ -24,18 +24,22 @@ interface TCard {
   item: Service;
 }
 
-const MainCardList: FC<{title: string}> = ({title}) => {
+const MainCardList: FC<{title: string; filterId: string}> = ({
+  title,
+  filterId,
+}) => {
   const {categoryListItems} = useAppSelector(state => state.categoryListItems);
   const [contentHight, setContentHeight] = useState([height, height]);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const snapPoints = useMemo(() => contentHight, [contentHight]);
   //hook
+
   const {
     handleCloseModal,
     isModalOpened,
     handleBottomSheetEvents,
     handlePresentModalPress,
-  } = useMainCardList();
+  } = useMainCardList(filterId);
 
   const {addToWishListItems} = useCard();
   //CARD

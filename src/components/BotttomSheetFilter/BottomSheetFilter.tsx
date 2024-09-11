@@ -1,33 +1,33 @@
-import {
-  LayoutChangeEvent,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import React, {
-  Dispatch,
-  FC,
-  SetStateAction,
-  useCallback,
-  useLayoutEffect,
-  useState,
-} from 'react';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import React, {FC, ReactNode, useCallback, useState} from 'react';
 import MainTitle from '../MainTitle/MainTitle';
 import {COLORS, SIZES} from '../../theme/theme';
 import FilterBtn from '../Filter/FilterBtn';
-import {filterData, filterGender, filterSort} from '../../data/slider';
+import {filterSort} from '../../data/slider';
 import Slider from 'rn-range-slider';
 import Thumb from '../Filter/slider/Thumb';
 import Rail from '../Filter/slider/Rail';
 import RailSelected from '../Filter/slider/RailSelected';
 import Label from '../Filter/slider/Label';
 import FilterScroll from '../FilterScroll/FilterScroll';
+import {useAppSelector} from '../../providers/redux/type';
 
 interface IBottomSheetFilter {}
 
+const choiceType = {
+  choice: 'CHOICE',
+  number: 'NUMBER',
+  multi: 'MULTI_CHOICE',
+};
+
 const BottomSheetFilter: FC<IBottomSheetFilter> = ({}) => {
   const [genderFilterVisible, setGenderFilterVisible] = useState(false);
+  const [genderFilter, setGenderFilter] = useState([]);
+  const [isActive, setIsActive] = useState<string[]>([]);
+
+  const {filterModal} = useAppSelector(state => state.filterModal);
+
+  // console.log(filterModal);
 
   //slider configuration
   const renderThumb = useCallback(() => <Thumb />, []);
@@ -43,8 +43,61 @@ const BottomSheetFilter: FC<IBottomSheetFilter> = ({}) => {
     [],
   );
 
-  const genderFilterBlock = () => {
-    setGenderFilterVisible(prev => !prev);
+  const filtersTitle = (title: string, btn) => {
+    console.log(btn);
+
+    if (isActive.includes(title)) {
+      const filtered = isActive.filter(item => item !== title);
+      setIsActive(filtered);
+    } else {
+      setIsActive(prev => [...prev, title]);
+    }
+    if (title === 'Пол') {
+      console.log(btn);
+      setGenderFilterVisible(prev => !prev);
+      setGenderFilter(btn?.options);
+    }
+  };
+
+  const sortFilteredItems = (): ReactNode => {
+    return filterModal.map((item, index) => {
+      if (item.characteristic_type === choiceType.number) {
+        console.log(item);
+        return (
+          <View key={item[0]?.id}>
+            <Text style={styles.text}>{item?.title_ru}</Text>
+            <View style={styles.filterContainer}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  position: 'absolute',
+                  top: 0,
+                  width: '100%',
+                }}>
+                <Text style={styles.textAnchor}>0</Text>
+                <Text style={styles.textAnchor}>999 сум</Text>
+              </View>
+              <View style={[{flexDirection: 'row'}]}>
+                <View style={styles.thumb} />
+                <View style={[styles.thumb, {right: 0}]} />
+                <Slider
+                  min={0}
+                  max={999}
+                  step={1}
+                  renderThumb={renderThumb}
+                  renderRail={renderRail}
+                  renderRailSelected={renderRailSelected}
+                  renderLabel={renderLabelPrice}
+                  minRange={0}
+                  style={{flex: 1}}
+                />
+              </View>
+            </View>
+          </View>
+        );
+      }
+    });
   };
 
   return (
@@ -59,55 +112,35 @@ const BottomSheetFilter: FC<IBottomSheetFilter> = ({}) => {
           horizontal
           showsHorizontalScrollIndicator={false}
           style={styles.scrollBtn}>
-          {filterData.map((title, index) => (
-            <FilterBtn key={index} title={title} onPress={genderFilterBlock} />
+          {filterModal.map((filterItem, index) => (
+            <FilterBtn
+              key={index}
+              filterItem={filterItem}
+              onPress={() => filtersTitle(filterItem?.title_ru, filterItem)}
+              isActive={isActive}
+            />
           ))}
         </ScrollView>
       </View>
 
       {/* Filter input slider */}
-      <Text style={styles.text}>Цены</Text>
-      <View style={styles.filterContainer}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            position: 'absolute',
-            top: 0,
-            width: '100%',
-          }}>
-          <Text style={styles.textAnchor}>0</Text>
-          <Text style={styles.textAnchor}>999 сум</Text>
-        </View>
-        <View style={[{flexDirection: 'row'}]}>
-          <View style={styles.thumb} />
-          <View style={[styles.thumb, {right: 0}]} />
-          <Slider
-            min={0}
-            max={999}
-            step={1}
-            renderThumb={renderThumb}
-            renderRail={renderRail}
-            renderRailSelected={renderRailSelected}
-            renderLabel={renderLabelPrice}
-            minRange={0}
-            style={{flex: 1}}
-          />
-        </View>
-      </View>
 
       {/* SORT */}
+      {genderFilterVisible && (
+        <View style={styles.filterContainer}>
+          <Text style={styles.text}>Пол</Text>
+          <FilterScroll arr={genderFilter} />
+        </View>
+      )}
+
+      {sortFilteredItems()}
+
       <View style={styles.filterContainer}>
         <Text style={styles.text}>Сортировка</Text>
         <FilterScroll arr={filterSort} />
       </View>
       {/* GENDER */}
-      {genderFilterVisible && (
-        <View style={styles.filterContainer}>
-          <Text style={styles.text}>Пол</Text>
-          <FilterScroll arr={filterGender} />
-        </View>
-      )}
+
       {/* Experience */}
       <Text style={styles.text}>Опыт</Text>
       <View style={styles.filterContainer}>
@@ -122,6 +155,7 @@ const BottomSheetFilter: FC<IBottomSheetFilter> = ({}) => {
           <Text style={styles.textAnchor}>0</Text>
           <Text style={styles.textAnchor}>99 лет</Text>
         </View>
+
         <View style={[{flexDirection: 'row'}]}>
           <View style={styles.thumb} />
           <View style={[styles.thumb, {right: 0}]} />

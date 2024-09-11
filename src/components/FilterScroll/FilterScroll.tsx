@@ -1,8 +1,10 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import React, {FC} from 'react';
 import FilterSortButton from '../FilterSortButton/FilterSortButton';
+import {useAppContext} from '../../providers/context/context';
 
 const FilterScroll: FC<{arr: string[]}> = ({arr}) => {
+  const {language} = useAppContext();
   return (
     <View>
       <ScrollView
@@ -10,7 +12,10 @@ const FilterScroll: FC<{arr: string[]}> = ({arr}) => {
         showsHorizontalScrollIndicator={false}
         style={styles.sort}>
         {arr.map((b, index) => (
-          <FilterSortButton key={index} title={b} />
+          <FilterSortButton
+            key={index}
+            title={language === 'ru' ? b.title_ru : b.title_uz}
+          />
         ))}
       </ScrollView>
     </View>

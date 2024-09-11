@@ -5,12 +5,15 @@ import {useRoute} from '@react-navigation/native';
 
 const ServiceListScreen: FC = () => {
   const route = useRoute();
-  const {title} = route.params as {title: string | undefined};
+  const {title, filterId} = route.params as {
+    title: string | undefined;
+    filterId: string;
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.scrollWrapper}>
-        <MainCardList title={title!} />
+        <MainCardList title={title!} filterId={filterId} />
       </View>
     </View>
   );

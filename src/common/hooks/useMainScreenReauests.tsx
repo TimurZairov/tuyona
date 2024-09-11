@@ -14,8 +14,6 @@ const useMainScreenRequests = () => {
         const res = await dispatch(
           homeDataAction({endpoint: '/homepage/', language}),
         );
-
-        console.log(res);
       })();
     } catch (error) {
       console.log(error);

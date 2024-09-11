@@ -1,11 +1,16 @@
 import {BottomSheetModalMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
 import {useCallback, useEffect, useState} from 'react';
-import {getMethodApi} from '../getMethodApi';
-import {useAppContext} from '../../providers/context/context';
 
-export const useMainCardList = () => {
+import {useAppContext} from '../../providers/context/context';
+import {BASE_URL} from '../../config/config';
+import {useAppDispatch} from '../../providers/redux/type';
+import {setFilterModalSlice} from '../../providers/redux/slices/filterModalSlice';
+
+export const useMainCardList = (filterId: string) => {
   const [isModalOpened, setIsModalOpened] = useState(false);
   const {language} = useAppContext();
+  const dispatch = useAppDispatch();
+
   //open Bottom Sheet
   const handlePresentModalPress = useCallback(
     (bottomRef: React.RefObject<BottomSheetModalMethods>) => {
@@ -29,14 +34,26 @@ export const useMainCardList = () => {
     }
     return;
   };
-  ///////
+
   useEffect(() => {
     (async () => {
       try {
         const response = await fetch(
-          `api/crm/provider-categories/1/characteristics`,
+          BASE_URL + `/crm/provider-categories/${filterId}/characteristics`,
+          {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              'Accept-language': language,
+            },
+          },
         );
-      } catch (error) {}
+        const filterType = await response.json();
+        dispatch(setFilterModalSlice(filterType));
+      } catch (error) {
+        console.log(error, 'useMainCardList');
+      }
     })();
   }, []);
 

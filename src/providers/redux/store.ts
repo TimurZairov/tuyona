@@ -7,6 +7,7 @@ import bannerSlice from './slices/bannersSlice';
 import serviceProviderSlice from './slices/serviceProviderSlice';
 import homeScreenDataSlice from './slices/homeScreenDataSlice';
 import categoryLIstSlice from './slices/categoryLIstSlice';
+import filterModalSlice from './slices/filterModalSlice';
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     banners: bannerSlice,
     homeData: homeScreenDataSlice,
     categoryListItems: categoryLIstSlice,
+    filterModal: filterModalSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
