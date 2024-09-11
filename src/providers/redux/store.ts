@@ -8,6 +8,7 @@ import serviceProviderSlice from './slices/serviceProviderSlice';
 import homeScreenDataSlice from './slices/homeScreenDataSlice';
 import categoryLIstSlice from './slices/categoryLIstSlice';
 import filterModalSlice from './slices/filterModalSlice';
+import activeFilterSlice from './slices/activeFilterSlice';
 
 export const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
     homeData: homeScreenDataSlice,
     categoryListItems: categoryLIstSlice,
     filterModal: filterModalSlice,
+    isActive: activeFilterSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

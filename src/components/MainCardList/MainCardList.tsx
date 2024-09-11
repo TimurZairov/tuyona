@@ -97,7 +97,7 @@ const MainCardList: FC<{title: string; filterId: string}> = ({
         onChange={handleBottomSheetEvents}>
         <BottomSheetView style={styles.contentContainer}>
           <View onLayout={handleContentLayout}>
-            <BottomSheetFilter />
+            <BottomSheetFilter screenTitle={title} />
           </View>
         </BottomSheetView>
       </BottomSheetModal>

@@ -1,5 +1,5 @@
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import React, {FC, ReactNode, useCallback, useState} from 'react';
+import React, {FC, ReactNode, useCallback, useEffect, useState} from 'react';
 import MainTitle from '../MainTitle/MainTitle';
 import {COLORS, SIZES} from '../../theme/theme';
 import FilterBtn from '../Filter/FilterBtn';
@@ -9,9 +9,12 @@ import Rail from '../Filter/slider/Rail';
 import RailSelected from '../Filter/slider/RailSelected';
 import Label from '../Filter/slider/Label';
 import FilterScroll from '../FilterScroll/FilterScroll';
-import {useAppSelector} from '../../providers/redux/type';
+import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
+import {setIsActive} from '../../providers/redux/slices/activeFilterSlice';
 
-interface IBottomSheetFilter {}
+interface IBottomSheetFilter {
+  screenTitle: string;
+}
 
 const choiceType = {
   choice: 'CHOICE',
@@ -19,7 +22,7 @@ const choiceType = {
   multi: 'MULTI_CHOICE',
 };
 
-const BottomSheetFilter: FC<IBottomSheetFilter> = ({}) => {
+const BottomSheetFilter: FC<IBottomSheetFilter> = ({screenTitle}) => {
   const [genderFilterVisible, setGenderFilterVisible] = useState(false);
   const [ageFilter, setAgeFilter] = useState(false);
   const [languageFilterVisible, setLanguageFilterVisible] = useState(false);
@@ -28,10 +31,13 @@ const BottomSheetFilter: FC<IBottomSheetFilter> = ({}) => {
   const [languageFilter, setLanguageFilter] = useState([]);
   const [regionFilter, setRegionFilter] = useState([]);
 
-  const [isActive, setIsActive] = useState<string[]>([]);
+  //
+  const dispatch = useAppDispatch();
+
+  // const [isActive, setIsActive] = useState<string[]>([]);
 
   const {filterModal} = useAppSelector(state => state.filterModal);
-
+  const {isActive} = useAppSelector(state => state.isActive);
   //slider configuration
   const renderThumb = useCallback(() => <Thumb />, []);
   const renderRail = useCallback(() => <Rail />, []);
@@ -54,34 +60,72 @@ const BottomSheetFilter: FC<IBottomSheetFilter> = ({}) => {
   );
 
   const filtersTitle = (title: string, btn) => {
-    console.log(isActive);
-    if (isActive.includes(title)) {
-      const filtered = isActive.filter(item => item !== title);
-      setIsActive(filtered);
-    } else {
-      // setIsActive(prev => [...prev, title]);
-      setFilterDependencies(title, setIsActive);
-    }
-    if (title === 'Пол') {
-      setGenderFilterVisible(prev => !prev);
-      setGenderFilter(btn?.options);
-      return;
-    }
-    if (title === 'Возраст') {
-      setAgeFilter(prev => !prev);
-      return;
-    }
-    if (title === 'Язык') {
-      setLanguageFilterVisible(prev => !prev);
-      setLanguageFilter(btn?.options);
-      return;
-    }
+    if (screenTitle === 'Артисты') {
+      if (isActive.includes(title)) {
+        const filtered = isActive.filter(item => item !== title);
+        dispatch(setIsActive(filtered));
+      } else {
+        // setIsActive(prev => [...prev, title]);
+        dispatch(setIsActive([...isActive, title]));
+        setFilterDependencies(title, setIsActive);
+      }
+      if (title === 'Пол') {
+        setGenderFilterVisible(prev => !prev);
+        setGenderFilter(btn?.options);
+        return;
+      }
+      if (title === 'Возраст') {
+        setAgeFilter(prev => !prev);
+        return;
+      }
+      if (title === 'Язык') {
+        setLanguageFilterVisible(prev => !prev);
+        setLanguageFilter(btn?.options);
+        return;
+      }
 
-    if (title === 'Регион') {
-      setRegionVisibleFilter(prev => !prev);
-      setRegionFilter(btn?.options);
+      if (title === 'Регион') {
+        setRegionVisibleFilter(prev => !prev);
+        setRegionFilter(btn?.options);
+      }
     }
   };
+
+  useEffect(() => {
+    console.log(JSON.stringify(filterModal, null, 2));
+    if (screenTitle === 'Артисты') {
+      if (isActive.includes('Пол')) {
+        const elementIndex = filterModal.findIndex(el => {
+          return el?.title_ru === 'Пол';
+        });
+
+        setGenderFilter(filterModal[elementIndex]?.options);
+        setGenderFilterVisible(true);
+      }
+
+      if (isActive.includes('Язык')) {
+        const elementIndex = filterModal.findIndex(el => {
+          return el?.title_ru === 'Язык';
+        });
+
+        setLanguageFilter(filterModal[elementIndex]?.options);
+        setLanguageFilterVisible(true);
+      }
+      //Регион
+      if (isActive.includes('Регион')) {
+        const elementIndex = filterModal.findIndex(el => {
+          return el?.title_ru === 'Регион';
+        });
+
+        setRegionFilter(filterModal[elementIndex]?.options);
+        setRegionVisibleFilter(true);
+      }
+
+      if (isActive.includes('Возраст')) {
+        setAgeFilter(true);
+      }
+    }
+  }, [filtersTitle]);
 
   const sortFilteredItems = (): ReactNode => {
     return filterModal.map((item, index) => {
