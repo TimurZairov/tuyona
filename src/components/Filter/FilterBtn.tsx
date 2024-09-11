@@ -26,7 +26,7 @@ const FilterBtn: FC<{
   );
 };
 
-export default FilterBtn;
+export default React.memo(FilterBtn);
 
 const styles = StyleSheet.create({
   container: {

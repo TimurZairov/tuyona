@@ -3,7 +3,6 @@ import React, {FC, ReactNode, useCallback, useState} from 'react';
 import MainTitle from '../MainTitle/MainTitle';
 import {COLORS, SIZES} from '../../theme/theme';
 import FilterBtn from '../Filter/FilterBtn';
-import {filterSort} from '../../data/slider';
 import Slider from 'rn-range-slider';
 import Thumb from '../Filter/slider/Thumb';
 import Rail from '../Filter/slider/Rail';
@@ -22,12 +21,16 @@ const choiceType = {
 
 const BottomSheetFilter: FC<IBottomSheetFilter> = ({}) => {
   const [genderFilterVisible, setGenderFilterVisible] = useState(false);
+  const [ageFilter, setAgeFilter] = useState(false);
+  const [languageFilterVisible, setLanguageFilterVisible] = useState(false);
+  const [regionVisibleFilter, setRegionVisibleFilter] = useState(false);
   const [genderFilter, setGenderFilter] = useState([]);
+  const [languageFilter, setLanguageFilter] = useState([]);
+  const [regionFilter, setRegionFilter] = useState([]);
+
   const [isActive, setIsActive] = useState<string[]>([]);
 
   const {filterModal} = useAppSelector(state => state.filterModal);
-
-  // console.log(filterModal);
 
   //slider configuration
   const renderThumb = useCallback(() => <Thumb />, []);
@@ -43,29 +46,50 @@ const BottomSheetFilter: FC<IBottomSheetFilter> = ({}) => {
     [],
   );
 
-  const filtersTitle = (title: string, btn) => {
-    console.log(btn);
+  const setFilterDependencies = useCallback(
+    (title: string, cb: React.Dispatch<React.SetStateAction<string[]>>) => {
+      cb(prev => [...prev, title]);
+    },
+    [],
+  );
 
+  const filtersTitle = (title: string, btn) => {
+    console.log(isActive);
     if (isActive.includes(title)) {
       const filtered = isActive.filter(item => item !== title);
       setIsActive(filtered);
     } else {
-      setIsActive(prev => [...prev, title]);
+      // setIsActive(prev => [...prev, title]);
+      setFilterDependencies(title, setIsActive);
     }
     if (title === 'Пол') {
-      console.log(btn);
       setGenderFilterVisible(prev => !prev);
       setGenderFilter(btn?.options);
+      return;
+    }
+    if (title === 'Возраст') {
+      setAgeFilter(prev => !prev);
+      return;
+    }
+    if (title === 'Язык') {
+      setLanguageFilterVisible(prev => !prev);
+      setLanguageFilter(btn?.options);
+      return;
+    }
+
+    if (title === 'Регион') {
+      setRegionVisibleFilter(prev => !prev);
+      setRegionFilter(btn?.options);
     }
   };
 
   const sortFilteredItems = (): ReactNode => {
     return filterModal.map((item, index) => {
       if (item.characteristic_type === choiceType.number) {
-        console.log(item);
         return (
-          <View key={item[0]?.id}>
-            <Text style={styles.text}>{item?.title_ru}</Text>
+          <View key={item.id}>
+            {/* Experience */}
+            <Text style={styles.text}>Возраст</Text>
             <View style={styles.filterContainer}>
               <View
                 style={{
@@ -76,19 +100,20 @@ const BottomSheetFilter: FC<IBottomSheetFilter> = ({}) => {
                   width: '100%',
                 }}>
                 <Text style={styles.textAnchor}>0</Text>
-                <Text style={styles.textAnchor}>999 сум</Text>
+                <Text style={styles.textAnchor}>99 лет</Text>
               </View>
+
               <View style={[{flexDirection: 'row'}]}>
                 <View style={styles.thumb} />
                 <View style={[styles.thumb, {right: 0}]} />
                 <Slider
                   min={0}
-                  max={999}
+                  max={99}
                   step={1}
                   renderThumb={renderThumb}
                   renderRail={renderRail}
                   renderRailSelected={renderRailSelected}
-                  renderLabel={renderLabelPrice}
+                  renderLabel={renderLabelExp}
                   minRange={0}
                   style={{flex: 1}}
                 />
@@ -133,45 +158,23 @@ const BottomSheetFilter: FC<IBottomSheetFilter> = ({}) => {
         </View>
       )}
 
-      {sortFilteredItems()}
+      {ageFilter ? sortFilteredItems() : null}
 
-      <View style={styles.filterContainer}>
-        <Text style={styles.text}>Сортировка</Text>
-        <FilterScroll arr={filterSort} />
-      </View>
+      {languageFilterVisible ? (
+        <View style={styles.filterContainer}>
+          <Text style={styles.text}>Язык</Text>
+          <FilterScroll arr={languageFilter} />
+        </View>
+      ) : null}
       {/* GENDER */}
 
-      {/* Experience */}
-      <Text style={styles.text}>Опыт</Text>
-      <View style={styles.filterContainer}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            position: 'absolute',
-            top: 0,
-            width: '100%',
-          }}>
-          <Text style={styles.textAnchor}>0</Text>
-          <Text style={styles.textAnchor}>99 лет</Text>
+      {/*  */}
+      {regionVisibleFilter ? (
+        <View style={styles.filterContainer}>
+          <Text style={styles.text}>Регион</Text>
+          <FilterScroll arr={regionFilter} />
         </View>
-
-        <View style={[{flexDirection: 'row'}]}>
-          <View style={styles.thumb} />
-          <View style={[styles.thumb, {right: 0}]} />
-          <Slider
-            min={0}
-            max={99}
-            step={1}
-            renderThumb={renderThumb}
-            renderRail={renderRail}
-            renderRailSelected={renderRailSelected}
-            renderLabel={renderLabelExp}
-            minRange={0}
-            style={{flex: 1}}
-          />
-        </View>
-      </View>
+      ) : null}
     </View>
   );
 };
@@ -228,3 +231,39 @@ const styles = StyleSheet.create({
     color: COLORS.blackColor,
   },
 });
+
+/*
+
+<View>
+          <Text style={styles.text}>Wt</Text>
+          <View style={styles.filterContainer}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                position: 'absolute',
+                top: 0,
+                width: '100%',
+              }}>
+              <Text style={styles.textAnchor}>0</Text>
+              <Text style={styles.textAnchor}>999 сум</Text>
+            </View>
+            <View style={[{flexDirection: 'row'}]}>
+              <View style={styles.thumb} />
+              <View style={[styles.thumb, {right: 0}]} />
+              <Slider
+                min={0}
+                max={999}
+                step={1}
+                renderThumb={renderThumb}
+                renderRail={renderRail}
+                renderRailSelected={renderRailSelected}
+                renderLabel={renderLabelPrice}
+                minRange={0}
+                style={{flex: 1}}
+              />
+            </View>
+          </View>
+        </View>
+
+*/
