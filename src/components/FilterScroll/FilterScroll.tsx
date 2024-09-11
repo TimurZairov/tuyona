@@ -1,10 +1,11 @@
 import {ScrollView, StyleSheet, View} from 'react-native';
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import FilterSortButton from '../FilterSortButton/FilterSortButton';
 import {useAppContext} from '../../providers/context/context';
 
 const FilterScroll: FC<{arr: string[]}> = ({arr}) => {
   const {language} = useAppContext();
+
   return (
     <View>
       <ScrollView
