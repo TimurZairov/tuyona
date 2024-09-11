@@ -95,5 +95,11 @@
         <string>Zocial.ttf</string>
         <string>Fontisto.ttf</string>
     </array>
+    <!-- orientation -->
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+        <string>UIInterfaceOrientationPortraitUpsideDown</string>
+    </array>
 </dict>
 </plist>
