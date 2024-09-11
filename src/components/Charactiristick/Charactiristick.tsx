@@ -8,8 +8,8 @@ const Charactiristick: FC<{
   serviceProvider: any;
   index: number;
   length: number;
-  provider?: boolean;
-}> = ({serviceProvider, index, length, provider}: any) => {
+  isShortInfo?: boolean;
+}> = ({serviceProvider, index, length, isShortInfo}: any) => {
   // console.log(JSON.stringify(serviceProvider, null, 2));
 
   return (
@@ -24,15 +24,15 @@ const Charactiristick: FC<{
           />
 
           <Text style={[styles.text, {marginLeft: 5}]}>
-            {serviceProvider?.title.length > 15 && !provider
+            {serviceProvider?.title.length > 15 && !isShortInfo
               ? serviceProvider?.title.slice(0, 15) + '...'
               : serviceProvider?.title}
           </Text>
         </View>
-        {serviceProvider?.characteristic_type === 'TEXT' && (
+        {/* {serviceProvider?.characteristic_type === 'TEXT' && (
           <Text style={styles.text}>{serviceProvider?.description}</Text>
-        )}
-        {serviceProvider?.characteristic_type === 'YES/NO' && (
+        )} */}
+        {serviceProvider?.characteristic_type === 'YES/NO' ? (
           <View>
             <Ionicons
               name={
@@ -45,6 +45,12 @@ const Charactiristick: FC<{
               style={styles.icon}
             />
           </View>
+        ) : (
+          <Text style={styles.text}>
+            {serviceProvider?.char_value.length > 15 && isShortInfo
+              ? serviceProvider?.char_value.slice(0, 15) + '...'
+              : serviceProvider?.char_value}
+          </Text>
         )}
       </View>
       {length && length - 1 === index ? null : <View style={styles.divider} />}
