@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 50,
     alignItems: 'center',
+    overflow: 'hidden',
   },
   screens: {
     flex: 1,

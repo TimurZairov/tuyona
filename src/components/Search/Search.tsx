@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: SIZES.medium,
     color: COLORS.blackColor,
-    height: 20,
+    height: 40,
+    width: '100%',
   },
 });

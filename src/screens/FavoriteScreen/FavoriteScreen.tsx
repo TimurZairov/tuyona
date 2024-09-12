@@ -83,6 +83,7 @@ const FavoriteScreen: FC = () => {
               <Card
                 item={item.service_provider}
                 onPress={removeItemsFromWishList}
+                isFavorite
               />
             );
           }}

@@ -18,11 +18,12 @@ import FbCardIcon from '../../assets/icons/FbCardIcon';
 import TgCardIcon from '../../assets/icons/TgCardIcon';
 import PhoneCardIcon from '../../assets/icons/PhoneCardIcon';
 import Charactiristick from '../Charactiristick/Charactiristick';
+import AddedFavoriteIcon from '../../assets/icons/AddedFavoriteIcon';
 
 type Card = {
   item: Service;
   onPress: (id: string) => void;
-  isFavorite: boolean;
+  isFavorite?: boolean;
   isShortInfo?: boolean;
 };
 
@@ -38,7 +39,7 @@ const Card: FC<Card> = memo(({item, onPress = () => {}, isFavorite}) => {
       <TouchableOpacity
         style={styles.favorite}
         onPress={() => onPress(item.id.toString())}>
-        <FavoriteCardIcon />
+        {isFavorite ? <AddedFavoriteIcon /> : <FavoriteCardIcon />}
       </TouchableOpacity>
       {/* IMAGES */}
       <Pressable style={styles.wrapper} onPress={infoNavigationScreen}>

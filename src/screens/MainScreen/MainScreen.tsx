@@ -49,8 +49,10 @@ const MainScreen: FC = () => {
         style={styles.background}
         source={require('../../assets/image/background.png')}
       />
+
       {/* HEADER */}
       <Header />
+
       {/*  CATEGORY  */}
       <ScrollView
         showsVerticalScrollIndicator={false}

@@ -126,5 +126,6 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0,0,0,0.5)',
     top: -20,
+    zIndex: 10,
   },
 });

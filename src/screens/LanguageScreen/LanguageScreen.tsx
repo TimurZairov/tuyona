@@ -5,10 +5,12 @@ import i18next from 'i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {COLORS} from '../../theme/theme';
 import Layout from '../../components/Layout/Layout';
+import GoBack from '../../components/GoBack/GoBack';
+import {useNavigation} from '@react-navigation/native';
 
 const LanguageScreen = () => {
   const {language, setLanguage} = useAppContext();
-
+  const navigation = useNavigation();
   //change Language
   const changeLang = async (lang: string) => {
     if (language.toLowerCase() === lang.toLowerCase()) {
@@ -21,7 +23,12 @@ const LanguageScreen = () => {
 
   return (
     <Layout isHeader={false}>
+      <View style={{alignSelf: 'baseline', marginLeft: 10}}>
+        <GoBack onPress={() => navigation.goBack()} />
+      </View>
+
       <View style={styles.container}>
+        <View></View>
         <TouchableOpacity
           style={{
             backgroundColor:
