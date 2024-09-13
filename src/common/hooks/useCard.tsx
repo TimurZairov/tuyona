@@ -6,28 +6,42 @@ import {
   wishListAction,
 } from '../../providers/redux/actions/wishListAction';
 import {useAppDispatch} from '../../providers/redux/type';
+import {useState} from 'react';
 
 const useCard = () => {
   const dispatch = useAppDispatch();
   const {accessToken, language} = useAppContext();
+  const [loading, setLoading] = useState(false);
 
   const addToWishListItems = async (id: string) => {
-    console.log(id);
-    if (!accessToken) {
-      Toast.show({
-        type: 'info',
-        text1: 'Авторизируйтесь',
-      });
+    if (loading) {
       return;
     }
-    const response = await dispatch(
-      addToWishList({data: id, token: accessToken}),
-    );
 
-    if (!response) {
-      throw new Error('что то пошло не так');
+    try {
+      setLoading(true);
+      if (!accessToken) {
+        Toast.show({
+          type: 'info',
+          text1: 'Авторизируйтесь',
+        });
+        setLoading(false);
+        return;
+      }
+
+      const response = await dispatch(
+        addToWishList({data: id, token: accessToken}),
+      );
+
+      if (!response) {
+        throw new Error('что то пошло не так');
+      }
+      dispatch(wishListAction({accessToken, language}));
+    } catch (error) {
+      console.log(error, 'add to wishlist');
+    } finally {
+      setLoading(false);
     }
-    dispatch(wishListAction({accessToken, language}));
   };
 
   const removeItemsFromWishList = async (id: string) => {

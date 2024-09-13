@@ -33,13 +33,17 @@ const Card: FC<Card> = memo(({item, onPress = () => {}, isFavorite}) => {
   const infoNavigationScreen = () => {
     navigation.navigate('Provider', {id: item.id});
   };
-
+  // console.log(JSON.stringify(item.in_wishlist, null, 2));
   return (
     <View style={styles.card}>
       <TouchableOpacity
         style={styles.favorite}
         onPress={() => onPress(item.id.toString())}>
-        {isFavorite ? <AddedFavoriteIcon /> : <FavoriteCardIcon />}
+        {isFavorite || item.in_wishlist ? (
+          <AddedFavoriteIcon />
+        ) : (
+          <FavoriteCardIcon />
+        )}
       </TouchableOpacity>
       {/* IMAGES */}
       <Pressable style={styles.wrapper} onPress={infoNavigationScreen}>

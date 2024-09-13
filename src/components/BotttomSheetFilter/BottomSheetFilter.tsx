@@ -92,7 +92,7 @@ const BottomSheetFilter: FC<IBottomSheetFilter> = ({screenTitle}) => {
   };
 
   useEffect(() => {
-    console.log(JSON.stringify(filterModal, null, 2));
+    // console.log(JSON.stringify(filterModal, null, 2));
     if (screenTitle === 'Артисты') {
       if (isActive.includes('Пол')) {
         const elementIndex = filterModal.findIndex(el => {
@@ -275,39 +275,3 @@ const styles = StyleSheet.create({
     color: COLORS.blackColor,
   },
 });
-
-/*
-
-<View>
-          <Text style={styles.text}>Wt</Text>
-          <View style={styles.filterContainer}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                position: 'absolute',
-                top: 0,
-                width: '100%',
-              }}>
-              <Text style={styles.textAnchor}>0</Text>
-              <Text style={styles.textAnchor}>999 сум</Text>
-            </View>
-            <View style={[{flexDirection: 'row'}]}>
-              <View style={styles.thumb} />
-              <View style={[styles.thumb, {right: 0}]} />
-              <Slider
-                min={0}
-                max={999}
-                step={1}
-                renderThumb={renderThumb}
-                renderRail={renderRail}
-                renderRailSelected={renderRailSelected}
-                renderLabel={renderLabelPrice}
-                minRange={0}
-                style={{flex: 1}}
-              />
-            </View>
-          </View>
-        </View>
-
-*/

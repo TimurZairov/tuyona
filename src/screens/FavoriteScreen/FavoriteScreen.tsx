@@ -27,8 +27,6 @@ import Card from '../../components/Card/Card';
 import useCard from '../../common/hooks/useCard';
 
 const FavoriteScreen: FC = () => {
-  const [loading, setLoading] = useState(false);
-
   const {handleAuth} = useFavorite();
 
   const dispatch = useAppDispatch();
@@ -38,13 +36,7 @@ const FavoriteScreen: FC = () => {
   //stated
   const {wishList} = useAppSelector(state => state.wishList);
   const {user} = useAppSelector(state => state.user);
-  const {removeItemsFromWishList} = useCard();
-
-  // const navigateToInfo = (id: string) => {
-  //   if (id) {
-  //     navigation.navigate('Info', {id: +id});
-  //   }
-  // };
+  const {addToWishListItems, loading} = useCard();
 
   //GET WISHLIST
   useEffect(() => {
@@ -82,7 +74,7 @@ const FavoriteScreen: FC = () => {
             return (
               <Card
                 item={item.service_provider}
-                onPress={removeItemsFromWishList}
+                onPress={!loading ? addToWishListItems : () => {}}
                 isFavorite
               />
             );

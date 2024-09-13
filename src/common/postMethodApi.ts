@@ -5,7 +5,6 @@ export const postMethodApi = async (
   data: string,
   token: string,
 ) => {
-  console.log(endpoint, token);
   try {
     const response = await fetch(BASE_URL + endpoint, {
       method: 'POST',

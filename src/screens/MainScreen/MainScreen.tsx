@@ -5,7 +5,6 @@ import {
   ScrollView,
   Platform,
   FlatList,
-  Text,
 } from 'react-native';
 import {FC, useRef, useState} from 'react';
 import {COLORS, height, width} from '../../theme/theme';

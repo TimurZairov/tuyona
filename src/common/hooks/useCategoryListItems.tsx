@@ -7,7 +7,7 @@ import {setCategoryListItems} from '../../providers/redux/slices/categoryLIstSli
 
 const useCategoryListItems = () => {
   const [loading, setLoading] = useState(false);
-  const {language} = useAppContext();
+  const {language, accessToken} = useAppContext();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
@@ -19,8 +19,9 @@ const useCategoryListItems = () => {
     setLoading(true);
     try {
       const result = await getMethodApi(
-        '/provider-categories/' + id + '/providers/',
+        `/service-providers/?category=${id}`,
         language,
+        accessToken,
       );
 
       const categoryListItems = await result;
