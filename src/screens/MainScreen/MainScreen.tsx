@@ -6,7 +6,7 @@ import {
   Platform,
   FlatList,
 } from 'react-native';
-import {FC, useRef, useState} from 'react';
+import {FC, useRef} from 'react';
 import {COLORS, height, width} from '../../theme/theme';
 import Header from '../../components/Header/Header';
 
@@ -18,7 +18,7 @@ import CategoryButton from '../../components/ScrollButton/CategoryButton';
 import ScrollBar from '../../components/ScrollBar/ScrollBar';
 import useScrollProgress from '../../common/hooks/useScrollProgress';
 import BannerCarousel from '../../components/BannerCarousel/BannerCarousel';
-import SlideDots from '../../components/SlideDots/SlideDots';
+
 import useMainScreenRequests from '../../common/hooks/useMainScreenReauests';
 import {useAppSelector} from '../../providers/redux/type';
 import MainSkeletonLoader from '../../components/Skeletons/MainSkeletonLoader/MainSkeletonLoader';
@@ -28,7 +28,7 @@ const MainScreen: FC = () => {
   const {banners} = useAppSelector(state => state.banners);
   const {homeData} = useAppSelector(state => state.homeData);
   const {categories} = useAppContext();
-  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+
   const {mainLoading} = useMainScreenRequests();
 
   const {t} = useTranslation();
@@ -52,58 +52,56 @@ const MainScreen: FC = () => {
       {/* HEADER */}
       <Header />
 
-      {/*  CATEGORY  */}
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        scrollEventThrottle={16}
-        style={styles.mainScroll}>
-        <View style={styles.container}>
-          {/* Search */}
-          <Search />
-          <View style={{paddingHorizontal: 8}}>
-            <ScrollView
-              ref={scrollCategoryRef}
-              horizontal
-              bounces={false}
-              onScroll={handleScrollEvents}
-              showsHorizontalScrollIndicator={false}>
-              {categories &&
-                categories?.map((category, index) => {
-                  return (
-                    <CategoryButton
-                      key={`${category}-${index}`}
-                      category={category}
-                      index={index}
-                    />
-                  );
-                })}
-            </ScrollView>
-            <ScrollBar scrollLength={scrollLength} />
-          </View>
-          {/* SLIDER */}
-          <BannerCarousel
-            data={banners}
-            setActiveSlideIndex={setActiveSlideIndex}
-          />
-        </View>
-        {/* Slide pagination */}
-        <SlideDots data={banners} activeSlideIndex={activeSlideIndex} />
-        <View>
-          {/* Categories */}
-          <FlatList
-            data={homeData || []}
-            renderItem={({item, index}) => {
-              return <CategoryCard category={item} index={index} />;
-            }}
-            contentContainerStyle={{marginBottom: height / 10}}
-          />
-        </View>
-      </ScrollView>
+      <View>
+        {/* Categories */}
+        <FlatList
+          data={homeData || []}
+          ListHeaderComponent={
+            <View style={styles.mainScroll}>
+              <View style={styles.container}>
+                {/* Search */}
+                <Search />
+                <View style={{paddingHorizontal: 8}}>
+                  <ScrollView
+                    ref={scrollCategoryRef}
+                    horizontal
+                    bounces={false}
+                    onScroll={handleScrollEvents}
+                    showsHorizontalScrollIndicator={false}>
+                    {categories &&
+                      categories?.map((category, index) => {
+                        return (
+                          <CategoryButton
+                            key={`${category}-${index}`}
+                            category={category}
+                            index={index}
+                          />
+                        );
+                      })}
+                  </ScrollView>
+                  <ScrollBar scrollLength={scrollLength} />
+                </View>
+                {/* SLIDER */}
+                <BannerCarousel data={banners} />
+              </View>
+            </View>
+          }
+          renderItem={({item, index}) => {
+            return (
+              <CategoryCard
+                category={item}
+                index={index}
+                length={homeData.length}
+              />
+            );
+          }}
+        />
+      </View>
     </View>
   );
 };
 
-export default React.memo(MainScreen);
+export default MainScreen;
 
 const styles = StyleSheet.create({
   main: {

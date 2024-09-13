@@ -7,17 +7,25 @@ import {
   Linking,
   Dimensions,
 } from 'react-native';
-import React, {Dispatch, FC, SetStateAction, useCallback} from 'react';
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useCallback,
+  useState,
+} from 'react';
 import Carousel from 'react-native-reanimated-carousel';
 import {Banner} from '../../types/types';
 import {height, SIZES, width} from '../../theme/theme';
+import SlideDots from '../SlideDots/SlideDots';
 
 interface IBannerCarousel {
   data: Banner[];
-  setActiveSlideIndex: Dispatch<SetStateAction<number>>;
+  setActiveSlideIndex?: Dispatch<SetStateAction<number>>;
 }
 
-const BannerCarousel: FC<IBannerCarousel> = ({data, setActiveSlideIndex}) => {
+const BannerCarousel: FC<IBannerCarousel> = ({data}) => {
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   //link for banners
   const openLinkUrl = async (url: string) => {
     if (!url) {
@@ -31,6 +39,7 @@ const BannerCarousel: FC<IBannerCarousel> = ({data, setActiveSlideIndex}) => {
   }, []);
 
   const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
+
   return (
     <View>
       {data?.length > 0 && (
@@ -55,6 +64,10 @@ const BannerCarousel: FC<IBannerCarousel> = ({data, setActiveSlideIndex}) => {
           )}
         />
       )}
+      {/* Slide pagination */}
+      <View style={styles.dots}>
+        <SlideDots data={data} activeSlideIndex={activeSlideIndex} />
+      </View>
     </View>
   );
 };
@@ -72,5 +85,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: height / 3.65,
     borderRadius: SIZES.small,
+  },
+  dots: {
+    marginTop: 10,
   },
 });

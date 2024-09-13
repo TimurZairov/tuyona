@@ -25,6 +25,7 @@ export interface ICategory {
   };
   food?: boolean;
   index: number;
+  length?: number | undefined;
 }
 
 export type WishList = {

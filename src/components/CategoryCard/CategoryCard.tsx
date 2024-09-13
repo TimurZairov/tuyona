@@ -9,12 +9,14 @@ import ScrollBar from '../ScrollBar/ScrollBar';
 import useScrollProgress from '../../common/hooks/useScrollProgress';
 import useCard from '../../common/hooks/useCard';
 
-const CategoryCard: FC<ICategory> = ({category, index}) => {
+const CategoryCard: FC<ICategory> = ({category, index, length}) => {
   const {scrollLength, handleScrollEvents, layoutWidth} = useScrollProgress();
   const {addToWishListItems} = useCard();
 
+  console.log(length);
+
   return (
-    <>
+    <View style={{marginBottom: length && index === length - 1 ? 200 : 0}}>
       <MainTitle title={category?.title} />
       <ScrollView
         horizontal
@@ -41,7 +43,7 @@ const CategoryCard: FC<ICategory> = ({category, index}) => {
           </View>
         </View>
       ) : null}
-    </>
+    </View>
   );
 };
 

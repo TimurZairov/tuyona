@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React, {FC, useCallback} from 'react';
+import React, {FC, memo, useCallback} from 'react';
 import {COLORS} from '../../theme/theme';
 import {Banner} from '../../types/types';
 
@@ -9,25 +9,20 @@ interface ISlideDots {
 }
 
 const SlideDots: FC<ISlideDots> = ({data, activeSlideIndex}) => {
-  const dotItem = useCallback(
-    (index: number) => {
-      return (
-        <View
-          key={index}
-          style={[
-            styles.dots,
-            {
-              backgroundColor:
-                index === activeSlideIndex
-                  ? COLORS.blueColor
-                  : COLORS.lightGray,
-            },
-          ]}
-        />
-      );
-    },
-    [activeSlideIndex],
-  );
+  const dotItem = (index: number) => {
+    return (
+      <View
+        key={index}
+        style={[
+          styles.dots,
+          {
+            backgroundColor:
+              index === activeSlideIndex ? COLORS.blueColor : COLORS.lightGray,
+          },
+        ]}
+      />
+    );
+  };
 
   return (
     <View style={styles.slidePagination}>
@@ -36,7 +31,7 @@ const SlideDots: FC<ISlideDots> = ({data, activeSlideIndex}) => {
   );
 };
 
-export default React.memo(SlideDots);
+export default memo(SlideDots);
 
 const styles = StyleSheet.create({
   slidePagination: {
