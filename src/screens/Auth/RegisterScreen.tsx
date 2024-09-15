@@ -22,6 +22,7 @@ const RegisterScreen: FC = () => {
   const [password, setPassword] = useState<string | undefined>('');
   const [password2, setPassword2] = useState<string | undefined>('');
   const [loading, setLoading] = useState(false);
+  const [isSecured, setIsSecured] = useState(true);
 
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<RegisterNavigationProp>();
@@ -93,17 +94,22 @@ const RegisterScreen: FC = () => {
         </View>
 
         <View style={styles.wrapper}>
-          <Input placeholder={'password'} setValue={setPassword} isSecured />
+          <Input placeholder={'password'} setValue={setPassword} isPass />
         </View>
 
         <View style={styles.wrapper}>
-          <Input placeholder={'confirm'} setValue={setPassword2} isSecured />
+          <Input placeholder={'confirm'} setValue={setPassword2} isPass />
         </View>
         {/* Login Option */}
         <View style={[styles.wrapper]}>
           <Text style={styles.account}>
-            У вас нет акаунта?
-            <Text style={styles.registration}> Регистрация</Text>
+            У вас есть аккаунт?
+            <Text
+              style={styles.registration}
+              onPress={loginScreenNavigationHandler}>
+              {' '}
+              Логин
+            </Text>
           </Text>
           <Text style={[styles.account, styles.or]}>или</Text>
         </View>

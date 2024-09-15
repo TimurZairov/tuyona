@@ -81,7 +81,7 @@ const LoginScreen = () => {
         </View>
 
         <View style={styles.wrapper}>
-          <Input placeholder={'Password'} isSecured setValue={setPassword} />
+          <Input placeholder={'Password'} isPass setValue={setPassword} />
         </View>
 
         <View style={[styles.wrapper]}>

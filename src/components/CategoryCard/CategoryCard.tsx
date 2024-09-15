@@ -13,8 +13,6 @@ const CategoryCard: FC<ICategory> = ({category, index, length}) => {
   const {scrollLength, handleScrollEvents, layoutWidth} = useScrollProgress();
   const {addToWishListItems} = useCard();
 
-  console.log(length);
-
   return (
     <View style={{marginBottom: length && index === length - 1 ? 200 : 0}}>
       <MainTitle title={category?.title} />

@@ -2,22 +2,25 @@ import {StyleSheet, Pressable, TextInput, View, ViewStyle} from 'react-native';
 import React, {Dispatch, FC, SetStateAction} from 'react';
 import {COLORS, height} from '../../theme/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import useAuth from '../../common/hooks/useAuth';
 
 interface IInput {
   placeholder: string;
-  isSecured?: boolean;
   setValue?: Dispatch<SetStateAction<string | undefined>>;
   value?: string | undefined;
   inputStyle?: ViewStyle;
+  isPass?: boolean;
 }
 
 const Input: FC<IInput> = ({
   placeholder,
-  isSecured,
   setValue,
   value,
   inputStyle,
+  isPass,
 }) => {
+  const {disableSecuredInput, isSecured} = useAuth();
+
   return (
     <View style={[styles.container, inputStyle]}>
       <TextInput
@@ -27,9 +30,14 @@ const Input: FC<IInput> = ({
         style={styles.textInput}
         value={value}
       />
-      {isSecured && (
-        <Pressable>
-          <Ionicons name="eye-off" color={COLORS.lightGray} size={20} />
+
+      {isPass && (
+        <Pressable onPress={disableSecuredInput}>
+          {isSecured ? (
+            <Ionicons name="eye-off" color={COLORS.lightGray} size={20} />
+          ) : (
+            <Ionicons name="eye" color={COLORS.lightGray} size={20} />
+          )}
         </Pressable>
       )}
     </View>

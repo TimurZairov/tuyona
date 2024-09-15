@@ -7,7 +7,7 @@ import {
   FlatList,
 } from 'react-native';
 import {FC, useRef} from 'react';
-import {COLORS, height, width} from '../../theme/theme';
+import {COLORS, width} from '../../theme/theme';
 import Header from '../../components/Header/Header';
 
 import {useTranslation} from 'react-i18next';
