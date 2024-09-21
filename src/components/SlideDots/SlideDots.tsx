@@ -26,7 +26,7 @@ const SlideDots: FC<ISlideDots> = ({data, activeSlideIndex}) => {
 
   return (
     <View style={styles.slidePagination}>
-      {data?.length > 0 && data?.map((_, index) => dotItem(index))}
+      {data && data?.map((_, index) => dotItem(index))}
     </View>
   );
 };

@@ -25,7 +25,7 @@ const Input: FC<IInput> = ({
     <View style={[styles.container, inputStyle]}>
       <TextInput
         placeholder={placeholder}
-        secureTextEntry={isSecured}
+        secureTextEntry={isPass ? isSecured : undefined}
         onChangeText={setValue}
         style={styles.textInput}
         value={value}

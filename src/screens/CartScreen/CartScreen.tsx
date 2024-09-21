@@ -82,7 +82,7 @@ const CartScreen = () => {
         <Text style={styles.title}>Корзина</Text>
       </View>
       {/* BODY */}
-      {cart && cart.length > 0 ? (
+      {cart && 0 ? (
         <FlatList
           data={cart || []}
           contentContainerStyle={{padding: 8}}

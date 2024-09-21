@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import React, {FC} from 'react';
 import {COLORS} from '../../theme/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -8,30 +8,39 @@ const Charactiristick: FC<{
   serviceProvider: any;
   index: number;
   length: number;
+  provider?: boolean;
+
   isShortInfo?: boolean;
 }> = ({serviceProvider, index, length, isShortInfo}: any) => {
-  // console.log(JSON.stringify(serviceProvider, null, 2));
-
   return (
     <>
       <View style={styles.container}>
         <View style={styles.icons}>
-          <SvgUri
-            height={16}
-            width={16}
-            uri={serviceProvider?.icon}
-            color={COLORS.blueColor}
-          />
-
+          {serviceProvider?.icon
+            .toLowerCase()
+            .slice(serviceProvider?.icon.length - 3) !== 'png' ? (
+            <SvgUri
+              height={16}
+              width={16}
+              uri={serviceProvider?.icon}
+              color={COLORS.blueColor}
+            />
+          ) : (
+            <Image
+              source={{uri: serviceProvider?.icon}}
+              width={14}
+              height={14}
+            />
+          )}
           <Text style={[styles.text, {marginLeft: 5}]}>
             {serviceProvider?.title.length > 15 && !isShortInfo
               ? serviceProvider?.title.slice(0, 15) + '...'
               : serviceProvider?.title}
           </Text>
         </View>
-        {/* {serviceProvider?.characteristic_type === 'TEXT' && (
+        {serviceProvider?.characteristic_type === 'TEXT' && (
           <Text style={styles.text}>{serviceProvider?.description}</Text>
-        )} */}
+        )}
         {serviceProvider?.characteristic_type === 'YES/NO' ? (
           <View>
             <Ionicons

@@ -69,19 +69,18 @@ const Card: FC<Card> = memo(({item, onPress = () => {}, isFavorite}) => {
 
         {/* characteristics */}
         <View style={styles.characteristic}>
-          {item
-            ? item?.characteristics
-                .map((c: any, index: number) => (
-                  <Charactiristick
-                    key={c.id}
-                    serviceProvider={c}
-                    index={index}
-                    length={item?.characteristics?.length}
-                    isShortInfo
-                  />
-                ))
-                .slice(0, 3)
-            : null}
+          {item &&
+            item?.characteristics
+              .map((c: any, index: number) => (
+                <Charactiristick
+                  key={c.id}
+                  serviceProvider={c}
+                  index={index}
+                  length={10}
+                  isShortInfo
+                />
+              ))
+              .slice(0, 3)}
         </View>
         <Rating
           type="custom"
@@ -153,9 +152,3 @@ const styles = StyleSheet.create({
   },
   characteristic: {marginVertical: 8},
 });
-
-/*
-{"avg_rating": "0.0", "characteristics": [{"char_value": "250", "characteristic_type": "NUMBER", "icon": null, "id": 103, "title": "Вместимость"}, {"char_value": "Ташкент, Самарканд", "characteristic_type": "MULTI_CHOICE", "icon": null, "id": 101, "title": "Регион"}, {"char_value": "+", "characteristic_type": "YES/NO", "icon": null, "id": 100, "title": "Можно курить?"}], "contacts": [{"contact_type": "PHONE", "id": 10, "link": "1089", "logo": "http://212.193.54.105:7777/media/uploads/service-providers/contacts/2024/08/06/%D0%91%D0%B5%D0%B7-%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F.svg", "title": "Номер телефона"}], "id": 16, "latitude": "39.683261", "logo": "http://212.193.54.105:7777/media/uploads/service-providers/logo/2024/08/06/logo.png", "longitude": "66.932830", "name": "Японамама", "photos": [{"id": 20, "photo": "http://212.193.54.105:7777/media/uploads/service-providers/photos/2024/08/06/logo.png"}], "provider_type": "RESTAURANT", "short_description": "Yaponamama - это паназиатская кухня Fusion, которая объединяет в себе разнообразие паназиатских вкусов, сочетая в себе уютную и семейную атмосферу.", "total_reviews": 0}
-
-
-*/
