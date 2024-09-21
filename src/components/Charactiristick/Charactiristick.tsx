@@ -12,24 +12,29 @@ const Charactiristick: FC<{
 
   isShortInfo?: boolean;
 }> = ({serviceProvider, index, length, isShortInfo}: any) => {
+  const imageExtension = serviceProvider?.icon
+    ?.toLowerCase()
+    .slice(serviceProvider?.icon.length - 3);
+
+  console.log(imageExtension);
   return (
     <>
       <View style={styles.container}>
         <View style={styles.icons}>
-          {serviceProvider?.icon
-            .toLowerCase()
-            .slice(serviceProvider?.icon.length - 3) !== 'png' ? (
+          {imageExtension === 'png' ||
+          imageExtension !== undefined ||
+          imageExtension === 'jpg' ? (
+            <Image
+              source={{uri: serviceProvider?.icon}}
+              width={14}
+              height={14}
+            />
+          ) : (
             <SvgUri
               height={16}
               width={16}
               uri={serviceProvider?.icon}
               color={COLORS.blueColor}
-            />
-          ) : (
-            <Image
-              source={{uri: serviceProvider?.icon}}
-              width={14}
-              height={14}
             />
           )}
           <Text style={[styles.text, {marginLeft: 5}]}>
