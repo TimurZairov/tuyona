@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: width + 10,
     resizeMode: 'cover',
+    opacity: 0.4,
   },
   body: {
     flex: 1,

@@ -47,6 +47,8 @@ const useBottomSheetFilter = (screenTitle: string) => {
   useEffect(() => {
     const filterBlocIdentifier = sortFilteredFilterId();
     setIfFilterBlockVisible(filterBlocIdentifier);
+
+    return () => setActiveId([]);
   }, [filterModal]);
 
   return {

@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: width + 10,
     resizeMode: 'cover',
+    opacity: 0.4,
   },
   contentContainer: {
     flex: 1,
