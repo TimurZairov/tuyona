@@ -2,7 +2,6 @@ import Toast from 'react-native-toast-message';
 import {useAppContext} from '../../providers/context/context';
 import {
   addToWishList,
-  removeFromWishList,
   wishListAction,
 } from '../../providers/redux/actions/wishListAction';
 import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
@@ -25,7 +24,6 @@ const useCard = () => {
     }
     const toggleFavorite = categoryListItems.map(item => {
       if (Number(item.id) === Number(id)) {
-        console.log(JSON.stringify(item, null, 2));
         return {
           ...item,
           in_wishlist: !item.in_wishlist,
@@ -60,24 +58,6 @@ const useCard = () => {
       setLoading(false);
     }
   };
-
-  // const removeItemsFromWishList = async (id: string) => {
-  //   if (!accessToken) {
-  //     Toast.show({
-  //       type: 'info',
-  //       text1: 'Авторизируйтесь',
-  //     });
-  //     return;
-  //   }
-  //   const response = await dispatch(
-  //     removeFromWishList({id, token: accessToken}),
-  //   );
-
-  //   if (!response) {
-  //     throw new Error('что то пошло не так');
-  //   }
-  //   dispatch(wishListAction({accessToken, language}));
-  // };
 
   return {addToWishListItems};
 };

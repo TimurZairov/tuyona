@@ -23,7 +23,7 @@ const choiceType = {
 
 const BottomSheetFilter: FC<IUseBottomSheetFilter> = ({screenTitle}) => {
   const {filterModal} = useAppSelector(state => state.filterModal);
-  const {filtersTitle, isActive, sortFilteredFilterId, isFilterBlockVisible} =
+  const {filtersTitle, sortFilteredFilterId, isFilterBlockVisible, activeId} =
     useBottomSheetFilter(screenTitle);
   //slider configuration
   const renderThumb = useCallback(() => <Thumb />, []);
@@ -96,7 +96,7 @@ const BottomSheetFilter: FC<IUseBottomSheetFilter> = ({screenTitle}) => {
               key={index}
               filterItem={filterItem}
               onPress={() => filtersTitle(filterItem?.id)}
-              isActive={isActive}
+              isActive={activeId}
             />
           ))}
         </ScrollView>

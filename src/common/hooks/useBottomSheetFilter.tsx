@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useState} from 'react';
-import {setIsActive} from '../../providers/redux/slices/activeFilterSlice';
 import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
 
 export interface IUseBottomSheetFilter {
@@ -7,7 +6,7 @@ export interface IUseBottomSheetFilter {
 }
 
 const useBottomSheetFilter = (screenTitle: string) => {
-  const {isActive} = useAppSelector(state => state.isActive);
+  const [activeId, setActiveId] = useState<string[]>([]);
   const [isFilterBlockVisible, setIfFilterBlockVisible] = useState<{
     [key: string]: boolean;
   }>({});
@@ -21,13 +20,19 @@ const useBottomSheetFilter = (screenTitle: string) => {
       [id]: !isFilterBlockVisible[id],
     };
     setIfFilterBlockVisible(openedFilterBlock);
+    setFilterDependencies(id);
   };
 
   const setFilterDependencies = useCallback(
-    (title: string, cb: React.Dispatch<React.SetStateAction<string[]>>) => {
-      cb(prev => [...prev, title]);
+    (id: string) => {
+      if (activeId.includes(id)) {
+        const filtered = activeId.filter(itemId => itemId !== id);
+        setActiveId(filtered);
+      } else {
+        setActiveId(prevIds => [...prevIds, id]);
+      }
     },
-    [],
+    [activeId],
   );
 
   //
@@ -46,9 +51,9 @@ const useBottomSheetFilter = (screenTitle: string) => {
 
   return {
     filtersTitle,
-    isActive,
     sortFilteredFilterId,
     isFilterBlockVisible,
+    activeId,
   };
 };
 
