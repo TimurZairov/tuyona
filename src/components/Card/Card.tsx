@@ -34,6 +34,7 @@ const Card: FC<Card> = memo(({item, onPress = () => {}, isFavorite}) => {
     navigation.navigate('Provider', {id: item.id});
   };
   // console.log(JSON.stringify(item.in_wishlist, null, 2));
+
   return (
     <View style={styles.card}>
       <TouchableOpacity
@@ -47,9 +48,11 @@ const Card: FC<Card> = memo(({item, onPress = () => {}, isFavorite}) => {
       </TouchableOpacity>
       {/* IMAGES */}
       <Pressable style={styles.wrapper} onPress={infoNavigationScreen}>
-        <View style={styles.label}>
-          <Image source={require('../../assets/image/carLabelIcon.png')} />
-        </View>
+        {item.is_new && (
+          <View style={styles.label}>
+            <Image source={require('../../assets/image/carLabelIcon.png')} />
+          </View>
+        )}
         <View>
           <Image source={{uri: item?.photos[0]?.photo}} style={styles.image} />
           <View style={styles.icons}>

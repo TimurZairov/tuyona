@@ -1,14 +1,19 @@
 import {StyleSheet, View} from 'react-native';
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import {COLORS, width} from '../../theme/theme';
+import Animated, {useSharedValue, withTiming} from 'react-native-reanimated';
 
 const ScrollBar: FC<{scrollLength: number}> = ({scrollLength}) => {
+  const scrollWidth = useSharedValue(0);
+
+  useEffect(() => {
+    scrollWidth.value = withTiming(scrollLength, {duration: 300});
+  }, [scrollLength]);
+
   return (
     <View style={styles.container}>
       <View style={styles.scroll}>
-        <View
-          style={[styles.progress, {width: scrollLength ? scrollLength : 0}]}
-        />
+        <Animated.View style={[styles.progress, {width: scrollWidth}]} />
       </View>
     </View>
   );

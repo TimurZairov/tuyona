@@ -7,7 +7,8 @@ const useMainScreenRequests = () => {
   const [mainLoading, setMainLoading] = useState(false);
   const {language, accessToken} = useAppContext();
   const dispatch = useAppDispatch();
-  useEffect(() => {
+
+  const homePageData = async () => {
     try {
       (async () => {
         setMainLoading(true);
@@ -24,8 +25,12 @@ const useMainScreenRequests = () => {
     } finally {
       setMainLoading(false);
     }
+  };
+
+  useEffect(() => {
+    homePageData();
   }, []);
-  return {mainLoading};
+  return {mainLoading, homePageData};
 };
 
 export default useMainScreenRequests;

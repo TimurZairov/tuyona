@@ -1,5 +1,5 @@
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import React, {FC, ReactNode, useCallback} from 'react';
+import React, {FC, ReactNode, useCallback, useState} from 'react';
 import MainTitle from '../MainTitle/MainTitle';
 import {COLORS, SIZES} from '../../theme/theme';
 import FilterBtn from '../Filter/FilterBtn';
@@ -23,17 +23,8 @@ const choiceType = {
 
 const BottomSheetFilter: FC<IUseBottomSheetFilter> = ({screenTitle}) => {
   const {filterModal} = useAppSelector(state => state.filterModal);
-  const {
-    filtersTitle,
-    genderFilterVisible,
-    genderFilter,
-    ageFilter,
-    languageFilterVisible,
-    languageFilter,
-    regionVisibleFilter,
-    regionFilter,
-    isActive,
-  } = useBottomSheetFilter(screenTitle);
+  const {filtersTitle, isActive, sortFilteredFilterId, isFilterBlockVisible} =
+    useBottomSheetFilter(screenTitle);
   //slider configuration
   const renderThumb = useCallback(() => <Thumb />, []);
   const renderRail = useCallback(() => <Rail />, []);
@@ -50,54 +41,52 @@ const BottomSheetFilter: FC<IUseBottomSheetFilter> = ({screenTitle}) => {
 
   const sortFilteredItems = (): ReactNode => {
     return filterModal.map((item, index) => {
-      if (item.characteristic_type === choiceType.number) {
-        return (
-          <View key={item.id}>
-            {/* Experience */}
-            <Text style={styles.text}>Возраст</Text>
-            <View style={styles.filterContainer}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  position: 'absolute',
-                  top: 0,
-                  width: '100%',
-                }}>
-                <Text style={styles.textAnchor}>0</Text>
-                <Text style={styles.textAnchor}>99 лет</Text>
-              </View>
+      return (
+        <View key={item.id}>
+          {/* Experience */}
+          <Text style={styles.text}>Возраст</Text>
+          <View style={styles.filterContainer}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                position: 'absolute',
+                top: 0,
+                width: '100%',
+              }}>
+              <Text style={styles.textAnchor}>0</Text>
+              <Text style={styles.textAnchor}>99 лет</Text>
+            </View>
 
-              <View style={[{flexDirection: 'row'}]}>
-                <View style={styles.thumb} />
-                <View style={[styles.thumb, {right: 0}]} />
-                <Slider
-                  min={0}
-                  max={99}
-                  step={1}
-                  renderThumb={renderThumb}
-                  renderRail={renderRail}
-                  renderRailSelected={renderRailSelected}
-                  renderLabel={renderLabelExp}
-                  minRange={0}
-                  style={{flex: 1}}
-                />
-              </View>
+            <View style={[{flexDirection: 'row'}]}>
+              <View style={styles.thumb} />
+              <View style={[styles.thumb, {right: 0}]} />
+              <Slider
+                min={0}
+                max={99}
+                step={1}
+                renderThumb={renderThumb}
+                renderRail={renderRail}
+                renderRailSelected={renderRailSelected}
+                renderLabel={renderLabelExp}
+                minRange={0}
+                style={{flex: 1}}
+              />
             </View>
           </View>
-        );
-      }
+        </View>
+      );
     });
   };
 
   return (
-    <View style={styles.container}>
-      <View style={{alignSelf: 'center'}}>
-        <MainTitle title={'Фильтр'} />
-      </View>
-      {/* FIlter Button */}
-      <Text style={styles.text}>Характеристики</Text>
+    <>
       <View>
+        <View style={{alignSelf: 'center'}}>
+          <MainTitle title={'Фильтр'} />
+        </View>
+        {/* FIlter Button */}
+        <Text style={styles.text}>Характеристики</Text>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -106,41 +95,30 @@ const BottomSheetFilter: FC<IUseBottomSheetFilter> = ({screenTitle}) => {
             <FilterBtn
               key={index}
               filterItem={filterItem}
-              onPress={() => filtersTitle(filterItem?.title_ru, filterItem)}
+              onPress={() => filtersTitle(filterItem?.id)}
               isActive={isActive}
             />
           ))}
         </ScrollView>
       </View>
 
-      {/* Filter input slider */}
-
-      {/* SORT */}
-      {genderFilterVisible && (
-        <View style={styles.filterContainer}>
-          <Text style={styles.text}>Пол</Text>
-          <FilterScroll arr={genderFilter} />
-        </View>
-      )}
-
-      {ageFilter ? sortFilteredItems() : null}
-
-      {languageFilterVisible ? (
-        <View style={styles.filterContainer}>
-          <Text style={styles.text}>Язык</Text>
-          <FilterScroll arr={languageFilter} />
-        </View>
-      ) : null}
-      {/* GENDER */}
-
-      {/*  */}
-      {regionVisibleFilter ? (
-        <View style={styles.filterContainer}>
-          <Text style={styles.text}>Регион</Text>
-          <FilterScroll arr={regionFilter} />
-        </View>
-      ) : null}
-    </View>
+      {filterModal.map((filter: any, index: number) => {
+        if (filter.characteristic_type === choiceType.multi) {
+          return (
+            <View>
+              {isFilterBlockVisible && isFilterBlockVisible[filter.id] && (
+                <View style={styles.filterContainer}>
+                  <Text style={styles.text}>{filter.title_ru}</Text>
+                  <FilterScroll arr={filter?.options} />
+                </View>
+              )}
+            </View>
+          );
+        } else if (filter.characteristic_type === choiceType.number) {
+          sortFilteredItems();
+        }
+      })}
+    </>
   );
 };
 

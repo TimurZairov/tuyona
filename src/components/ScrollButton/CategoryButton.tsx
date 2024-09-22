@@ -59,7 +59,7 @@ export default CategoryButton;
 
 const styles = StyleSheet.create({
   btn: {
-    marginRight: -1,
+    marginRight: -0.5,
     width: 72,
     height: 137,
   },

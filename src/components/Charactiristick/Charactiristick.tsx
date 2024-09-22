@@ -16,7 +16,6 @@ const Charactiristick: FC<{
     ?.toLowerCase()
     .slice(serviceProvider?.icon.length - 3);
 
-  console.log(imageExtension);
   return (
     <>
       <View style={styles.container}>
@@ -61,8 +60,8 @@ const Charactiristick: FC<{
           </View>
         ) : (
           <Text style={styles.text}>
-            {serviceProvider?.char_value.length > 15 && isShortInfo
-              ? serviceProvider?.char_value.slice(0, 15) + '...'
+            {serviceProvider?.char_value?.length > 15 && isShortInfo
+              ? serviceProvider?.char_value?.slice(0, 15) + '...'
               : serviceProvider?.char_value}
           </Text>
         )}

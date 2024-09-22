@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-end',
-    backgroundColor: COLORS.mainColor,
+    backgroundColor: 'rgba(255, 255, 255, 1)',
     paddingHorizontal: 8,
     borderTopLeftRadius: 28,
     borderTopRightRadius: 28,
