@@ -95,6 +95,7 @@ const MainScreen: FC = () => {
               />
             );
           }}
+          removeClippedSubviews={true}
         />
       </View>
     </View>

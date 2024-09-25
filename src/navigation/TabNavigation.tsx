@@ -30,7 +30,6 @@ const TabNavigation = () => {
 
   return (
     <Tab.Navigator
-      detachInactiveScreens={false}
       screenOptions={{
         headerShown: false,
       }}

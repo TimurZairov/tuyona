@@ -1,42 +1,47 @@
 import {Pressable, StyleSheet, View, Text, Image} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-import MapView, {
-  Marker,
-  PROVIDER_GOOGLE,
-  UrlTile,
-  LocalTile,
-} from 'react-native-maps';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import useUserLocation from '../../common/hooks/useUserLocation';
 import CustomMarker from '../../components/CustomMarker/CustomMarker';
 import {requestLocationPermission} from '../../common/premissions/premissions';
 import {useAppSelector} from '../../providers/redux/type';
 
-import {getMethodApi} from '../../common/getMethodApi';
 import {useAppContext} from '../../providers/context/context';
-import {COLORS, height, width} from '../../theme/theme';
+import {COLORS, width} from '../../theme/theme';
 import Charactiristick from '../../components/Charactiristick/Charactiristick';
+import Geolocation from '@react-native-community/geolocation';
 
 const MapScreen = () => {
-  const {getUserLocation, location} = useUserLocation();
-  const mapRef = useRef<MapView | null>(null);
-  const {language} = useAppContext();
-  const {serviceProvider} = useAppSelector(state => state.serviceProvider);
+  const {getUserLocation} = useUserLocation();
+  const mapRef = useRef<MapView>(null);
+  const [location, setLocation] = useState(null);
+  // const {language} = useAppContext();
+  // const {serviceProvider} = useAppSelector(state => state.serviceProvider);
   const [info, setInfo] = useState(null);
 
-  useEffect(() => {
-    getUserLocation(requestLocationPermission);
-    if (location) {
-      mapRef?.current?.animateToRegion(
+  const userLocation = () => {
+    console.log(location);
+    if (!location) {
+      mapRef.current?.animateToRegion(
         {
-          latitude: location?.coords?.latitude,
-          longitude: location?.coords?.longitude,
-          latitudeDelta: 0.005,
-          longitudeDelta: 0.005,
+          longitude: 41.307244,
+          latitude: 69.251523,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
         },
-        1000,
+        2000,
       );
     }
-  }, []);
+    mapRef.current?.animateToRegion(
+      {
+        longitude: location?.coords.longitude,
+        latitude: location?.coords.latitude,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      },
+      2000,
+    );
+  };
 
   const getProviderInfo = async (item: any) => {
     setInfo(item);
@@ -47,36 +52,39 @@ const MapScreen = () => {
     setInfo(null);
   };
 
+  useEffect(() => {
+    (async () => {
+      const isGranted = await getUserLocation();
+      if (!isGranted) {
+        return;
+      }
+      Geolocation.getCurrentPosition(
+        pos => {
+          setLocation(pos);
+        },
+        error => {
+          console.error('Error retrieving location:', error);
+        },
+        {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+      );
+    })();
+  }, []);
+
   return (
     <View style={styles.mapContainer}>
       <MapView
         style={styles.map}
-        // zoomTapEnabled
-        // zoomEnabled
-        // cameraZoomRange={{
-        //   minCenterCoordinateDistance: 0,
-        //   maxCenterCoordinateDistance: 20,
-        // }}
-        // ref={mapRef}
+        provider={PROVIDER_GOOGLE}
+        // onMapReady={() => userLocation()}
+        ref={mapRef}
         region={{
-          latitude: location?.coords.latitude || 37.78825,
-          longitude: location?.coords.longitude || -122.4324,
+          latitude: location?.coords.latitude || 41.307244,
+          longitude: location?.coords.longitude || 69.251523,
           latitudeDelta: 0.015,
           longitudeDelta: 0.0121,
         }}
-        // zoomControlEnabled
         onPress={resetInfo}>
-        <UrlTile
-          urlTemplate="https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          maximumZ={19}
-          zIndex={9090}
-        />
-        {/* <LocalTile
-          pathTemplate="https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          tileSize={512}
-          zIndex={999}
-        /> */}
-        {serviceProvider && serviceProvider.length > 0
+        {/* {serviceProvider && serviceProvider.length > 0
           ? serviceProvider.map(item => {
               return (
                 <Marker
@@ -92,9 +100,9 @@ const MapScreen = () => {
                 </Marker>
               );
             })
-          : null}
+          : null} */}
       </MapView>
-      {info && (
+      {/* {info && (
         <View style={styles.modal}>
           <Image
             source={{uri: info?.photos[0]?.photo}}
@@ -124,7 +132,7 @@ const MapScreen = () => {
             })}
           </View>
         </View>
-      )}
+      )} */}
     </View>
   );
 };
@@ -154,3 +162,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
+
+{
+  /* <UrlTile
+          urlTemplate="https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          maximumZ={19}
+          zIndex={9090}
+        /> */
+}
+{
+  /* <LocalTile
+          pathTemplate="https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          tileSize={512}
+          zIndex={999}
+        /> */
+}

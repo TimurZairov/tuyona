@@ -17,7 +17,7 @@ export const galleryPermission = async () => {
           buttonPositive: 'Ok',
         },
       );
-      granted === PermissionsAndroid.RESULTS.GRANTED;
+      granted = PermissionsAndroid.RESULTS.GRANTED;
     }
 
     return granted;
@@ -43,11 +43,10 @@ export const requestLocationPermission = async () => {
           buttonPositive: 'OK',
         },
       );
-      granted === PermissionsAndroid.RESULTS.GRANTED;
+      granted = PermissionsAndroid.RESULTS.GRANTED;
     }
     return granted;
   } catch (err) {
     console.warn(err);
-    return false;
   }
 };
