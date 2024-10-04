@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {FC, useCallback, useEffect, useState} from 'react';
 import {
   Image,
   Platform,
@@ -13,7 +13,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import Button from '../../components/Button/Button';
+
 import {useAppContext} from '../../providers/context/context';
 import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
 import {
@@ -36,7 +36,7 @@ interface InfoRouteParams {
 }
 type InfoScreenRouteParams = RouteProp<{Info: InfoRouteParams}, 'Info'>;
 
-const InfoScreen = () => {
+const InfoScreen: FC = () => {
   const [loading, setLoading] = useState(false);
   const [service, setService] = useState({});
   const [isFavorite, setIsFavorite] = useState(false);

@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, View, ScrollView} from 'react-native';
+import {Image, StyleSheet, Text, View, FlatList} from 'react-native';
 import React, {FC} from 'react';
 import {COLORS, SIZES, width} from '../../theme/theme';
 import MainTitle from '../MainTitle/MainTitle';
@@ -8,25 +8,40 @@ import Card from '../Card/Card';
 import ScrollBar from '../ScrollBar/ScrollBar';
 import useScrollProgress from '../../common/hooks/useScrollProgress';
 import useCard from '../../common/hooks/useCard';
+import {useProvidersListQuery} from '../../providers/redux/slices/categoriesListSlice';
+import {useAppContext} from '../../providers/context/context';
 
 const CategoryCard: FC<ICategory> = ({category, index, length}) => {
+  const {accessToken, language} = useAppContext();
   const {scrollLength, handleScrollEvents, layoutWidth} = useScrollProgress();
   const {addToWishListItems} = useCard();
+
+  const {
+    data: providers,
+    isFetching,
+    error,
+  } = useProvidersListQuery({
+    id: category.id,
+    language,
+    token: accessToken,
+    isHome: true,
+  });
 
   return (
     <View style={{marginBottom: length && index === length - 1 ? 200 : 0}}>
       <MainTitle title={category?.title} />
-      <ScrollView
+      <FlatList
+        data={providers?.results || []}
         horizontal
         showsHorizontalScrollIndicator={false}
         bounces={false}
-        onScroll={handleScrollEvents}>
-        {category &&
-          category?.service_providers?.length &&
-          category?.service_providers?.map(item => (
+        renderItem={({item, index}) => {
+          return (
             <Card key={item.id} item={item} onPress={addToWishListItems} />
-          ))}
-      </ScrollView>
+          );
+        }}
+        onScroll={handleScrollEvents}
+      />
       {/* ScrollBar */}
       <ScrollBar scrollLength={scrollLength} />
       {/* ADV */}

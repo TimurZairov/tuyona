@@ -6,11 +6,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
+  Text,
 } from 'react-native';
-import {FC, useCallback, useMemo, useRef, useState} from 'react';
+import {FC, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {BottomSheetModal, BottomSheetView} from '@gorhom/bottom-sheet';
 import Card from '../Card/Card';
-import {useAppSelector} from '../../providers/redux/type';
+
 import {Service} from '../../types/types';
 import {COLORS, height, width} from '../../theme/theme';
 import Header from '../Header/Header';
@@ -18,7 +19,11 @@ import Search from '../Search/Search';
 import Filter from '../Filter/Filter';
 import BottomSheetFilter from '../BotttomSheetFilter/BottomSheetFilter';
 import {useMainCardList} from '../../common/hooks/useMainCardList';
-import useCard from '../../common/hooks/useCard';
+import MainCardListSkeleton from '../Skeletons/MainCardList/MainCardListSkeleton';
+import {useProvidersListQuery} from '../../providers/redux/slices/categoriesListSlice';
+import {useAppContext} from '../../providers/context/context';
+import useBottomSheetFilter from '../../common/hooks/useBottomSheetFilter';
+import {useAppSelector} from '../../providers/redux/type';
 
 interface TCard {
   item: Service;
@@ -28,12 +33,30 @@ const MainCardList: FC<{title: string; filterId: string}> = ({
   title,
   filterId,
 }) => {
-  const {categoryListItems} = useAppSelector(state => state.categoryListItems);
   const [contentHight, setContentHeight] = useState([height, height]);
+  const {accessToken, language} = useAppContext();
+
+  const {} = useBottomSheetFilter();
+
+  //filter
+  const [isFilterBlockVisible, setIsFilterBlockVisible] = useState<
+    object | null
+  >(null);
+
+  console.log(isFilterBlockVisible);
+
+  const {filterModal} = useAppSelector(state => state.filterModal);
+
+  //
+
+  const {
+    data: providers,
+    isFetching,
+    error,
+  } = useProvidersListQuery({id: filterId, language, token: accessToken});
+
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const snapPoints = useMemo(() => contentHight, [contentHight]);
-  //hook
-
   const {
     handleCloseModal,
     isModalOpened,
@@ -41,12 +64,8 @@ const MainCardList: FC<{title: string; filterId: string}> = ({
     handlePresentModalPress,
   } = useMainCardList(filterId);
 
-  const {addToWishListItems} = useCard();
   //CARD
-  const renderItem = useCallback(
-    ({item}: TCard) => <Card item={item} onPress={addToWishListItems} />,
-    [categoryListItems],
-  );
+  const renderItem = useCallback(({item}: TCard) => <Card item={item} />, []);
   //get layout
   const handleContentLayout = useCallback((event: LayoutChangeEvent) => {
     const {height: layoutHeight} = event.nativeEvent.layout;
@@ -55,6 +74,23 @@ const MainCardList: FC<{title: string; filterId: string}> = ({
       Math.min(layoutHeight + height / 10),
     ]);
   }, []);
+  //initiate filters blocks
+  useEffect(() => {
+    if (
+      filterModal !== null &&
+      filterModal !== undefined &&
+      filterModal.length > 0
+    ) {
+      const initFilters: any = {};
+      for (let filterElement of filterModal) {
+        initFilters[String(filterElement?.id)] = {
+          active: false,
+          value: '',
+        };
+      }
+      setIsFilterBlockVisible(initFilters);
+    }
+  }, [filterModal]);
 
   return (
     <View style={styles.main}>
@@ -66,8 +102,9 @@ const MainCardList: FC<{title: string; filterId: string}> = ({
       {/* HEADER */}
       <Header />
       {/* Card render */}
+
       <FlatList
-        data={categoryListItems || []}
+        data={providers?.results || []}
         removeClippedSubviews={true}
         keyExtractor={item => item.id.toString()}
         renderItem={renderItem}
@@ -81,8 +118,13 @@ const MainCardList: FC<{title: string; filterId: string}> = ({
           </>
         }
         numColumns={2}
+        refreshing={true}
         ListFooterComponent={<View style={{marginBottom: height / 10}} />}
+        ListEmptyComponent={
+          isFetching ? <MainCardListSkeleton /> : <Text>пусто</Text>
+        }
       />
+
       {/* Bottom sheet */}
       {isModalOpened && (
         <TouchableOpacity
@@ -97,7 +139,11 @@ const MainCardList: FC<{title: string; filterId: string}> = ({
         onChange={handleBottomSheetEvents}>
         <BottomSheetView style={styles.contentContainer}>
           <View onLayout={handleContentLayout}>
-            <BottomSheetFilter screenTitle={title} />
+            <BottomSheetFilter
+              screenTitle={title}
+              isFilterBlockVisible={isFilterBlockVisible}
+              setIsFilterBlockVisible={setIsFilterBlockVisible}
+            />
           </View>
         </BottomSheetView>
       </BottomSheetModal>

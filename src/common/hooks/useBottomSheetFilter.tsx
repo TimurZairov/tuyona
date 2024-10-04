@@ -1,27 +1,53 @@
 import {useCallback, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../providers/redux/type';
 
-export interface IUseBottomSheetFilter {
-  screenTitle: string;
-}
-
-const useBottomSheetFilter = (screenTitle: string) => {
+const useBottomSheetFilter = () => {
   const [activeId, setActiveId] = useState<string[]>([]);
+
   const [isFilterBlockVisible, setIfFilterBlockVisible] = useState<{
     [key: string]: boolean;
   }>({});
+
   //
   const dispatch = useAppDispatch();
   const {filterModal} = useAppSelector(state => state.filterModal);
 
-  const filtersTitle = (id: string) => {
-    const openedFilterBlock = {
-      ...isFilterBlockVisible,
-      [id]: !isFilterBlockVisible[id],
+  // const filtersTitle = (id: string) => {
+  //   const openedFilterBlock = {
+  //     ...isFilterBlockVisible,
+  //     [id]: !isFilterBlockVisible[id],
+  //   };
+  //   setIfFilterBlockVisible(openedFilterBlock);
+  //   setFilterDependencies(id);
+  // };
+
+  //
+  const toggleFilterState = (
+    filterId: any,
+    initState: any,
+    setInitState: any,
+  ) => {
+    let _initState = {...initState};
+    _initState[filterId] = {
+      active: !initState[filterId]['active'],
+      // value: initState[filterId]['value'],
     };
-    setIfFilterBlockVisible(openedFilterBlock);
-    setFilterDependencies(id);
+    setInitState(_initState);
   };
+
+  const changeFilterValueState = (
+    filterId: any,
+    initState: any,
+    setInitState: any,
+    value: any,
+  ) => {
+    let _isFilterBlockVisible = {...initState};
+    _isFilterBlockVisible[filterId]['value'] = value;
+    setInitState(_isFilterBlockVisible);
+    console.log(filterId);
+  };
+
+  //
 
   const setFilterDependencies = useCallback(
     (id: string) => {
@@ -52,10 +78,12 @@ const useBottomSheetFilter = (screenTitle: string) => {
   }, [filterModal]);
 
   return {
-    filtersTitle,
     sortFilteredFilterId,
     isFilterBlockVisible,
     activeId,
+    //
+    toggleFilterState,
+    changeFilterValueState,
   };
 };
 

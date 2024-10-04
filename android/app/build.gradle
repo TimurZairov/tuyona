@@ -110,12 +110,13 @@ dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
 
+
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {
         implementation jscFlavor
     }
-
+    implementation("com.mapbox.maps:android:10.1.27")
     // compile project(':react-native-image-crop-picker')
 }
 

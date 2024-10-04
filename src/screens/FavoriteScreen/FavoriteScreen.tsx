@@ -25,16 +25,18 @@ import Layout from '../../components/Layout/Layout';
 import useFavorite from '../../common/hooks/useFavorite';
 import Card from '../../components/Card/Card';
 import useCard from '../../common/hooks/useCard';
+import {useWishListQuery} from '../../providers/redux/slices/userWishList';
 
 const FavoriteScreen: FC = () => {
   const {handleAuth} = useFavorite();
+  const {language, accessToken} = useAppContext();
 
   const dispatch = useAppDispatch();
   const navigation = useNavigation<InfoNavigationProp>();
 
-  const {accessToken, language} = useAppContext();
   //stated
-  const {wishList} = useAppSelector(state => state.wishList);
+  const {data: wishList} = useWishListQuery({token: accessToken, language});
+  // const {wishList} = useAppSelector(state => state.wishList);
   const {user} = useAppSelector(state => state.user);
   const {addToWishListItems, loading} = useCard();
 

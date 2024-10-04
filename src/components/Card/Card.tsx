@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {FC, memo} from 'react';
+import React, {FC, memo, useEffect, useState} from 'react';
 import {Rating} from 'react-native-ratings';
 import {COLORS, height, width} from '../../theme/theme';
 import {useNavigation} from '@react-navigation/native';
@@ -19,28 +19,44 @@ import TgCardIcon from '../../assets/icons/TgCardIcon';
 import PhoneCardIcon from '../../assets/icons/PhoneCardIcon';
 import Charactiristick from '../Charactiristick/Charactiristick';
 import AddedFavoriteIcon from '../../assets/icons/AddedFavoriteIcon';
+import {useAddToWishListMutation} from '../../providers/redux/slices/userWishList';
+import {useAppContext} from '../../providers/context/context';
 
 type Card = {
   item: Service;
-  onPress: (id: string) => void;
   isFavorite?: boolean;
   isShortInfo?: boolean;
 };
 
-const Card: FC<Card> = memo(({item, onPress = () => {}, isFavorite}) => {
+const Card: FC<Card> = memo(({item, isFavorite}) => {
   const navigation = useNavigation<ServiceProviderNavigationProp>();
+  const {accessToken} = useAppContext();
+  const [inWishlist, setInWishlist] = useState<boolean>();
+
+  useEffect(() => {
+    setInWishlist(item?.in_wishlist);
+  }, [item]);
+
+  const [addToWishList, {isLoading, isError, data, error: wishListError}] =
+    useAddToWishListMutation();
 
   const infoNavigationScreen = () => {
     navigation.navigate('Provider', {id: item.id});
   };
-  // console.log(JSON.stringify(item.in_wishlist, null, 2));
 
+  const addToWishListItem = async (itemId: number) => {
+    setInWishlist(prev => !prev);
+    await addToWishList({
+      id: itemId.toString(),
+      token: accessToken,
+    }).unwrap();
+  };
   return (
     <View style={styles.card}>
       <TouchableOpacity
         style={styles.favorite}
-        onPress={() => onPress(item.id.toString())}>
-        {isFavorite || item.in_wishlist ? (
+        onPress={() => addToWishListItem(item.id)}>
+        {isFavorite || inWishlist ? (
           <AddedFavoriteIcon />
         ) : (
           <FavoriteCardIcon />
@@ -48,7 +64,7 @@ const Card: FC<Card> = memo(({item, onPress = () => {}, isFavorite}) => {
       </TouchableOpacity>
       {/* IMAGES */}
       <Pressable style={styles.wrapper} onPress={infoNavigationScreen}>
-        {item.is_new && (
+        {item?.is_new && (
           <View style={styles.label}>
             <Image source={require('../../assets/image/carLabelIcon.png')} />
           </View>

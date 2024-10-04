@@ -1,19 +1,23 @@
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import {COLORS} from '../../theme/theme';
 
 import {Category} from '../../types/types';
 import BackgroundBtn from '../../assets/icons/BackgroundBtn';
 import BackgroundBtnL from '../../assets/icons/BackgroundBtnL';
-import useCategoryListItems from '../../common/hooks/useCategoryListItems';
 
+import {useNavigation} from '@react-navigation/native';
 interface ICategoryProps {
   index: number;
   category: Category;
 }
 
 const CategoryButton: FC<ICategoryProps> = ({category, index}) => {
-  const {getCategoryProvider} = useCategoryListItems();
+  const navigation = useNavigation();
+
+  const getCategoryProvider = (id: number, title: string) => {
+    navigation.navigate('ServiceList', {title, filterId: id});
+  };
 
   return (
     <View style={[styles.btn, (index + 1) % 2 === 0 && {marginRight: 4}]}>
@@ -55,7 +59,7 @@ const CategoryButton: FC<ICategoryProps> = ({category, index}) => {
   );
 };
 
-export default CategoryButton;
+export default memo(CategoryButton);
 
 const styles = StyleSheet.create({
   btn: {

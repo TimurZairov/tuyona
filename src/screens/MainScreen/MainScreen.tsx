@@ -1,14 +1,13 @@
-import {
-  StyleSheet,
-  Image,
-  View,
-  ScrollView,
-  Platform,
-  FlatList,
-} from 'react-native';
-import {FC, useRef} from 'react';
+import {StyleSheet, Image, View, Platform, FlatList, Text} from 'react-native';
+import {FC, useCallback, useRef} from 'react';
 import {COLORS, width} from '../../theme/theme';
 import Header from '../../components/Header/Header';
+
+import {
+  useAdvBannersQuery,
+  useCategoriesQuery,
+  useHomeDataQuery,
+} from '../../providers/redux/slices/apiSlice';
 
 import {useTranslation} from 'react-i18next';
 import {useAppContext} from '../../providers/context/context';
@@ -19,25 +18,44 @@ import ScrollBar from '../../components/ScrollBar/ScrollBar';
 import useScrollProgress from '../../common/hooks/useScrollProgress';
 import BannerCarousel from '../../components/BannerCarousel/BannerCarousel';
 
-import useMainScreenRequests from '../../common/hooks/useMainScreenReauests';
-import {useAppSelector} from '../../providers/redux/type';
 import MainSkeletonLoader from '../../components/Skeletons/MainSkeletonLoader/MainSkeletonLoader';
 import React from 'react';
 
 const MainScreen: FC = () => {
-  const {banners} = useAppSelector(state => state.banners);
-  const {homeData} = useAppSelector(state => state.homeData);
-  const {categories} = useAppContext();
+  const {language} = useAppContext();
 
-  const {mainLoading} = useMainScreenRequests();
+  const {data: homeData, error, isFetching} = useHomeDataQuery(language);
+  const {
+    data: banners,
+    error: bError,
+    isFetching: bFetching,
+  } = useAdvBannersQuery(undefined);
+  const {
+    data: categories,
+    error: cError,
+    isFetching: cIsFetching,
+  } = useCategoriesQuery(language);
 
   const {t} = useTranslation();
 
   const scrollCategoryRef = useRef(null);
   const {handleScrollEvents, scrollLength, layoutWidth} = useScrollProgress();
 
+  const renderItem = useCallback((item: any, index: number) => {
+    return <CategoryButton category={item} index={index} />;
+  }, []);
+
+  //error
+  if (error || bError || cError) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Ошибка сервера</Text>
+      </View>
+    );
+  }
+
   //loader
-  if (mainLoading) {
+  if (isFetching || bFetching || cIsFetching) {
     return <MainSkeletonLoader />;
   }
 
@@ -48,41 +66,36 @@ const MainScreen: FC = () => {
         style={styles.background}
         source={require('../../assets/image/background.png')}
       />
-
       {/* HEADER */}
       <Header />
 
       <View>
         {/* Categories */}
         <FlatList
-          data={homeData || []}
+          data={homeData.categories || []}
           ListHeaderComponent={
             <View style={styles.mainScroll}>
               <View style={styles.container}>
                 {/* Search */}
                 <Search />
                 <View style={{paddingHorizontal: 8}}>
-                  <ScrollView
+                  <FlatList
+                    data={categories || []}
                     ref={scrollCategoryRef}
-                    horizontal
-                    bounces={false}
                     onScroll={handleScrollEvents}
-                    showsHorizontalScrollIndicator={false}>
-                    {categories &&
-                      categories?.map((category, index) => {
-                        return (
-                          <CategoryButton
-                            key={`${category}-${index}`}
-                            category={category}
-                            index={index}
-                          />
-                        );
-                      })}
-                  </ScrollView>
+                    bounces={false}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    renderItem={({item, index}) => renderItem(item, index)}
+                    keyExtractor={item => item.id}
+                    initialNumToRender={10}
+                    maxToRenderPerBatch={5}
+                    windowSize={5}
+                  />
                   <ScrollBar scrollLength={scrollLength} />
                 </View>
                 {/* SLIDER */}
-                <BannerCarousel data={banners} />
+                <BannerCarousel data={banners.results} />
               </View>
             </View>
           }
@@ -96,6 +109,10 @@ const MainScreen: FC = () => {
             );
           }}
           removeClippedSubviews={true}
+          keyExtractor={item => item.id}
+          initialNumToRender={10}
+          maxToRenderPerBatch={5}
+          windowSize={5}
         />
       </View>
     </View>

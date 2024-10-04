@@ -1,5 +1,5 @@
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import React, {FC, ReactNode, useCallback, useState} from 'react';
+import React, {Dispatch, FC, useCallback} from 'react';
 import MainTitle from '../MainTitle/MainTitle';
 import {COLORS, SIZES} from '../../theme/theme';
 import FilterBtn from '../Filter/FilterBtn';
@@ -9,10 +9,6 @@ import Rail from '../Filter/slider/Rail';
 import RailSelected from '../Filter/slider/RailSelected';
 import Label from '../Filter/slider/Label';
 import FilterScroll from '../FilterScroll/FilterScroll';
-
-import useBottomSheetFilter, {
-  IUseBottomSheetFilter,
-} from '../../common/hooks/useBottomSheetFilter';
 import {useAppSelector} from '../../providers/redux/type';
 
 const choiceType = {
@@ -21,10 +17,18 @@ const choiceType = {
   multi: 'MULTI_CHOICE',
 };
 
-const BottomSheetFilter: FC<IUseBottomSheetFilter> = ({screenTitle}) => {
-  const {filterModal} = useAppSelector(state => state.filterModal);
-  const {filtersTitle, sortFilteredFilterId, isFilterBlockVisible, activeId} =
-    useBottomSheetFilter(screenTitle);
+interface IUseBottomSheetFilter {
+  screenTitle: string;
+  isFilterBlockVisible: object | null;
+  setIsFilterBlockVisible: Dispatch<React.SetStateAction<object>>;
+  changeFilterValueState?: () => void;
+}
+
+const BottomSheetFilter: FC<IUseBottomSheetFilter> = ({
+  isFilterBlockVisible,
+  setIsFilterBlockVisible,
+  changeFilterValueState,
+}) => {
   //slider configuration
   const renderThumb = useCallback(() => <Thumb />, []);
   const renderRail = useCallback(() => <Rail />, []);
@@ -39,45 +43,50 @@ const BottomSheetFilter: FC<IUseBottomSheetFilter> = ({screenTitle}) => {
     [],
   );
 
-  const sortFilteredItems = (): ReactNode => {
-    return filterModal.map((item, index) => {
-      return (
-        <View key={item.id}>
-          {/* Experience */}
-          <Text style={styles.text}>Возраст</Text>
-          <View style={styles.filterContainer}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                position: 'absolute',
-                top: 0,
-                width: '100%',
-              }}>
-              <Text style={styles.textAnchor}>0</Text>
-              <Text style={styles.textAnchor}>99 лет</Text>
-            </View>
+  //FILTER
+  const {filterModal} = useAppSelector(state => state.filterModal);
 
-            <View style={[{flexDirection: 'row'}]}>
-              <View style={styles.thumb} />
-              <View style={[styles.thumb, {right: 0}]} />
-              <Slider
-                min={0}
-                max={99}
-                step={1}
-                renderThumb={renderThumb}
-                renderRail={renderRail}
-                renderRailSelected={renderRailSelected}
-                renderLabel={renderLabelExp}
-                minRange={0}
-                style={{flex: 1}}
-              />
-            </View>
-          </View>
-        </View>
-      );
-    });
-  };
+  //
+
+  // const sortFilteredItems = (): ReactNode => {
+  //   return filterModal.map((item, index) => {
+  //     return (
+  //       <View key={item.id}>
+  //         {/* Experience */}
+  //         <Text style={styles.text}>Возраст</Text>
+  //         <View style={styles.filterContainer}>
+  //           <View
+  //             style={{
+  //               flexDirection: 'row',
+  //               justifyContent: 'space-between',
+  //               position: 'absolute',
+  //               top: 0,
+  //               width: '100%',
+  //             }}>
+  //             <Text style={styles.textAnchor}>0</Text>
+  //             <Text style={styles.textAnchor}>99 лет</Text>
+  //           </View>
+
+  //           <View style={[{flexDirection: 'row'}]}>
+  //             <View style={styles.thumb} />
+  //             <View style={[styles.thumb, {right: 0}]} />
+  //             <Slider
+  //               min={0}
+  //               max={99}
+  //               step={1}
+  //               renderThumb={renderThumb}
+  //               renderRail={renderRail}
+  //               renderRailSelected={renderRailSelected}
+  //               renderLabel={renderLabelExp}
+  //               minRange={0}
+  //               style={{flex: 1}}
+  //             />
+  //           </View>
+  //         </View>
+  //       </View>
+  //     );
+  //   });
+  // };
 
   return (
     <>
@@ -95,8 +104,8 @@ const BottomSheetFilter: FC<IUseBottomSheetFilter> = ({screenTitle}) => {
             <FilterBtn
               key={index}
               filterItem={filterItem}
-              onPress={() => filtersTitle(filterItem?.id)}
-              isActive={activeId}
+              setIsFilterBlockVisible={setIsFilterBlockVisible}
+              isFilterBlockVisible={isFilterBlockVisible}
             />
           ))}
         </ScrollView>
@@ -106,16 +115,20 @@ const BottomSheetFilter: FC<IUseBottomSheetFilter> = ({screenTitle}) => {
         if (filter.characteristic_type === choiceType.multi) {
           return (
             <View>
-              {isFilterBlockVisible && isFilterBlockVisible[filter.id] && (
-                <View style={styles.filterContainer}>
-                  <Text style={styles.text}>{filter.title_ru}</Text>
-                  <FilterScroll arr={filter?.options} />
-                </View>
-              )}
+              {isFilterBlockVisible &&
+                isFilterBlockVisible[`${filter.id}`]?.active && (
+                  <View style={styles.filterContainer}>
+                    <Text style={styles.text}>{filter.title_ru}</Text>
+                    <FilterScroll
+                      arr={filter?.options}
+                      filterId={filter?.id}
+                      isFilterBlockVisible={isFilterBlockVisible}
+                      setIsFilterBlockVisible={setIsFilterBlockVisible}
+                    />
+                  </View>
+                )}
             </View>
           );
-        } else if (filter.characteristic_type === choiceType.number) {
-          sortFilteredItems();
         }
       })}
     </>

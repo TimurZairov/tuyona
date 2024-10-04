@@ -1,23 +1,22 @@
 import {configureStore} from '@reduxjs/toolkit';
+import {setupListeners} from '@reduxjs/toolkit/query';
 import userSlice from './slices/userSlice';
 import wishListSlice from './slices/wishListSlice';
 import cartSlice from './slices/cartSlice';
 
-import bannerSlice from './slices/bannersSlice';
 import serviceProviderSlice from './slices/serviceProviderSlice';
-import homeScreenDataSlice from './slices/homeScreenDataSlice';
 import categoryLIstSlice from './slices/categoryLIstSlice';
 import filterModalSlice from './slices/filterModalSlice';
 import activeFilterSlice from './slices/activeFilterSlice';
+import {apiSlice} from './slices/apiSlice';
 
 export const store = configureStore({
   reducer: {
+    [apiSlice.reducerPath]: apiSlice.reducer,
     user: userSlice,
     wishList: wishListSlice,
     cart: cartSlice,
     serviceProvider: serviceProviderSlice,
-    banners: bannerSlice,
-    homeData: homeScreenDataSlice,
     categoryListItems: categoryLIstSlice,
     filterModal: filterModalSlice,
     isActive: activeFilterSlice,
@@ -25,9 +24,11 @@ export const store = configureStore({
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: false,
-      immutableCheck: false, //dev
-    }),
+      immutableCheck: false,
+    }).concat(apiSlice.middleware),
 });
+
+setupListeners(store.dispatch);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

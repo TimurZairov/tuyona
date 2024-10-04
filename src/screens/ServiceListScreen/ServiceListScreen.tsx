@@ -1,7 +1,8 @@
 import {StyleSheet, View} from 'react-native';
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import MainCardList from '../../components/MainCardList/MainCardList';
 import {useRoute} from '@react-navigation/native';
+import {useLazyProvidersListQuery} from '../../providers/redux/slices/categoriesListSlice';
 
 const ServiceListScreen: FC = () => {
   const route = useRoute();

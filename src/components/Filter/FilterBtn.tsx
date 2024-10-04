@@ -1,8 +1,11 @@
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
-import React, {FC} from 'react';
+import React, {Dispatch, FC} from 'react';
 import {COLORS, SIZES} from '../../theme/theme';
 import CheckedFilterIcon from '../../assets/icons/CheckedFilterIcon';
 import {SvgUri} from 'react-native-svg';
+
+import {useAppContext} from '../../providers/context/context';
+import useBottomSheetFilter from '../../common/hooks/useBottomSheetFilter';
 
 interface IFilterBtn {
   characteristic_type: string;
@@ -20,11 +23,23 @@ interface IFilterBtn {
 
 const FilterBtn: FC<{
   filterItem: IFilterBtn;
-  onPress: () => void;
-  isActive: string[];
-}> = ({filterItem, onPress, isActive}) => {
+  setIsFilterBlockVisible: Dispatch<React.SetStateAction<object>>;
+  isFilterBlockVisible: object | null;
+}> = ({filterItem, setIsFilterBlockVisible, isFilterBlockVisible}) => {
+  const aar = {};
+  const {language} = useAppContext();
+  const {toggleFilterState} = useBottomSheetFilter();
+
   return (
-    <Pressable style={styles.container} onPress={onPress}>
+    <Pressable
+      style={styles.container}
+      onPress={() =>
+        toggleFilterState(
+          filterItem.id,
+          isFilterBlockVisible,
+          setIsFilterBlockVisible,
+        )
+      }>
       <View style={styles.filterBtn}>
         {filterItem?.icon?.slice(filterItem.icon.length - 3) === 'png' ? (
           <Image source={{uri: filterItem.icon}} width={28} height={28} />
@@ -33,12 +48,13 @@ const FilterBtn: FC<{
         )}
       </View>
       <View style={{position: 'absolute', bottom: 20, right: 10}}>
-        {isActive.map(
-          (active, index) =>
-            active === filterItem.id && <CheckedFilterIcon key={index} />,
+        {isFilterBlockVisible[`${filterItem.id}`]?.active && (
+          <CheckedFilterIcon />
         )}
       </View>
-      <Text style={styles.title}>{filterItem?.title_ru}</Text>
+      <Text style={styles.title}>
+        {language === 'ru' ? filterItem?.title_ru : filterItem?.title_uz}
+      </Text>
     </Pressable>
   );
 };

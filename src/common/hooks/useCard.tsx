@@ -15,8 +15,6 @@ const useCard = () => {
   const {categoryListItems} = useAppSelector(state => state.categoryListItems);
   const {accessToken, language} = useAppContext();
   const [loading, setLoading] = useState(false);
-  const {homePageData} = useMainScreenRequests();
-  const {getCategoryProvider} = useCategoryListItems();
 
   const addToWishListItems = async (id: string) => {
     if (loading) {
