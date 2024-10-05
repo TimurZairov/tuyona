@@ -8,7 +8,7 @@ import {useAppSelector} from '../../providers/redux/type';
 
 import {useAppContext} from '../../providers/context/context';
 import {COLORS, width} from '../../theme/theme';
-import Charactiristick from '../../components/Charactiristick/Charactiristick';
+import Charactiristick from '../../components/Charactiristick/Characteristic';
 import Geolocation from '@react-native-community/geolocation';
 
 const MapScreen = () => {

@@ -14,21 +14,23 @@ const useProviderInfo = (id: string) => {
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const resultInfo = await getMethodApi(
-        '/service-providers/' + id,
-        language,
-      );
-      const resultServices = await getMethodApi(
-        '/service-providers/' + id + '/services',
-        language,
-      );
+      try {
+        const resultInfo = await getMethodApi(
+          '/service-providers/' + id,
+          language,
+        );
+        const resultServices = await getMethodApi(
+          '/service-providers/' + id + '/services',
+          language,
+        );
 
-      if (!resultInfo || !resultServices) {
-        throw new Error('Ошибка');
+        setServiceProvider(resultInfo);
+        setServices(resultServices);
+      } catch (error) {
+        console.log(error, 'useProviderInfo');
+      } finally {
+        setLoading(false);
       }
-      setServiceProvider(resultInfo);
-      setServices(resultServices);
-      setLoading(false);
     })();
   }, [id, language]);
 

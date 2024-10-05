@@ -17,6 +17,7 @@ interface IButton {
   textStyle?: TextStyle;
   loading?: boolean;
   isRating?: boolean;
+  disabled?: boolean;
 }
 
 const Button = ({
@@ -26,11 +27,18 @@ const Button = ({
   textStyle,
   loading,
   isRating,
+  disabled,
 }: IButton) => {
   return (
     <>
       {isRating ? (
-        <TouchableOpacity onPress={onPress} style={[styles.btn, style]}>
+        <TouchableOpacity
+          onPress={onPress}
+          style={[
+            styles.btn,
+            style,
+            {backgroundColor: disabled ? COLORS.grayColor : COLORS.redColor},
+          ]}>
           {loading ? (
             <ActivityIndicator size={16} color={COLORS.mainColor} />
           ) : (
@@ -38,7 +46,10 @@ const Button = ({
           )}
         </TouchableOpacity>
       ) : (
-        <TouchableOpacity onPress={onPress} style={[styles.btn, style]}>
+        <TouchableOpacity
+          disabled={disabled}
+          onPress={onPress}
+          style={[styles.btn, style]}>
           {loading ? (
             <ActivityIndicator size={16} color={COLORS.mainColor} />
           ) : (

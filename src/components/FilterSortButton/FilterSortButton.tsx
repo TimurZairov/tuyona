@@ -1,5 +1,5 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import React, {Dispatch, FC, useState} from 'react';
+import React, {Dispatch, FC} from 'react';
 import {COLORS, SIZES} from '../../theme/theme';
 import useBottomSheetFilter from '../../common/hooks/useBottomSheetFilter';
 
@@ -9,12 +9,10 @@ const FilterSortButton: FC<{
   isFilterBlockVisible: {};
   setIsFilterBlockVisible: Dispatch<React.SetStateAction<object>>;
 }> = ({title, filterId, isFilterBlockVisible, setIsFilterBlockVisible}) => {
-  const [activeFilterBtn, setActiveFilterBtn] = useState(false);
   const {changeFilterValueState} = useBottomSheetFilter();
 
   //
   const activeFilter = () => {
-    setActiveFilterBtn(prev => !prev);
     changeFilterValueState(
       filterId,
       isFilterBlockVisible,
@@ -29,15 +27,21 @@ const FilterSortButton: FC<{
         style={[
           styles.btn,
           {
-            backgroundColor: activeFilterBtn
-              ? COLORS.redColor
-              : COLORS.mainColor,
+            backgroundColor:
+              isFilterBlockVisible[`${filterId}`]?.value === title
+                ? COLORS.redColor
+                : COLORS.mainColor,
           },
         ]}>
         <Text
           style={[
             styles.filterText,
-            {color: activeFilterBtn ? COLORS.mainColor : COLORS.blackColor},
+            {
+              color:
+                isFilterBlockVisible[`${filterId}`]?.value === title
+                  ? COLORS.mainColor
+                  : COLORS.blackColor,
+            },
           ]}>
           {title}
         </Text>

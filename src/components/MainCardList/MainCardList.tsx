@@ -42,18 +42,27 @@ const MainCardList: FC<{title: string; filterId: string}> = ({
   const [isFilterBlockVisible, setIsFilterBlockVisible] = useState<
     object | null
   >(null);
-
-  console.log(isFilterBlockVisible);
+  const [filterParams, setFilterParams] = useState<any>({});
 
   const {filterModal} = useAppSelector(state => state.filterModal);
-
-  //
-
+  useEffect(() => {
+    let _filterParams = {};
+    for (let param in isFilterBlockVisible) {
+      if (!isFilterBlockVisible[param]['active']) continue;
+      _filterParams[`char_${param}`] = isFilterBlockVisible[param]['value'];
+    }
+    setFilterParams(_filterParams);
+  }, [isFilterBlockVisible]);
   const {
     data: providers,
     isFetching,
     error,
-  } = useProvidersListQuery({id: filterId, language, token: accessToken});
+  } = useProvidersListQuery({
+    id: filterId,
+    language,
+    token: accessToken,
+    params: filterParams,
+  });
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const snapPoints = useMemo(() => contentHight, [contentHight]);
@@ -121,7 +130,18 @@ const MainCardList: FC<{title: string; filterId: string}> = ({
         refreshing={true}
         ListFooterComponent={<View style={{marginBottom: height / 10}} />}
         ListEmptyComponent={
-          isFetching ? <MainCardListSkeleton /> : <Text>пусто</Text>
+          isFetching ? (
+            <MainCardListSkeleton />
+          ) : (
+            <View
+              style={{
+                height: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text>Тут пока пусто</Text>
+            </View>
+          )
         }
       />
 

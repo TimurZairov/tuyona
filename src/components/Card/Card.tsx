@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import React, {FC, memo, useEffect, useState} from 'react';
-import {Rating} from 'react-native-ratings';
+import {Rating} from '@kolking/react-native-rating';
 import {COLORS, height, width} from '../../theme/theme';
 import {useNavigation} from '@react-navigation/native';
 import {Service} from '../../types/types';
@@ -17,10 +17,11 @@ import InstagrammCardIcon from '../../assets/icons/InstagrammCardIcon';
 import FbCardIcon from '../../assets/icons/FbCardIcon';
 import TgCardIcon from '../../assets/icons/TgCardIcon';
 import PhoneCardIcon from '../../assets/icons/PhoneCardIcon';
-import Charactiristick from '../Charactiristick/Charactiristick';
+import Charactiristick from '../Charactiristick/Characteristic';
 import AddedFavoriteIcon from '../../assets/icons/AddedFavoriteIcon';
 import {useAddToWishListMutation} from '../../providers/redux/slices/userWishList';
 import {useAppContext} from '../../providers/context/context';
+import Toast from 'react-native-toast-message';
 
 type Card = {
   item: Service;
@@ -45,6 +46,17 @@ const Card: FC<Card> = memo(({item, isFavorite}) => {
   };
 
   const addToWishListItem = async (itemId: number) => {
+    if (isLoading) {
+      return;
+    }
+    if (!accessToken) {
+      Toast.show({
+        type: 'info',
+        text1: 'Авторизируйтесь',
+        text2: 'Вы не прошли авторизацию!',
+      });
+      return;
+    }
     setInWishlist(prev => !prev);
     await addToWishList({
       id: itemId.toString(),
@@ -101,15 +113,29 @@ const Card: FC<Card> = memo(({item, isFavorite}) => {
               ))
               .slice(0, 3)}
         </View>
-        <Rating
-          type="custom"
-          ratingCount={5}
-          imageSize={16}
-          startingValue={item?.avg_rating}
-          ratingColor="#1AA9B9"
-          readonly
-          style={{alignItems: 'flex-start'}}
-        />
+        {item?.avg_rating! > 0 ? (
+          <>
+            <Rating
+              size={16}
+              rating={item?.avg_rating}
+              stars-outline
+              fillColor={COLORS.blueColor}
+              // style={{marginTop: 5}}
+              baseColor={COLORS.lightGray}
+              disabled
+            />
+          </>
+        ) : (
+          <Text
+            style={{
+              fontSize: 12,
+              marginLeft: 8,
+              marginBottom: 6,
+              fontWeight: '200',
+            }}>
+            Отзывов нет
+          </Text>
+        )}
       </Pressable>
     </View>
   );

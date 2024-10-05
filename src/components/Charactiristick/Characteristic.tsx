@@ -4,14 +4,7 @@ import {COLORS} from '../../theme/theme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {SvgUri} from 'react-native-svg';
 
-const Charactiristick: FC<{
-  serviceProvider: any;
-  index: number;
-  length: number;
-  provider?: boolean;
-
-  isShortInfo?: boolean;
-}> = ({serviceProvider, index, length, isShortInfo}: any) => {
+const Characteristic = ({serviceProvider, index, length, isShortInfo}: any) => {
   const imageExtension = serviceProvider?.icon
     ?.toLowerCase()
     .slice(serviceProvider?.icon.length - 3);
@@ -71,7 +64,7 @@ const Charactiristick: FC<{
   );
 };
 
-export default Charactiristick;
+export default Characteristic;
 
 const styles = StyleSheet.create({
   container: {

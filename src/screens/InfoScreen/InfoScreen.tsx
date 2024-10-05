@@ -13,6 +13,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import RenderHtml from 'react-native-render-html';
 
 import {useAppContext} from '../../providers/context/context';
 import {useAppDispatch, useAppSelector} from '../../providers/redux/type';

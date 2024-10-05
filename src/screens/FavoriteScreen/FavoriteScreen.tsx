@@ -26,6 +26,7 @@ import useFavorite from '../../common/hooks/useFavorite';
 import Card from '../../components/Card/Card';
 import useCard from '../../common/hooks/useCard';
 import {useWishListQuery} from '../../providers/redux/slices/userWishList';
+import MainCardListSkeleton from '../../components/Skeletons/MainCardList/MainCardListSkeleton';
 
 const FavoriteScreen: FC = () => {
   const {handleAuth} = useFavorite();
@@ -35,7 +36,10 @@ const FavoriteScreen: FC = () => {
   const navigation = useNavigation<InfoNavigationProp>();
 
   //stated
-  const {data: wishList} = useWishListQuery({token: accessToken, language});
+  const {data: wishList, isFetching} = useWishListQuery({
+    token: accessToken,
+    language,
+  });
   // const {wishList} = useAppSelector(state => state.wishList);
   const {user} = useAppSelector(state => state.user);
   const {addToWishListItems, loading} = useCard();
@@ -69,30 +73,32 @@ const FavoriteScreen: FC = () => {
   //TODO add to favorites
   return (
     <Layout>
-      {wishList && wishList.length > 0 ? (
-        <FlatList
-          data={wishList || []}
-          renderItem={({item}) => {
-            return (
-              <Card
-                item={item.service_provider}
-                onPress={!loading ? addToWishListItems : () => {}}
-                isFavorite
-              />
-            );
-          }}
-          numColumns={2}
-          ListFooterComponent={<View style={{marginBottom: height / 10}} />}
-        />
-      ) : (
-        // EMPTY CART
-        <View style={styles.body}>
-          <View style={styles.iconWrapper}>
-            <Ionicons name="heart" size={60} color={COLORS.mainColor} />
-          </View>
-          <Text style={styles.title}>Список пуст</Text>
-        </View>
-      )}
+      <FlatList
+        data={wishList || []}
+        renderItem={({item}) => {
+          return (
+            <Card
+              item={item.service_provider}
+              onPress={!loading ? addToWishListItems : () => {}}
+              isFavorite
+            />
+          );
+        }}
+        numColumns={2}
+        ListFooterComponent={<View style={{marginBottom: height / 10}} />}
+        ListEmptyComponent={
+          isFetching ? (
+            <MainCardListSkeleton />
+          ) : (
+            <View style={styles.body}>
+              <View style={styles.iconWrapper}>
+                <Ionicons name="heart" size={60} color={COLORS.mainColor} />
+              </View>
+              <Text style={styles.title}>Список пуст</Text>
+            </View>
+          )
+        }
+      />
     </Layout>
   );
 };

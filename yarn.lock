@@ -1613,6 +1613,11 @@
   resolved "https://registry.npmjs.org/@jsamr/react-native-li/-/react-native-li-2.3.1.tgz"
   integrity sha512-Qbo4NEj48SQ4k8FZJHFE2fgZDKTWaUGmVxcIQh3msg5JezLdTMMHuRRDYctfdHI6L0FZGObmEv3haWbIvmol8w==
 
+"@kolking/react-native-rating@^1.3.4":
+  version "1.3.4"
+  resolved "https://registry.npmjs.org/@kolking/react-native-rating/-/react-native-rating-1.3.4.tgz"
+  integrity sha512-Kg5pRl4WJgCBHwo4vIhIi5GrJEskYjQh+iCZ2jc10dFbxhe3doyGU0DtBoasuc8Ioj3v3ybPECxN/Vhe9pfg8w==
+
 "@native-html/css-processor@1.11.0":
   version "1.11.0"
   resolved "https://registry.npmjs.org/@native-html/css-processor/-/css-processor-1.11.0.tgz"

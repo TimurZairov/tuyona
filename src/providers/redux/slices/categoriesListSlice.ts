@@ -13,6 +13,7 @@ export const categoriesListSlice = apiSlice.injectEndpoints({
           initParams['is_home'] = 1;
         }
         const queryParams = generateQueryParams(initParams);
+        console.log(queryParams);
         return {
           url: `/service-providers/${queryParams}`,
           method: 'Get',
