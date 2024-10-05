@@ -21,6 +21,7 @@ import SettingTabIcon from '../assets/icons/SettingTabIcon';
 import InActiveSettingsTabIcon from '../assets/icons/InActiveSettingsTabIcon';
 import SearchTabIcon from '../assets/icons/SearchTabIcon';
 import InActiveSearchTabIcon from '../assets/icons/InActiveSearchTabIcon';
+import MapBoxScreen from '../screens/MapScreen/MapBoxScreen';
 
 const Tab = createBottomTabNavigator<TabNavigationStack>();
 
@@ -48,7 +49,7 @@ const TabNavigation = () => {
 
       <Tab.Screen
         name="Map"
-        component={MapScreen}
+        component={MapBoxScreen}
         options={{
           title: 'Карта',
           tabBarIcon: focused => {

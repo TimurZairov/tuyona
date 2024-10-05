@@ -1,43 +1,42 @@
 buildscript {
     
     ext {
-        
         buildToolsVersion = "34.0.0"
-        minSdkVersion = 23
+        minSdkVersion = 24
         compileSdkVersion = 34
         targetSdkVersion = 34
         ndkVersion = "26.1.10909125"
-        kotlinVersion = '1.8.0'
-
+        kotlinVersion = '1.6.10'
     }
     repositories {
         google()
         mavenCentral()
-
          maven { url 'https://maven.google.com' }
          maven { url "https://www.jitpack.io" }
     }
     dependencies {
         classpath("com.android.tools.build:gradle")
         classpath("com.facebook.react:react-native-gradle-plugin")
-        // classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
         classpath 'com.google.gms:google-services:4.4.2'
-        // classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath('org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0')
-
-
     }
 }
 
 allprojects {
     repositories {
+        // ...other repos
         maven {
-            url = uri("https://api.mapbox.com/downloads/v2/releases/maven")
- 		     // Do not change the username below. It should always be "mapbox" (not your username).
- 		    credentials.username = "mapbox"
- 		    // Use the secret token stored in gradle.properties as the password
- 		    credentials.password = providers.gradleProperty("MAPBOX_DOWNLOADS_TOKEN").get()
- 		    authentication { basic(BasicAuthentication) }
+            url 'https://api.mapbox.com/downloads/v2/releases/maven'
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                // Do not change the username below.
+                // This should always be `mapbox` (not your username).
+                username = 'mapbox'
+                // Use the secret token you stored in gradle.properties as the password
+                password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: "sk.eyJ1IjoidGltdXI4NSIsImEiOiJjbTFpZ25lZDQwbzduMm1zZXVrYzI5bHNiIn0.2mwmGnNWv9tBjonrtmY0kA"
+            }
         }
     }
 }
